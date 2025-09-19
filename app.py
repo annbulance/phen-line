@@ -1178,61 +1178,103 @@ def handle_single_event(ev):
     else:
         print(f"Unhandled event type: {ev_type}")
 
+def _get_effective_location_for_user(uid):
+    """
+    優先從記憶體 shared.user_location 取得 (lat, lon)。
+    若不存在，再 fallback 到 get_location.get_location(LOCATION_FILE)（保留原有行為）。
+    回傳 (lat, lon)（float），或丟出 Exception（不能決定位置時）。
+    """
+    # 1) 優先用記憶體中的位置（handle_location 存入的）
+    loc = shared.user_location.get(uid)
+    if loc and isinstance(loc, (tuple, list)) and len(loc) == 2:
+        try:
+            return float(loc[0]), float(loc[1])
+        except Exception:
+            pass
+
+    # 2) fallback：從 LOCATION_FILE 讀（原程式之行為）
+    try:
+        lat, lon = get_location.get_location(LOCATION_FILE)
+        return float(lat), float(lon)
+    except Exception as e:
+        raise RuntimeError(f"Cannot determine location for uid={uid}") from e
+
+
 def handle_postback_event(ev, uid, lang, replyTK):
-    """統一處理所有 Postback 事件"""
-    data = ev["postback"]["data"]
-    print(f"Postback data: {data}")
+    """
+    統一處理所有 Postback 事件（替換版）。
+    - 支援性別按鈕
+    - 支援天數按鈕（background planning）
+    - 支援 系統路線 / 使用者路線：**改為優先使用 shared.user_location 再 fallback 到 LOCATION_FILE**
+    - 其餘 postback 仍會被記錄
+    """
+    try:
+        data = ev.get("postback", {}).get("data", "")
+    except Exception:
+        data = ev.get("postback", {}).get("params", {}).get("data", "")
+    print(f"[postback] uid={uid}, data={data}, shared_loc={shared.user_location.get(uid)}")
 
     # 性別按鈕
     if data in ("男", "女", "其他"):
         handle_gender(uid, data, replyTK)
         return
 
-    # 天數按鈕
+    # 天數按鈕（兩天一夜、三天兩夜、四天三夜、五天四夜）
     if data in ("兩天一夜", "三天兩夜", "四天三夜", "五天四夜"):
-        shared.user_trip_days[uid] = data
-        shared.user_preparing[uid] = True
-        shared.user_plan_ready[uid] = False
-        shared.user_stage[uid] = 'ready'
+        try:
+            shared.user_trip_days[uid] = data
+            shared.user_preparing[uid] = True
+            shared.user_plan_ready[uid] = False
+            shared.user_stage[uid] = 'ready'
 
-        safe_reply(replyTK, TextSendMessage(text=_t("please_wait", lang)), uid)
-        threading.Thread(
-            target=_background_planning,
-            args=(data, None, uid),
-            daemon=True
-        ).start()
+            # 回覆並啟動背景規劃（注意：這裡把 replyTK 傳給使用者前端，background 使用 None）
+            safe_reply(replyTK, TextSendMessage(text=_t("please_wait", lang)), uid)
+            threading.Thread(
+                target=_background_planning,
+                args=(data, None, uid),
+                daemon=True
+            ).start()
+        except Exception as e:
+            print(f"Error handling days postback for uid={uid}: {e}")
+            safe_reply(replyTK, TextSendMessage(text=_t("data_fetch_failed", lang)), uid)
         return
 
-    # 系統路線 / 使用者路線
+    # 系統路線 / 使用者路線（優先用 shared.user_location）
     sys_zh, usr_zh = "系統路線", "使用者路線"
     sys_en, usr_en = to_en(sys_zh), to_en(usr_zh)
+
+    # 處理系統路線
     if data in (sys_zh, sys_en):
         try:
-            lat, lon = get_location.get_location(LOCATION_FILE)
+            lat, lon = _get_effective_location_for_user(uid)
             uid_qs = urllib.parse.quote_plus(uid)
-            url = f"https://system-plan.eeddyytaddy.workers.dev/?uid={uid_qs}&lat={lat}&lng={lon}"
+            # 用固定小數位格式化，避免 None 或長浮點數
+            url = f"https://system-plan.eeddyytaddy.workers.dev/?uid={uid_qs}&lat={lat:.6f}&lng={lon:.6f}"
+            print(f"[postback->system-plan] uid={uid}, url={url}")
             safe_reply(replyTK, TextSendMessage(text=url), uid)
             shared.user_stage[uid] = 'ready'
         except Exception as e:
-            print(f"Error getting location: {e}")
+            print(f"Error getting location for system route uid={uid}: {e}")
             safe_reply(replyTK, TextSendMessage(text=_t("cannot_get_location", lang)), uid)
         return
 
+    # 處理使用者路線
     if data in (usr_zh, usr_en):
         try:
-            lat, lon = get_location.get_location(LOCATION_FILE)
+            lat, lon = _get_effective_location_for_user(uid)
             uid_qs = urllib.parse.quote_plus(uid)
-            url = f"https://user-plan.eeddyytaddy.workers.dev/?uid={uid_qs}&lat={lat}&lng={lon}"
+            url = f"https://user-plan.eeddyytaddy.workers.dev/?uid={uid_qs}&lat={lat:.6f}&lng={lon:.6f}"
+            print(f"[postback->user-plan] uid={uid}, url={url}")
             safe_reply(replyTK, TextSendMessage(text=url), uid)
             shared.user_stage[uid] = 'ready'
         except Exception as e:
-            print(f"Error getting location: {e}")
+            print(f"Error getting location for user route uid={uid}: {e}")
             safe_reply(replyTK, TextSendMessage(text=_t("cannot_get_location", lang)), uid)
         return
 
-    # 其他 Postback 一律忽略
-    print("Unhandled postback:", data)
-
+    # 其他 Postback 一律記錄但不處理
+    print(f"Unhandled postback data for uid={uid}: {data}")
+    return
 
 
 from linebot.models import TextSendMessage, StickerSendMessage
