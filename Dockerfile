@@ -1,68 +1,65 @@
 # ------------------------------------------------------------
-# 1. Base image
+# Production-ready Dockerfile for penghu app
+# - Default PORT set to 8000
+# - Uses gunicorn + gevent for production serving
+# - Creates a non-root user and switches to it for runtime
+# - Installs fonts and common build deps
+# - Includes a simple HEALTHCHECK
 # ------------------------------------------------------------
+
 FROM python:3.11.9-slim
 
-# ------------------------------------------------------------
-# 2. Create non-root user (retained, but not switched)
-# ------------------------------------------------------------
-RUN useradd -m appuser
+# Create a non-root user early so we can chown files to it
+RUN useradd -m appuser || true
 
-# ------------------------------------------------------------
-# 3. Install system dependencies
-# ------------------------------------------------------------
-RUN apt-get update && apt-get install -y \
-    build-essential libssl-dev libffi-dev python3-dev \
-    git sqlite3 fontconfig fonts-noto-cjk \
+# Install system dependencies (fonts, tools for building some wheels)
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+       build-essential libssl-dev libffi-dev python3-dev \
+       git sqlite3 fontconfig fonts-noto-cjk curl ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# ------------------------------------------------------------
-# 4. Set working directory
-# ------------------------------------------------------------
+# Set working directory
 WORKDIR /usr/src/app
 
-# ------------------------------------------------------------
-# 5. Install Python dependencies
-# ------------------------------------------------------------
-COPY requirements.txt .
+# Copy requirements and install Python deps (as root)
+COPY requirements.txt ./
 RUN pip install --no-cache-dir --upgrade pip \
- && pip install --no-cache-dir -r requirements.txt
+ && pip install --no-cache-dir -r requirements.txt \
+ && pip install --no-cache-dir gunicorn gevent
 
-# ------------------------------------------------------------
-# 5-1. Install Locust for load testing
-# ------------------------------------------------------------
-RUN pip install --no-cache-dir locust==2.29.0
+# (Optional) Install Locust if you need it inside this image for load tests
+# If you don't need locust in production, remove this line to keep image smaller
+RUN pip install --no-cache-dir locust==2.29.0 || true
 
-# ------------------------------------------------------------
-# 5-2. Add user-site bin to PATH (for root installs)
-# ------------------------------------------------------------
+# Ensure PATH contains user-site for completeness (kept from original)
 ENV PATH="/root/.local/bin:${PATH}"
 
-# ------------------------------------------------------------
-# 6. Copy application code
-# ------------------------------------------------------------
+# Copy application code
 COPY . .
 
-# ------------------------------------------------------------
-# 7. Initialize SQLite database (ignore errors if exists)
-# ------------------------------------------------------------
+# Try to initialize sqlite DB at build time, ignore errors (keeps parity with old Dockerfile)
+# If you prefer runtime init, remove this line.
 RUN python init_db.py || true
 
-# ------------------------------------------------------------
-# 8. Environment variables
-# ------------------------------------------------------------
+# Environment variables: default PORT -> 8000 (can be overridden by K8s env)
 ENV APP_ENV=docker \
-    PORT=10000 \
-    PYTHONUNBUFFERED=1 
+    PORT=8000 \
+    PYTHONUNBUFFERED=1
 
-# ------------------------------------------------------------
-# 9. Expose application port
-# ------------------------------------------------------------
-EXPOSE 10000
+# Make sure the application directory is owned by non-root user
+RUN chown -R appuser:appuser /usr/src/app
 
-# ------------------------------------------------------------
-# 10. Default command (overridden by Railway services)
-#     - phen-line service uses gunicorn
-#     - locust-loadtest service uses locust
-# ------------------------------------------------------------
-CMD ["sleep", "infinity"]
+# Expose the chosen port
+EXPOSE 8000
+
+# Switch to non-root user for runtime
+USER appuser
+
+# A lightweight healthcheck (container must have curl; we installed it earlier)
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD curl -f http://127.0.0.1:${PORT}/healthz || exit 1
+
+# Production entrypoint: gunicorn with gevent workers
+# Ensure the module path "app:app" matches your application (app.py -> app)
+CMD ["gunicorn", "-k", "gevent", "-w", "4", "-b", "0.0.0.0:${PORT}", "app:app"]
