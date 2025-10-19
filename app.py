@@ -954,6 +954,14 @@ def handle_location(uid, msg, replyTK):
         ),uid
     )
 
+def _update_location_memory(uid, lat, lon):
+    """Update a user's in-memory location regardless of current stage."""
+    try:
+        lat = float(lat); lon = float(lon)
+        shared.user_location[uid] = (lat, lon)
+        print(f"[loc] updated for {uid}: ({lat}, {lon})")
+    except Exception as e:
+        print(f"[loc] update failed for {uid}: {e}")
 
 @measure_time
 def handle_days(uid, text, replyTK):
@@ -985,7 +993,7 @@ def handle_free_command(uid, text, replyTK):
     Ready 階段的自由指令處理：
     包含「收集資料」「景點人潮」「行程規劃」
     「景點推薦」「永續觀光」「附近搜尋」
-    「關鍵字搜尋」「租車」等指令。
+    「關鍵字搜尋」「租車」「更新位置」等指令。
     """
     from linebot.models import (
         TextSendMessage, TemplateSendMessage, ConfirmTemplate,
@@ -994,13 +1002,12 @@ def handle_free_command(uid, text, replyTK):
     import threading
 
     low = text.lower()
-    lang = _get_lang(uid)
 
     # 使用者目前狀態
     preparing = shared.user_preparing.get(uid, False)
     plan_ready = shared.user_plan_ready.get(uid, False)
     days      = shared.user_trip_days.get(uid)  # e.g. "三天兩夜"
-    days_label = to_en(days) if lang == 'en' else days
+    days_label = to_en(days) if _get_lang(uid) == 'en' and days else days
 
     # 指令集合
     recollect_keys   = {"收集資料", "data collection", "collect data", "1"}
@@ -1011,6 +1018,7 @@ def handle_free_command(uid, text, replyTK):
     general_keys     = {"一般景點推薦", "一般景點推薦(general recommendation)", "general recommendation", "2-2"}
     nearby_keys      = {"附近搜尋", "附近搜尋(nearby search)", "nearby search", "4"}
     rental_keys      = {"租車", "租車(car rental information)", "car rental information", "car rental", "5"}
+    update_loc_keys  = {"更新位置", "update location", "set location"}   # ← 新增
     keyword_map      = {"餐廳": "restaurants", "停車場": "parking", "風景區": "scenic spots", "住宿": "accommodation"}
     is_keyword       = text in keyword_map or low in set(keyword_map.values())
 
@@ -1026,24 +1034,21 @@ def handle_free_command(uid, text, replyTK):
 
     # 3) 行程規劃
     if low in plan_keys:
-        # 背景正在進行中
         if preparing:
-            safe_reply(replyTK, TextSendMessage(text=_t("prep_in_progress", lang)), uid)
-
-        # 已有規劃結果
+            safe_reply(replyTK, TextSendMessage(text=_t("prep_in_progress", _get_lang(uid))), uid)
         elif plan_ready:
             safe_reply(replyTK, FlexMessage.ask_route_option(), uid)
             # 推送詳細說明
-            if lang == 'en':
+            if _get_lang(uid) == 'en':
                 desc1    = f"Using machine learning based on relevance, we found the best {days_label} itinerary for you"
-                sys_label = _t("system_route", lang)
+                sys_label = _t("system_route", 'en')
                 desc_sys  = (
                     f"【{sys_label}】\n"
                     "1. Show full route (red line).\n"
                     "2. Show segment by segment (blue line).\n"
                     "3. Clear system route."
                 )
-                usr_label = _t("user_route", lang)
+                usr_label = _t("user_route", 'en')
                 desc_usr  = (
                     f"【{usr_label}】\n"
                     "1. Tap \"Add to route\" to include in list.\n"
@@ -1053,14 +1058,14 @@ def handle_free_command(uid, text, replyTK):
                 )
             else:
                 desc1    = f"以機器學習依據相關性，找尋過往數據最適合您的{days_label}行程"
-                sys_label = _t("system_route", lang)
+                sys_label = _t("system_route", 'zh')
                 desc_sys  = (
                     f"【{sys_label}】依照人潮較少規劃\n"
                     "1. 整段顯示完整路線（紅線）。\n"
                     "2. 分段逐段顯示（藍線）。\n"
                     "3. 清除系統路線。"
                 )
-                usr_label = _t("user_route", lang)
+                usr_label = _t("user_route", 'zh')
                 desc_usr  = (
                     f"【{usr_label}】\n"
                     "1. 點「加入路線」加入清單。\n"
@@ -1073,8 +1078,6 @@ def handle_free_command(uid, text, replyTK):
                 TextSendMessage(text=desc_sys),
                 TextSendMessage(text=desc_usr),
             ])
-
-        # 尚未有結果，但如果已選擇天數，重新啟動背景規劃
         else:
             if days:
                 shared.user_preparing[uid]  = True
@@ -1084,39 +1087,41 @@ def handle_free_command(uid, text, replyTK):
                     args=(days, replyTK, uid),
                     daemon=True
                 ).start()
-                safe_reply(replyTK, TextSendMessage(text=_t("please_wait", lang)), uid)
+                safe_reply(replyTK, TextSendMessage(text=_t("please_wait", _get_lang(uid))), uid)
             else:
-                # 真正沒收集過資料時才提示
-                safe_reply(replyTK, TextSendMessage(text=_t("collect_info", lang)), uid)
+                safe_reply(replyTK, TextSendMessage(text=_t("collect_info", _get_lang(uid))), uid)
         return
 
     # 4) 景點推薦 → 詢問永續 vs 一般
     if low in recommend_keys:
-        yes_lbl    = _t("yes", lang)
-        no_lbl     = _t("no", lang)
-        payload_yes = "永續觀光" if lang == 'zh' else "sustainable tourism"
-        payload_no  = "一般景點推薦" if lang == 'zh' else "general recommendation"
+        yes_lbl     = _t("yes", _get_lang(uid))
+        no_lbl      = _t("no",  _get_lang(uid))
+        payload_yes = "永續觀光" if _get_lang(uid) == 'zh' else "sustainable tourism"
+        payload_no  = "一般景點推薦" if _get_lang(uid) == 'zh' else "general recommendation"
         tpl = ConfirmTemplate(
-            text=_t("ask_sustainable", lang),
+            text=_t("ask_sustainable", _get_lang(uid)),
             actions=[
                 MessageAction(label=yes_lbl, text=payload_yes),
                 MessageAction(label=no_lbl,  text=payload_no),
             ]
         )
-        safe_reply(replyTK, TemplateSendMessage(alt_text=_t("ask_sustainable", lang), template=tpl), uid)
+        safe_reply(replyTK, TemplateSendMessage(alt_text=_t("ask_sustainable", _get_lang(uid)), template=tpl), uid)
         return
 
     # 5) 永續 or 一般景點推薦
     if low in sustainable_keys:
-        recommend_sustainable_places(replyTK, uid)
-        return
+        recommend_sustainable_places(replyTK, uid); return
     if low in general_keys:
-        recommend_general_places(replyTK, uid)
-        return
+        recommend_general_places(replyTK, uid); return
 
     # 6) 附近搜尋
     if low in nearby_keys:
         safe_reply(replyTK, FlexMessage.ask_keyword(), uid)
+        return
+
+    # 6.5) 手動要求更新位置（彈出 LINE 位置分享 UI） ← 新增
+    if low in update_loc_keys:
+        safe_reply(replyTK, FlexMessage.ask_location(), uid)
         return
 
     # 7) 關鍵字搜尋
@@ -1135,7 +1140,6 @@ def handle_free_command(uid, text, replyTK):
 
     # 9) 其他不處理
     return
-
 
 
 
@@ -1298,6 +1302,17 @@ def handle_message_event(ev, uid, lang, replyTK):
         text = (msg.get("text") or "").strip()
         low = text.lower()
 
+        # —— Location in ANY stage: update memory and acknowledge ——
+        if msgType == "location":
+            # 若正好在引導流程的 got_location，就沿用原本的 handle_location（會給天數 QuickReply）
+            if shared.user_stage.get(uid, 'ask_language') == 'got_location':
+                handle_location(uid, msg, replyTK)
+            else:
+                # 其他階段：單純更新位置並回覆提示
+                _update_location_memory(uid, msg.get("latitude"), msg.get("longitude"))
+                safe_reply(replyTK, TextSendMessage(text=_t("position_saved", _get_lang(uid))), uid)
+            return
+
         # —— 0) 重啟資料收集流程 ——
         if msgType == "text" and text.startswith("收集資料"):
             handle_ask_language(uid, replyTK)
@@ -1315,7 +1330,7 @@ def handle_message_event(ev, uid, lang, replyTK):
         is_keyword  = text in keyword_map or low in set(keyword_map.values())
 
         if msgType == "text":
-            # Special handling for itinerary planning to prompt missing info
+            # 行程規劃：若缺資料則引導補齊
             if low in plan_keys:
                 missing_field = None
                 if shared.user_age.get(uid) is None:
@@ -1328,7 +1343,6 @@ def handle_message_event(ev, uid, lang, replyTK):
                     missing_field = 'days'
 
                 if missing_field:
-                    # Prompt the user for the missing information
                     current_lang = _get_lang(uid)
                     if missing_field == 'age':
                         shared.user_stage[uid] = 'got_age'
@@ -1341,7 +1355,6 @@ def handle_message_event(ev, uid, lang, replyTK):
                         safe_reply(replyTK, FlexMessage.ask_location(), uid)
                     elif missing_field == 'days':
                         shared.user_stage[uid] = 'got_days'
-                        # Prepare quick-reply options for trip duration
                         days_options = ["兩天一夜", "三天兩夜", "四天三夜", "五天四夜"]
                         qr_items = [
                             QuickReplyButton(
@@ -1352,15 +1365,19 @@ def handle_message_event(ev, uid, lang, replyTK):
                             )
                             for d in days_options
                         ]
-                        safe_reply(replyTK, TextSendMessage(text=_t("ask_days", current_lang),
-                                                            quick_reply=QuickReply(items=qr_items)), uid)
+                        safe_reply(
+                            replyTK,
+                            TextSendMessage(text=_t("ask_days", current_lang),
+                                            quick_reply=QuickReply(items=qr_items)),
+                            uid
+                        )
                     return
 
-                # All data collected, proceed to itinerary planning
+                # 資料齊全 → 走自由指令分支
                 handle_free_command(uid, text, replyTK)
                 return
 
-            # Other free commands and keyword-based searches
+            # 其他自由指令/關鍵字
             if (low in crowd_keys or low in rec_keys or low in sust_keys or 
                 low in gen_keys or low in nearby_keys or low in rental_keys or is_keyword):
                 handle_free_command(uid, text, replyTK)
@@ -1378,12 +1395,11 @@ def handle_message_event(ev, uid, lang, replyTK):
                 safe_reply(replyTK, TextSendMessage(text=_t("invalid_language", _get_lang(uid))), uid)
             return
 
-        # **(Removed 'got_language' check – no longer needed)**
-
         # 第二步：輸入年齡
         if stage == 'got_age' and msgType == "text":
             handle_age(uid, text, replyTK)
             return
+
         # 第三步：處理性別
         if stage == 'got_gender' and msgType == "text":
             handle_gender(uid, text, replyTK)
@@ -1399,23 +1415,21 @@ def handle_message_event(ev, uid, lang, replyTK):
             handle_days(uid, text, replyTK)
             return
 
-        # 第六步：Ready 階段的自由指令
+        # Ready 階段：自由指令
         if stage == 'ready' and msgType == "text":
             handle_free_command(uid, text, replyTK)
             return
 
-        # 處理圖片訊息
+        # 圖片／貼圖
         if msgType == "image":
             safe_reply(replyTK, TextSendMessage(text=_t("data_fetch_failed", _get_lang(uid))), uid)
             return
-
-        # 處理貼圖訊息
         if msgType == "sticker":
             safe_reply(replyTK, StickerSendMessage(package_id=msg.get("packageId"),
                                                    sticker_id=msg.get("stickerId")), uid)
             return
 
-        # 其他類型的訊息不處理
+        # 其他不處理
         return
 
 
