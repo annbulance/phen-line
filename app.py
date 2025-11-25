@@ -1146,6 +1146,11 @@ def handle_free_command(uid, text, replyTK):
 # ========== LINE 主路由 ========== #
 @app.route("/", methods=["POST"])
 def linebot_route():
+    # 🔥 加這三行：只要 LINE 有打進來，就一定會在 Cloud Run log 看到
+    print("===== LINE webhook HIT on Cloud Run =====")
+    print("Headers:", dict(request.headers))
+    print("Raw body:", request.get_data(as_text=True))
+    sys.stdout.flush()
     body = request.get_json(silent=True) or {}
     events = body.get("events", [])
     
