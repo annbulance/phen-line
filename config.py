@@ -61,7 +61,7 @@ LOCUST_DB = os.getenv("LOCUST_DB", D1_BINDING)
 # ──────────────────────────────────────────────────────────────
 WORKER_URL = os.getenv(
     "WORKER_URL",
-    "https://penghu-plan.eeddyytaddy.workers.dev"
+    "https://tamsui3-200581190204.asia-east1.run.app"
 )
 
 # ──────────────────────────────────────────────────────────────
