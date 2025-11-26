@@ -25,7 +25,7 @@ ZH2EN: dict[str, str] = {
     "一般景點推薦": "General Recommendation",
     "景點人潮": "Crowd Analysis",
     "附近搜尋": "Nearby Search",
-    "租車": "Car Rental",
+    "大眾運輸": "public transport",
     "景點": "Attractions",
 
     # === Nearby-search keywords ===
