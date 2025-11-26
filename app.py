@@ -822,7 +822,7 @@ def send_rental_car(reply_token, uid):
     prompt = _t("visit_cars_url", lang)
 
     # 3. 固定的租車 URL
-    url = "https://penghu-car-rental-agency.eeddyytaddy.workers.dev"
+    url = "https://pda5284.gov.taipei/MQS/stoplocation.jsp?slid=3845"
 
     # 4. 回覆兩則訊息：提示文字 + 連結
     safe_reply(reply_token, [
