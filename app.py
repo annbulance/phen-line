@@ -1017,7 +1017,7 @@ def handle_free_command(uid, text, replyTK):
     sustainable_keys = {"永續觀光", "永續觀光(sustainable tourism)", "sustainable tourism", "2-1"}
     general_keys     = {"一般景點推薦", "一般景點推薦(general recommendation)", "general recommendation", "2-2"}
     nearby_keys      = {"附近搜尋", "附近搜尋(nearby search)", "nearby search", "4"}
-    rental_keys      = {"大眾運輸", "大眾運輸(public transport)", "car rental information", "car rental", "5"}
+    rental_keys      = {"租車", "租車(car rental)", "car rental information", "car rental", "5"}
     update_loc_keys  = {"更新位置", "update location", "set location"}   # ← 新增
     keyword_map      = {"餐廳": "restaurants", "停車場": "parking", "風景區": "scenic spots", "住宿": "accommodation"}
     is_keyword       = text in keyword_map or low in set(keyword_map.values())
