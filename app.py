@@ -1325,7 +1325,7 @@ def handle_message_event(ev, uid, lang, replyTK):
         sust_keys   = {"永續觀光", "sustainable tourism", "2-1"}
         gen_keys    = {"一般景點推薦", "general recommendation", "2-2"}
         nearby_keys = {"附近搜尋", "nearby search", "4", "附近搜尋(nearby search)"}
-        rental_keys = {"租車", "car rental information", "5", "租車(car rental information)"}
+        rental_keys = {"大眾運輸", "public transport", "5", "大眾運輸(public transport)"}
         keyword_map = {"餐廳": "restaurants", "停車場": "parking", "風景區": "scenic spots", "住宿": "accommodation"}
         is_keyword  = text in keyword_map or low in set(keyword_map.values())
 
