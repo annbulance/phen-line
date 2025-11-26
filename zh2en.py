@@ -197,7 +197,7 @@ TEXTS: dict[str, dict[str, object]] = {
         "ask_keyword":          "Please select the search keyword",
         "crowd_analysis_link":  "Click the link below for crowd analysis",
         "visit_spots_url":      "URL for nearby attractions:",
-        "visit_cars_url":       "URL for car rentals:",
+        "visit_cars_url":       "URL for public transport:",
 
         # Trip routing
         "ask_route_option":     "Please select your desired route",
