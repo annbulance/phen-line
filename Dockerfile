@@ -18,6 +18,9 @@ RUN pip install --no-cache-dir --upgrade pip \
  && pip install --no-cache-dir -r requirements.txt \
  && pip install --no-cache-dir gunicorn gevent
 
+#For the index.html copy(new)
+COPY index.html/app/index.html
+
 # App code
 COPY . .
 
