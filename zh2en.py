@@ -129,7 +129,7 @@ TEXTS: dict[str, dict[str, object]] = {
         "send_location":       "傳送位置",
         "crowd_analysis_link": "請點選以下網址查看人潮分析",
         "visit_spots_url":     "以下網址推薦附近景點：",
-        "visit_cars_url":      "以下網址推薦公車動態：",
+        "visit_cars_url":      "以下網址推薦租車店家：",
 
         # 價格顯示前綴
         "price_label":         "價格：",
