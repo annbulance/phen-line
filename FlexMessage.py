@@ -46,7 +46,7 @@ def ask_keyword():
     lang = _get_lang(uid)
 
     prompt   = _t('ask_keyword', lang)
-    hero_raw = "zh-tw.skyticket.com/guide/wp-content/uploads/2020/12/shutterstock_1086233933.jpg"
+    hero_raw = "https://images.chinatimes.com/newsphoto/2023-01-02/1024/B08A00_P_02_02.jpg"
     hero_url = sanitize_url(hero_raw)
 
     # 中英對應的按鈕文字與回傳
