@@ -1014,8 +1014,8 @@ def handle_free_command(uid, text, replyTK):
     crowd_keys       = {"景點人潮", "景點人潮(crowd analyzer)", "crowd analyzer", "crowd analysis", "crowd info", "3"}
     plan_keys        = {"行程規劃", "行程規劃(itinerary planning)", "itinerary planning", "plan itinerary", "6"}
     recommend_keys   = {"景點推薦", "景點推薦(attraction recommendation)", "attraction recommendation", "recommend spot", "2"}
-    sustainable_keys = {"永續觀光", "永續觀光(sustainable tourism)", "sustainable tourism", "2-1"}
-    general_keys     = {"一般景點推薦", "一般景點推薦(general recommendation)", "general recommendation", "2-2"}
+    sustainable_keys = {"餐廳", "餐廳(restaurant)", "restaurant", "2-1"}
+    general_keys     = {"景點", "景點(attraction)", "attraction", "2-2"}
     nearby_keys      = {"附近搜尋", "附近搜尋(nearby search)", "nearby search", "4"}
     rental_keys      = {"租車", "租車(car rental)", "car rental information", "car rental", "5", "大眾運輸", "public transport", "大眾運輸(public transport)"}
     update_loc_keys  = {"更新位置", "update location", "set location"}   # ← 新增
@@ -1322,8 +1322,8 @@ def handle_message_event(ev, uid, lang, replyTK):
         crowd_keys  = {"景點人潮", "crowd analyzer", "3", "景點人潮(crowd analyzer)"}
         plan_keys   = {"行程規劃", "plan itinerary", "6", "行程規劃(itinerary planning)"}
         rec_keys    = {"景點推薦", "attraction recommendation", "2", "景點推薦(attraction recommendation)"}
-        sust_keys   = {"永續觀光", "sustainable tourism", "2-1"}
-        gen_keys    = {"一般景點推薦", "general recommendation", "2-2"}
+        sust_keys   = {"餐廳", "restaurant", "2-1"}
+        gen_keys    = {"景點", "attraction", "2-2"}
         nearby_keys = {"附近搜尋", "nearby search", "4", "附近搜尋(nearby search)"}
         rental_keys = {"大眾運輸", "public transport", "5", "大眾運輸(public transport)"}
         keyword_map = {"餐廳": "restaurants", "停車場": "parking", "風景區": "scenic spots", "住宿": "accommodation"}
