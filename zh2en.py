@@ -170,7 +170,7 @@ TEXTS: dict[str, dict[str, object]] = {
 
         # 景點推薦
         "restaurant": "restaurant",
-        "restaurant": "rttraction",
+        "attraction": "attraction",
 
         # Location / trip
         "position_saved":      "Location saved, please select trip duration:",
