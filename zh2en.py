@@ -110,8 +110,8 @@ TEXTS: dict[str, dict[str, object]] = {
         "planning_failed":     "❌ 行程規劃失敗，請稍後再試。",
 
         # 景點推薦
-        "餐廳": "餐廳",
-        "景點": "景點",
+        "restaurant": "餐廳",
+        "attraction": "景點",
 
         # 數據/網路
         "data_fetch_failed":   "資料取得失敗，請稍後再試。",
@@ -169,8 +169,8 @@ TEXTS: dict[str, dict[str, object]] = {
         "planning_failed":     "❌ Itinerary planning failed. Please try again later.",
 
         # 景點推薦
-        "restaurant": "Restaurant",
-        "restaurant": "Attraction",
+        "restaurant": "restaurant",
+        "restaurant": "rttraction",
 
         # Location / trip
         "position_saved":      "Location saved, please select trip duration:",
