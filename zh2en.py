@@ -193,7 +193,7 @@ TEXTS: dict[str, dict[str, object]] = {
         "system_recommend":     "System recommends: ",
         "crowd_top5":           "Current top 5 crowded spots",
         "sustainable_recommend":"Sustainable tourism recommendation: ",
-        "ask_sustainable":      "Recommend sustainable spots?",
+        "ask_sustainable":      "Please choose the recommend item",
         "ask_keyword":          "Please select the search keyword",
         "crowd_analysis_link":  "Click the link below for crowd analysis",
         "visit_spots_url":      "URL for nearby attractions:",
