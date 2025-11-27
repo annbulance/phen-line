@@ -109,8 +109,8 @@ TEXTS: dict[str, dict[str, object]] = {
         "planning_failed":     "❌ 行程規劃失敗，請稍後再試。",
 
         # 景點推薦
-        "yes": "是",
-        "no": "否",
+        "yes": "餐廳",
+        "no": "景點",
 
         # 數據/網路
         "data_fetch_failed":   "資料取得失敗，請稍後再試。",
@@ -122,7 +122,7 @@ TEXTS: dict[str, dict[str, object]] = {
         "system_recommend":     "系統推薦：",
         "crowd_top5":           "目前最擁擠前五景點",
         "sustainable_recommend":"永續觀光推薦：",
-        "ask_sustainable":      "是否推薦永續觀光景點？",
+        "ask_sustainable":      "請點選推薦項目",
 
         # 連結提示
         "ask_keyword":         "請選擇搜尋的關鍵字",
