@@ -41,8 +41,8 @@ ZH2EN: dict[str, str] = {
     "其他": "Other",
 
     # === Yes / No ===
-    "是": "Yes",
-    "否": "No",
+    "餐廳": "restaurant",
+    "景點": "attraction",
 
     # === Questionnaire / help ===
     "填寫問卷": "Fill Questionnaire",
