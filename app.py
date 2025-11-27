@@ -1094,8 +1094,8 @@ def handle_free_command(uid, text, replyTK):
 
     # 4) 景點推薦 → 詢問永續 vs 一般
     if low in recommend_keys:
-        yes_lbl     = _t("yes", _get_lang(uid))
-        no_lbl      = _t("no",  _get_lang(uid))
+        yes_lbl     = _t("restaurant", _get_lang(uid))
+        no_lbl      = _t("attraction",  _get_lang(uid))
         payload_yes = "永續觀光" if _get_lang(uid) == 'zh' else "sustainable tourism"
         payload_no  = "一般景點推薦" if _get_lang(uid) == 'zh' else "general recommendation"
         tpl = ConfirmTemplate(
