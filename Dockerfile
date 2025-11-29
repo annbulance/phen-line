@@ -15,9 +15,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # 複製並安裝所有 Python 依賴
 COPY requirements.txt .
 # 下載並安裝依賴，將輪子文件 (wheels) 存儲在本地，以便下一階段離線安裝
+# 這裡只需要使用 pip wheel 處理 requirements.txt 即可
 RUN pip install --upgrade pip \
- && pip wheel --wheel-dir /usr/src/app/wheels -r requirements.txt \
- && pip install --no-cache-dir gunicorn gevent
+ && pip wheel --wheel-dir /usr/src/app/wheels -r requirements.txt
 
 # ---- STAGE 2: Runtime (Minimal Execution Image) ----
 # 使用更小的 slim 映像檔作為最終運行環境
@@ -38,13 +38,16 @@ WORKDIR /usr/src/app
 # 從 builder 階段複製已編譯的 Python 輪子
 COPY --from=builder /usr/src/app/wheels /wheels/
 
-# 離線安裝 Python 依賴，無需重新編譯，速度更快
+# 【修正 BUG】：將 requirements.txt 提前複製到 runtime 映像檔中
+COPY requirements.txt .
+
+# 離線安裝所有 Python 依賴 (requirements.txt, 應包含 Flask, gunicorn, gevent)
+# 從 builder 階段複製的 /wheels 目錄中尋找並安裝，避免網絡下載和編譯。
 RUN pip install --no-cache-dir --upgrade pip \
  && pip install --no-cache-dir --find-links=/wheels -r requirements.txt \
- && pip install --no-cache-dir gunicorn gevent \
  && rm -rf /wheels
 
-# 複製應用程式碼 (確保您的 app.py 和 templates/ 在這裡被複製)
+# 複製應用程式碼 (app.py, templates/ 等其他應用程式文件)
 COPY . .
 
 # Writable data dir for SQLite / temp files
