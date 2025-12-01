@@ -676,7 +676,7 @@ def recommend_general_places(tk, uid):
     一般景點推薦：加入性別轉換後的模型呼叫
     """
     lang = _get_lang(uid)
-    try:
+    """try:
         # 1) 人潮前五
         dont_go, _ = people_high5(tk,uid)
 
@@ -703,7 +703,7 @@ def recommend_general_places(tk, uid):
         # 4) 模型推薦
         rec = XGBOOST_predicted.XGboost_recommend2(
             np.array([w_str]), gender_code, age, tide, t, dont_go
-        )
+        )"""
 
         # 5) 產生 Flex Message
         lang = _get_lang(uid)
