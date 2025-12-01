@@ -675,35 +675,7 @@ def recommend_general_places(tk, uid):
     """
     一般景點推薦：加入性別轉換後的模型呼叫
     """
-    lang = _get_lang(uid)
-    """try:
-        # 1) 人潮前五
-        dont_go, _ = people_high5(tk,uid)
-
-        # 2) 天氣、溫度、潮汐
-        try:
-            raw_weather = Now_weather.weather()
-            w_str = raw_weather
-        except:
-            w_str = "晴"
-        try:
-            t = float(Now_weather.temperature())
-        except:
-            t = 25.0
-        try:
-            tide = float(Now_weather.tidal())
-        except:
-            tide = 0.0
-
-        # 3) 性別 & 年齡轉換
-        raw_gender = shared.user_gender.get(uid, "")
-        gender_code = FlexMessage.classify_gender(raw_gender)
-        age = shared.user_age.get(uid, 30)
-
-        # 4) 模型推薦
-        rec = XGBOOST_predicted.XGboost_recommend2(
-            np.array([w_str]), gender_code, age, tide, t, dont_go
-        )"""
+  
 
         # 5) 產生 Flex Message
         lang = _get_lang(uid)
