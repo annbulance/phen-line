@@ -676,7 +676,7 @@ def recommend_general_places(tk, uid):
     """
       # 5) 產生 Flex Message
         lang = _get_lang(uid)
-
+try:
     att_urls = [
         "https://newtaipei.travel/zh-tw/attractions/detail/109658",
         "https://newtaipei.travel/zh-tw/attractions/detail/109659",
@@ -693,6 +693,9 @@ def recommend_general_places(tk, uid):
     ]
 
     safe_reply(tk, msgs, uid)
+except Exception as e:
+        print("❌ recommend_general_places error:", e)
+        safe_reply(tk, TextSendMessage(text=_t('data_fetch_failed', lang)),uid)
 
 
 
