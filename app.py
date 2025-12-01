@@ -688,7 +688,7 @@ def recommend_general_places(tk, uid):
 
     head = "以下是為您推薦的淡水景點：" if lang=="zh" else "Here are the recommended attractions in Tamsui:"
 
-    msgs = [TextSendMessage(text=head),
+   msgs = [TextSendMessage(text=head)] + [
         TextSendMessage(text=url) for url in att_urls
     ]
 
