@@ -706,20 +706,24 @@ def recommend_general_places(tk, uid):
         )
 
         # 5) 產生 Flex Message
-        website, img, maplink = PH_Attractions.Attractions_recommend(rec)
+        lang = _get_lang(uid)
 
-        msgs = [
-            TextSendMessage(text=_t("system_recommend", lang)),
-            TextSendMessage(text=rec),
-            ImageSendMessage(original_content_url=f"{img}.jpg", preview_image_url=f"{img}.jpg"),
-            TextSendMessage(text=website),
-            TextSendMessage(text=maplink)
-        ]
-        safe_reply(tk, msgs,uid)
-    except Exception as e:
-        print("❌ recommend_general_places error:", e)
-        safe_reply(tk, TextSendMessage(text=_t('data_fetch_failed', lang)),uid)
+    urls = [
+        "https://newtaipei.travel/zh-tw/attractions/detail/109658",
+        "https://newtaipei.travel/zh-tw/attractions/detail/109659",
+        "https://newtaipei.travel/zh-tw/attractions/detail/209657",
+        "https://newtaipei.travel/zh-tw/attractions/detail/110398",
+        "https://newtaipei.travel/zh-tw/attractions/detail/109672",
+        "https://egoldenyears.com/92435/"
+    ]
 
+    head = "以下是為您推薦的淡水景點：" if lang=="zh" else "Here are the recommended attractions in Tamsui:"
+
+    msgs = [TextSendMessage(text=head)] + [
+        TextSendMessage(text=url) for url in urls
+    ]
+
+    safe_reply(tk, msgs, uid)
 
 @measure_time
 def recommend_sustainable_places(tk, uid):
