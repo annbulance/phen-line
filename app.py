@@ -678,8 +678,9 @@ def recommend_general_places(tk, uid):
   
 
         # 5) 產生 Flex Message
-        lang = _get_lang(uid)
-
+    lang = _get_lang(uid)
+    
+    try:
         urls = [
             "https://newtaipei.travel/zh-tw/attractions/detail/109658",
             "https://newtaipei.travel/zh-tw/attractions/detail/109659",
