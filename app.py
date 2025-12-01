@@ -1151,9 +1151,12 @@ def handle_free_command(uid, text, replyTK):
 
     # 5) 永續 or 一般景點推薦
     if low in sustainable_keys:
+        # 原本的「餐廳」邏輯（澎湖 XGBoost）
         recommend_sustainable_places(replyTK, uid); return
+
     if low in general_keys:
-        recommend_general_places(replyTK, uid); return
+        # ✅ 改成你自訂的 6 個淡水景點 Carousel
+        recommend_custom_six_places(replyTK, uid); return
 
     # 6) 附近搜尋
     if low in nearby_keys:
