@@ -18,7 +18,9 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.models import (
     TextSendMessage, ImageSendMessage, StickerSendMessage,
     TemplateSendMessage, ConfirmTemplate, MessageAction,
-    ButtonsTemplate, URIAction, QuickReply, QuickReplyButton
+    ButtonsTemplate, URIAction, QuickReply, QuickReplyButton, 
+    FlexSendMessage, BubbleContainer, ImageComponent, BoxComponent, 
+    TextComponent, ButtonComponent, CarouselContainer
 )
 from linebot.models.events import PostbackEvent
 
