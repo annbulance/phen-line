@@ -130,12 +130,17 @@
     </button>
 
     <!-- Mobile Navigation Buttons -->
-    <div class="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-40 flex gap-8 pointer-events-auto">
-        <button id="mobile-prev-btn" class="w-16 h-16 rounded-full bg-black/30 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center hover:bg-black/50 active:scale-95 transition shadow-2xl touch-manipulation">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    <!-- 調整為右下角，並使用垂直排列 -->
+    <div class="fixed bottom-10 right-4 z-40 flex flex-col gap-4 pointer-events-auto">
+        <!-- 注意：此按鈕現在控制 '人多' (+1)，以符合使用者對向上箭頭的直覺預期 (增加) -->
+        <button id="mobile-prev-btn" class="w-16 h-16 rounded-full bg-black/30 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center hover:bg-black/50 active:scale-95 transition shadow-2xl touch-manipulation" title="人多 (Up)">
+            <!-- 上箭頭 -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
         </button>
-        <button id="mobile-next-btn" class="w-16 h-16 rounded-full bg-black/30 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center hover:bg-black/50 active:scale-95 transition shadow-2xl touch-manipulation">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        <!-- 注意：此按鈕現在控制 '人少' (-1) -->
+        <button id="mobile-next-btn" class="w-16 h-16 rounded-full bg-black/30 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center hover:bg-black/50 active:scale-95 transition shadow-2xl touch-manipulation" title="人少 (Down)">
+            <!-- 下箭頭 -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
     </div>
 
@@ -172,7 +177,8 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2z"/></svg>
                             人流分類 (Density)
                         </label>
-                        <span class="text-[9px] text-gray-500">切換 (Switch): <span class="key-hint">←</span> <span class="key-hint">→</span></span>
+                        <!-- 切換提示已修改為上下箭頭 -->
+                        <span class="text-[9px] text-gray-500">切換 (Switch): <span class="key-hint">↑</span> <span class="key-hint">↓</span></span>
                     </div>
                     <div class="grid grid-cols-5 gap-2" id="slot-grid"></div>
                 </div>
@@ -788,8 +794,9 @@
             const key = e.key; 
             if (key.toLowerCase() === 'h') toggleUI();
             if (key.toLowerCase() === 'f') toggleFullscreen();
-            if (key === 'ArrowLeft') navigateSlot(-1);
-            if (key === 'ArrowRight') navigateSlot(1);
+            // 修正功能：上鍵 (ArrowUp) 增加密度 (+1)，下鍵 (ArrowDown) 減少密度 (-1)
+            if (key === 'ArrowUp') navigateSlot(1);   // 增加密度 (人多)
+            if (key === 'ArrowDown') navigateSlot(-1);  // 減少密度 (人少)
             if (['w', 'a', 's', 'd', 'W', 'A', 'S', 'D'].includes(key)) {
                  controls.autoRotate = false;
                  document.getElementById('autoRotateToggle').checked = false;
@@ -800,8 +807,11 @@
         const mobilePrevBtn = document.getElementById('mobile-prev-btn');
         const mobileNextBtn = document.getElementById('mobile-next-btn');
         
-        if(mobilePrevBtn) mobilePrevBtn.addEventListener('click', () => navigateSlot(-1));
-        if(mobileNextBtn) mobileNextBtn.addEventListener('click', () => navigateSlot(1));
+        // 修正功能：
+        // mobilePrevBtn (上按鈕/↑) 增加密度 (+1)
+        if(mobilePrevBtn) mobilePrevBtn.addEventListener('click', () => navigateSlot(1));
+        // mobileNextBtn (下按鈕/↓) 減少密度 (-1)
+        if(mobileNextBtn) mobileNextBtn.addEventListener('click', () => navigateSlot(-1));
 
         document.getElementById('autoRotateToggle').addEventListener('change', (e) => { controls.autoRotate = e.target.checked; });
 
