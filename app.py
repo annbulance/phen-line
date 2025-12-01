@@ -727,10 +727,10 @@ def recommend_custom_six_places(tk, uid):
     flex_message = FlexSendMessage(alt_text="為您推薦精選景點", contents=carousel)
     
     safe_reply(tk, flex_message, uid)
+    
     except Exception as e:
-        print("❌ recommend_general_places error:", e)
-        safe_reply(tk, TextSendMessage(text=_t('data_fetch_failed', lang)),uid)
-
+        print("❌ recommend_custom_six_places error:", e)
+        safe_reply(tk, TextSendMessage(text=_t('data_fetch_failed', lang)), uid)
 
 @measure_time
 def recommend_sustainable_places(tk, uid):
