@@ -175,24 +175,10 @@
                         <span class="text-[9px] text-gray-500">切換 (Switch): <span class="key-hint">←</span> <span class="key-hint">→</span></span>
                     </div>
                     <div class="grid grid-cols-5 gap-2" id="slot-grid"></div>
-                    
-                    <!-- Compact Upload Buttons -->
-                    <div class="flex gap-2 mt-3">
-                        <button id="btn-upload-1" onclick="document.getElementById('fileInput1').click()" class="flex-1 py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-[10px] text-gray-300 border border-gray-600 flex items-center justify-center gap-1 transition">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                            上傳左圖 (Upload Left)
-                        </button>
-                        <button id="btn-upload-2" onclick="document.getElementById('fileInput2').click()" class="flex-1 py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-[10px] text-gray-300 border border-gray-600 flex items-center justify-center gap-1 transition">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                            上傳右圖 (Upload Right)
-                        </button>
-                    </div>
                 </div>
             </div>
             
-            <!-- Hidden Inputs -->
-            <input type="file" id="fileInput1" accept="image/*" class="hidden"/>
-            <input type="file" id="fileInput2" accept="image/*" class="hidden"/>
+            <!-- 手動上傳輸入欄位已移除 -->
 
             <!-- Stitching Controls -->
             <div class="space-y-5 border-t border-gray-700 pt-4">
@@ -305,18 +291,47 @@
             '沙崙海灘 (Shalun Beach)'
         ];
         const slotNames = ['人少 (Few)', '人稍少 (Some)', '普通 (Normal)', '人稍多 (Many)', '人多 (Crowded)'];
+
+        // --- 內嵌圖片 URL 數據 (從 img url.txt 轉換) ---
+        // 陣列順序即為 人少(1) 到 人多(5)
+        const rawUrls = {
+            沙崙: ['iNTOHuB', 'TXRZZIf', 'H23fHBW', 'UN4uDgS', 'cqIrajM'],
+            水岸: ['IypHbgm', '4dzzaPq', 'Qieay6N', 'RgltdT7', 'G5v8XTN'],
+            紅毛: ['EOFnHRd', '7vrs81g', 'q7UxjTu', 'QC5vHzO', '82CuSFP'],
+            淡水: ['8wlVhDa', 'QDqFnd6', '8LjbaaF', '62mCw3o', 'DZdcRtw'],
+            滬尾: ['QIporWG', '8pV7PYm', 'eq1F9bE', 'T9yj4Io', 'r8nTuIs']
+        };
+
+        const getDirectImgurUrl = (hash) => `https://i.imgur.com/${hash}.jpeg`; // 假設為 Imgur 圖片直連格式
+
+        // 圖片 URL 根據使用者提供的順序 (人少到人多) 進行映射
+        const IMAGE_URL_MAP = {
+            '金色水岸 (Golden Shore)': rawUrls.水岸.map(getDirectImgurUrl),
+            '淡水老街 (Old Street)': rawUrls.淡水.map(getDirectImgurUrl),
+            '紅毛城 (Fort San Domingo)': rawUrls.紅毛.map(getDirectImgurUrl),
+            '漁人碼頭 (Fisherman\'s Wharf)': Array(5).fill(null), // 此分類圖片缺失，使用 null
+            '滬尾砲台 (Hobe Fort)': rawUrls.滬尾.map(getDirectImgurUrl),
+            '沙崙海灘 (Shalun Beach)': rawUrls.沙崙.map(getDirectImgurUrl)
+        };
+        // --- End of URL Map ---
         
-        const galleryData = Array.from({ length: 6 }, (_, i) => ({
-            id: `cat-${i}`,
-            name: categoryNames[i],
-            slots: Array.from({ length: 5 }, (_, j) => ({
-                id: `slot-${i}-${j}`,
-                name: slotNames[j],
-                img1: null, 
-                img2: null,
-                params: { overlap: 0, crop: 0, smartFill: true, fov: 75 }
-            }))
-        }));
+        // 初始化 Gallery 數據結構，包含 URL 和圖片物件緩存
+        const galleryData = categoryNames.map((name, i) => {
+            const urls = IMAGE_URL_MAP[name] || Array(5).fill(null);
+            return {
+                id: `cat-${i}`,
+                name: name,
+                slots: urls.map((url, j) => ({
+                    id: `slot-${i}-${j}`,
+                    name: slotNames[j],
+                    url1: url, // 圖片 URL (左圖/單圖)
+                    url2: null, // 圖片 URL (右圖) - 目前設定為 null 以使用單圖模式
+                    imgObject1: null, // 圖片物件緩存
+                    imgObject2: null, // 圖片物件緩存
+                    params: { overlap: 0, crop: 0, smartFill: true, fov: 75 }
+                }))
+            }
+        });
 
         let currentCatIdx = 0;
         let currentSlotIdx = 0;
@@ -365,6 +380,24 @@
             scene.add(mesh);
         }
 
+        // 圖片 URL 載入器
+        function loadImageFromUrl(url) {
+            return new Promise((resolve) => {
+                if (!url) return resolve(null);
+                
+                const img = new Image();
+                img.crossOrigin = 'Anonymous'; // 允許跨域圖片用於 Canvas/WebGL Texture
+                img.onload = () => {
+                    resolve({ url: url, element: img }); // 成功回傳包含 element 的物件
+                };
+                img.onerror = () => {
+                    console.error(`Failed to load image from URL: ${url}`);
+                    resolve(null); // 載入失敗時回傳 null
+                };
+                img.src = url;
+            });
+        }
+
         function updateMeshWithTexture(texture) {
             if (mesh) {
                 scene.remove(mesh);
@@ -399,7 +432,8 @@
         }
 
         async function processImages(slotData) {
-            if (!slotData.img1 && !slotData.img2) {
+            // 使用 imgObject1 和 imgObject2
+            if (!slotData.imgObject1 && !slotData.imgObject2) {
                 createDefaultScene();
                 return;
             }
@@ -409,12 +443,12 @@
             const useSmartFill = slotData.params.smartFill;
 
             let targetHeight = 0;
-            if (slotData.img1) targetHeight = Math.max(targetHeight, slotData.img1.element.height);
-            if (slotData.img2) targetHeight = Math.max(targetHeight, slotData.img2.element.height);
+            if (slotData.imgObject1) targetHeight = Math.max(targetHeight, slotData.imgObject1.element.height);
+            if (slotData.imgObject2) targetHeight = Math.max(targetHeight, slotData.imgObject2.element.height);
 
             let rImg1, rImg2;
-            if (slotData.img1) rImg1 = await resizeImage(slotData.img1.element, targetHeight);
-            if (slotData.img2) rImg2 = await resizeImage(slotData.img2.element, targetHeight);
+            if (slotData.imgObject1) rImg1 = await resizeImage(slotData.imgObject1.element, targetHeight);
+            if (slotData.imgObject2) rImg2 = await resizeImage(slotData.imgObject2.element, targetHeight);
 
             let stitchedWidth = 0;
             if (rImg1 && rImg2) {
@@ -593,7 +627,8 @@
             const currentSlots = galleryData[currentCatIdx].slots;
             
             currentSlots.forEach((slot, idx) => {
-                const hasData = slot.img1 || slot.img2;
+                // 判斷是否有預載入的 URL 數據
+                const hasData = slot.url1 || slot.url2;
                 const btn = document.createElement('button');
                 btn.className = `text-xs py-2 rounded border transition font-bold relative ${idx === currentSlotIdx 
                     ? 'bg-purple-600 border-purple-400 text-white shadow-lg' 
@@ -638,9 +673,22 @@
             }
         }
 
-        function loadCurrentSlotData() {
+        async function loadCurrentSlotData() { // 設為 async 函數
             const slot = galleryData[currentCatIdx].slots[currentSlotIdx];
             
+            // --- 圖片 URL 載入邏輯 ---
+            // 檢查 imgObject1 是否已載入 (快取)
+            if (slot.url1 && !slot.imgObject1) {
+                // console.log(`Loading image 1 from: ${slot.url1}`);
+                slot.imgObject1 = await loadImageFromUrl(slot.url1);
+            }
+            // 檢查 imgObject2 是否已載入 (快取)
+            if (slot.url2 && !slot.imgObject2) {
+                // console.log(`Loading image 2 from: ${slot.url2}`);
+                slot.imgObject2 = await loadImageFromUrl(slot.url2);
+            }
+            // -------------------------
+
             document.getElementById('overlapSlider').value = slot.params.overlap;
             document.getElementById('overlapVal').innerText = slot.params.overlap + '%';
             
@@ -650,69 +698,23 @@
             document.getElementById('smartFillToggle').checked = slot.params.smartFill;
             
             document.getElementById('fovSlider').value = slot.params.fov;
-            camera.fov = slot.params.fov;
+            // 修正錯誤：使用 slot.params.fov 而非未定義的 val
+            camera.fov = slot.params.fov; 
             camera.updateProjectionMatrix();
 
-            // SAFE UPDATE: Check if file status update logic needs to run
-            updateUploadButtons(slot);
-            
-            updateDensityUI(currentSlotIdx);
+            // 原先的 updateUploadButtons 已移除
 
-            // Reset inputs visual value
-            document.getElementById('fileInput1').value = '';
-            document.getElementById('fileInput2').value = '';
+            updateDensityUI(currentSlotIdx);
 
             processImages(slot);
         }
 
-        function updateUploadButtons(slot) {
-            const btn1 = document.getElementById('btn-upload-1');
-            const btn2 = document.getElementById('btn-upload-2');
-            
-            if (slot.img1) {
-                btn1.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 左圖 (Loaded)`;
-                btn1.className = "flex-1 py-1.5 bg-green-900 hover:bg-green-800 rounded text-[10px] text-green-200 border border-green-700 flex items-center justify-center gap-1 transition";
-            } else {
-                btn1.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> 上傳左圖 (Upload Left)`;
-                btn1.className = "flex-1 py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-[10px] text-gray-300 border border-gray-600 flex items-center justify-center gap-1 transition";
-            }
-
-            if (slot.img2) {
-                btn2.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 右圖 (Loaded)`;
-                btn2.className = "flex-1 py-1.5 bg-green-900 hover:bg-green-800 rounded text-[10px] text-green-200 border border-green-700 flex items-center justify-center gap-1 transition";
-            } else {
-                btn2.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> 上傳右圖 (Upload Right)`;
-                btn2.className = "flex-1 py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-[10px] text-gray-300 border border-gray-600 flex items-center justify-center gap-1 transition";
-            }
-        }
-
-        function navigateSlot(direction) {
-            let newIdx = currentSlotIdx + direction;
-            if (newIdx < 0) newIdx = 4;
-            if (newIdx > 4) newIdx = 0;
-            switchSlot(newIdx);
-        }
-
-        function saveImageToSlot(slotIdx, file) {
-            const slot = galleryData[currentCatIdx].slots[currentSlotIdx]; 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    const entry = { file: file, url: e.target.result, element: img };
-                    if (slotIdx === 1) slot.img1 = entry;
-                    else slot.img2 = entry;
-                    renderGalleryUI(); 
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
+        // 原先的 updateUploadButtons 函數已移除
+        // 原先的 saveImageToSlot 函數已移除
 
         // --- Event Listeners ---
-
-        document.getElementById('fileInput1').addEventListener('change', (e) => { if (e.target.files[0]) saveImageToSlot(1, e.target.files[0]); });
-        document.getElementById('fileInput2').addEventListener('change', (e) => { if (e.target.files[0]) saveImageToSlot(2, e.target.files[0]); });
+        
+        // 手動上傳輸入的 event listeners 已移除
 
         const updateCurrentSlotParams = () => {
              const slot = galleryData[currentCatIdx].slots[currentSlotIdx];
@@ -761,7 +763,8 @@
                  const el = document.documentElement;
                  const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
                  if (req) req.call(el).catch(() => {
-                     if(confirm("Browser restriction: Unable to enable fullscreen in current window.\n\nOpen in a new window? (Requires re-uploading images)")) {
+                     // 由於已移除上傳功能，此處提示訊息稍作調整
+                     if(confirm("Browser restriction: Unable to enable fullscreen in current window.\n\nOpen in a new window?")) {
                          const blob = new Blob([document.documentElement.outerHTML], {type: 'text/html'});
                          window.open(URL.createObjectURL(blob), '_blank');
                      } else { if(isUiVisible) toggleUI(); }
@@ -770,6 +773,16 @@
                 if (document.exitFullscreen) document.exitFullscreen();
             }
         }
+        
+        // 修正錯誤：加入缺失的 navigateSlot 函數
+        function navigateSlot(direction) {
+            let newIdx = currentSlotIdx + direction;
+            // 確保索引在 0 到 4 之間循環
+            if (newIdx < 0) newIdx = 4;
+            if (newIdx > 4) newIdx = 0;
+            switchSlot(newIdx);
+        }
+
 
         window.addEventListener('keydown', (e) => {
             const key = e.key; 
