@@ -654,38 +654,26 @@ def recommend_custom_six_places(tk, uid):
     places_data = [
         {
             "name": "淡水老街",
-            "desc": "這裡是景點簡短說明",
-            "img": "https://via.placeholder.com/600x400?text=Place+1", # 替換成您的圖片網址
             "url": "https://newtaipei.travel/zh-tw/attractions/detail/109658" # 替換成您的景點網址
         },
         {
             "name": "漁人碼頭",
-            "desc": "這裡是景點簡短說明",
-            "img": "https://via.placeholder.com/600x400?text=Place+2",
             "url": "https://newtaipei.travel/zh-tw/attractions/detail/109659"
         },
         {
             "name": "金色水岸",
-            "desc": "這裡是景點簡短說明",
-            "img": "https://via.placeholder.com/600x400?text=Place+3",
             "url": "https://newtaipei.travel/zh-tw/attractions/detail/209657"
         },
         {
             "name": "滬尾砲台",
-            "desc": "這裡是景點簡短說明",
-            "img": "https://via.placeholder.com/600x400?text=Place+4",
             "url": "https://newtaipei.travel/zh-tw/attractions/detail/110398"
         },
         {
             "name": "紅毛城",
-            "desc": "這裡是景點簡短說明",
-            "img": "https://via.placeholder.com/600x400?text=Place+5",
             "url": "https://newtaipei.travel/zh-tw/attractions/detail/109672"
         },
         {
             "name": "沙崙海灘",
-            "desc": "這裡是景點簡短說明",
-            "img": "https://via.placeholder.com/600x400?text=Place+6",
             "url": "https://egoldenyears.com/92435/"
         },
     ]
