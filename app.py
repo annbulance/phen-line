@@ -677,7 +677,7 @@ def recommend_general_places(tk, uid):
       # 5) 產生 Flex Message
         lang = _get_lang(uid)
 
-    urls = [
+    att_urls = [
         "https://newtaipei.travel/zh-tw/attractions/detail/109658",
         "https://newtaipei.travel/zh-tw/attractions/detail/109659",
         "https://newtaipei.travel/zh-tw/attractions/detail/209657",
@@ -689,7 +689,7 @@ def recommend_general_places(tk, uid):
     head = "以下是為您推薦的淡水景點：" if lang=="zh" else "Here are the recommended attractions in Tamsui:"
 
     msgs = [TextSendMessage(text=head),
-        TextSendMessage(text=url) for url in urls
+        TextSendMessage(text=url) for url in att_urls
     ]
 
     safe_reply(tk, msgs, uid)
