@@ -18,9 +18,7 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.models import (
     TextSendMessage, ImageSendMessage, StickerSendMessage,
     TemplateSendMessage, ConfirmTemplate, MessageAction,
-    ButtonsTemplate, URIAction, QuickReply, QuickReplyButton, 
-    FlexSendMessage, BubbleContainer, ImageComponent, BoxComponent, 
-    TextComponent, ButtonComponent, CarouselContainer
+    ButtonsTemplate, URIAction, QuickReply, QuickReplyButton
 )
 from linebot.models.events import PostbackEvent
 
@@ -643,82 +641,141 @@ def send_crowd_analysis(tk,uid):
 
 
 @measure_time
-def recommend_custom_six_places(tk, uid):
+def recommend_general_places(tk, uid):
     """
-    回傳自訂的 6 個景點連結 (Carousel 格式)
+    一般景點推薦：加入性別轉換後的模型呼叫
     """
     lang = _get_lang(uid)
-    
-    # ▼▼▼ 在此修改您的 6 個景點資料 ▼▼▼
-    # 注意：圖片 URL 必須是 https 開頭且公開可讀取
-    places_data = [
-        {
-            "name": "淡水老街",
-            "url": "https://newtaipei.travel/zh-tw/attractions/detail/109658" # 替換成您的景點網址
-        },
-        {
-            "name": "漁人碼頭",
-            "url": "https://newtaipei.travel/zh-tw/attractions/detail/109659"
-        },
-        {
-            "name": "金色水岸",
-            "url": "https://newtaipei.travel/zh-tw/attractions/detail/209657"
-        },
-        {
-            "name": "滬尾砲台",
-            "url": "https://newtaipei.travel/zh-tw/attractions/detail/110398"
-        },
-        {
-            "name": "紅毛城",
-            "url": "https://newtaipei.travel/zh-tw/attractions/detail/109672"
-        },
-        {
-            "name": "沙崙海灘",
-            "url": "https://egoldenyears.com/92435/"
-        },
-    ]
-    # ▲▲▲ 修改結束 ▲▲▲
+    try:
+        # 1) 人潮前五
+        dont_go, _ = people_high5(tk,uid)
 
-    bubbles = []
-    for place in places_data:
-        bubble = BubbleContainer(
-            size="micro", # 卡片大小，可改為 nano, micro, kilo, mega, giga
-            hero=ImageComponent(
-                url=place["img"],
-                size="full",
-                aspect_ratio="20:13",
-                aspect_mode="cover",
-                action=URIAction(uri=place["url"])
-            ),
-            body=BoxComponent(
-                layout="vertical",
-                contents=[
-                    TextComponent(text=place["name"], weight="bold", size="sm", wrap=True),
-                    TextComponent(text=place["desc"], size="xs", color="#aaaaaa", wrap=True)
-                ]
-            ),
-            footer=BoxComponent(
-                layout="vertical",
-                spacing="sm",
-                contents=[
-                    ButtonComponent(
-                        style="link",
-                        height="sm",
-                        action=URIAction(label="查看詳情", uri=place["url"])
-                    )
-                ]
-            )
+        # 2) 天氣、溫度、潮汐
+        try:
+            raw_weather = Now_weather.weather()
+            w_str = raw_weather
+        except:
+            w_str = "晴"
+        try:
+            t = float(Now_weather.temperature())
+        except:
+            t = 25.0
+        try:
+            tide = float(Now_weather.tidal())
+        except:
+            tide = 0.0
+
+        # 3) 性別 & 年齡轉換
+        raw_gender = shared.user_gender.get(uid, "")
+        gender_code = FlexMessage.classify_gender(raw_gender)
+        age = shared.user_age.get(uid, 30)
+
+        # 4) 模型推薦
+        rec = XGBOOST_predicted.XGboost_recommend2(
+            np.array([w_str]), gender_code, age, tide, t, dont_go
         )
-        bubbles.append(bubble)
 
-    carousel = CarouselContainer(contents=bubbles)
-    flex_message = FlexSendMessage(alt_text="為您推薦精選景點", contents=carousel)
-    
-    safe_reply(tk, flex_message, uid)
-    
-except Exception as e:
-print("❌ recommend_custom_six_places error:", e)
-safe_reply(tk, TextSendMessage(text=_t('data_fetch_failed', lang)), uid)
+        # 5) 產生 Flex Message
+        website, img, maplink = PH_Attractions.Attractions_recommend(rec)
+
+        msgs = [
+            TextSendMessage(text=_t("system_recommend", lang)),
+            TextSendMessage(text=rec),
+            ImageSendMessage(original_content_url=f"{img}.jpg", preview_image_url=f"{img}.jpg"),
+            TextSendMessage(text=website),
+            TextSendMessage(text=maplink)
+        ]
+        safe_reply(tk, msgs,uid)
+    except Exception as e:
+        print("❌ recommend_general_places error:", e)
+        safe_reply(tk, TextSendMessage(text=_t('data_fetch_failed', lang)),uid)
+
+
+@measure_time
+def recommend_sustainable_places(tk, uid):
+    """
+    永續觀光推薦（含性別／年齡轉換）
+    1. 取得人潮 Top-5 → 避免推薦
+    2. 讀天氣／溫度／潮汐並做標籤映射
+    3. 依性別‧年齡跑 XGBoost 推薦
+    4. 取景點資料，回傳「說明文字 ＋ 圖片」
+    """
+    lang = _get_lang(uid)
+
+    try:
+        # ---------- 1) 人潮 ----------
+        dont_go, crowd_msg = people_high5(tk,uid)
+
+        # ---------- 2) 天氣 ----------
+        try:
+            raw_weather = Now_weather.weather()
+        except Exception:
+            raw_weather = "晴"
+
+        weather_map = {
+            '晴':  '晴',  '多雲': '多雲', '陰': '陰',
+            '小雨': '下雨', '中雨': '下雨', '大雨': '下雨', '雷陣雨': '下雨'
+        }
+        w_str = weather_map.get(raw_weather, '晴')
+
+        # ---------- 3) 溫度‧潮汐 ----------
+        try:
+            temp_c = float(Now_weather.temperature() or 25.0)
+        except Exception:
+            temp_c = 25.0
+        try:
+            tide   = float(Now_weather.tidal() or 0.0)
+        except Exception:
+            tide   = 0.0
+
+        # ---------- 4) 使用者資料 ----------
+        raw_gender  = shared.user_gender.get(uid, "")
+        gender_code = FlexMessage.classify_gender(raw_gender)   # 0/1/2
+        age         = shared.user_age.get(uid, 30)
+
+        # ---------- 5) XGBoost 推薦 ----------
+        try:
+            rec = ML.XGboost_recommend3(
+                np.array([w_str]), gender_code, age, tide, temp_c, dont_go
+            )
+        except ValueError as e:          # 若出現 unseen label
+            print("XGBoost fallback:", e)
+            rec = ML.XGboost_recommend3(
+                np.array(['晴']), gender_code, age, tide, temp_c, dont_go
+            )
+
+        # 如果結果還落在「不建議前往」名單，就再跑一次
+        if rec in dont_go:
+            rec = ML.XGboost_recommend3(
+                np.array([w_str]), gender_code, age, tide, temp_c, dont_go
+            )
+
+        # ---------- 6) 取景點資訊 ----------
+        web, img, maplink = PH_Attractions.Attractions_recommend1(rec)
+
+        # Robust 圖片 URL
+        if img.startswith(("http://", "https://")):
+            img_url = img
+        elif "imgur.com" in img:         # 轉 i.imgur.com 直連
+            _id = img.rstrip("/").split("/")[-1]
+            img_url = f"https://i.imgur.com/{_id}.jpg"
+        else:
+            img_url = f"https://{img.lstrip('/')}.jpg"
+
+        # ---------- 7) 組訊息並送出 ----------
+        #header = f"📊 {crowd_msg}"
+        title  = to_en('永續觀光') if lang == 'en' else '永續觀光'
+        body   = f"{title}：{rec}\n{web}\n{maplink}"
+
+        safe_reply(tk, [
+            TextSendMessage(text=body),
+            
+        ],uid)
+
+    except Exception as e:
+        print("❌ recommend_sustainable_places error:", e)
+        safe_reply(tk, TextSendMessage(text=_t('data_fetch_failed', lang)),uid)
+
 
 @measure_time
 def recommend_sustainable_places(tk, uid):
