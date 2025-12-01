@@ -643,51 +643,90 @@ def send_crowd_analysis(tk,uid):
 
 
 @measure_time
-def recommend_general_places(tk, uid):
+def recommend_custom_six_places(tk, uid):
     """
-    一般景點推薦：加入性別轉換後的模型呼叫
+    回傳自訂的 6 個景點連結 (Carousel 格式)
     """
     lang = _get_lang(uid)
-    try:
-        # 1) 人潮前五
-        dont_go, _ = people_high5(tk,uid)
+    
+    # ▼▼▼ 在此修改您的 6 個景點資料 ▼▼▼
+    # 注意：圖片 URL 必須是 https 開頭且公開可讀取
+    places_data = [
+        {
+            "name": "淡水老街",
+            "desc": "這裡是景點簡短說明",
+            "img": "https://via.placeholder.com/600x400?text=Place+1", # 替換成您的圖片網址
+            "url": "https://newtaipei.travel/zh-tw/attractions/detail/109658" # 替換成您的景點網址
+        },
+        {
+            "name": "漁人碼頭",
+            "desc": "這裡是景點簡短說明",
+            "img": "https://via.placeholder.com/600x400?text=Place+2",
+            "url": "https://newtaipei.travel/zh-tw/attractions/detail/109659"
+        },
+        {
+            "name": "金色水岸",
+            "desc": "這裡是景點簡短說明",
+            "img": "https://via.placeholder.com/600x400?text=Place+3",
+            "url": "https://newtaipei.travel/zh-tw/attractions/detail/209657"
+        },
+        {
+            "name": "滬尾砲台",
+            "desc": "這裡是景點簡短說明",
+            "img": "https://via.placeholder.com/600x400?text=Place+4",
+            "url": "https://newtaipei.travel/zh-tw/attractions/detail/110398"
+        },
+        {
+            "name": "紅毛城",
+            "desc": "這裡是景點簡短說明",
+            "img": "https://via.placeholder.com/600x400?text=Place+5",
+            "url": "https://newtaipei.travel/zh-tw/attractions/detail/109672"
+        },
+        {
+            "name": "沙崙海灘",
+            "desc": "這裡是景點簡短說明",
+            "img": "https://via.placeholder.com/600x400?text=Place+6",
+            "url": "https://egoldenyears.com/92435/"
+        },
+    ]
+    # ▲▲▲ 修改結束 ▲▲▲
 
-        # 2) 天氣、溫度、潮汐
-        try:
-            raw_weather = Now_weather.weather()
-            w_str = raw_weather
-        except:
-            w_str = "晴"
-        try:
-            t = float(Now_weather.temperature())
-        except:
-            t = 25.0
-        try:
-            tide = float(Now_weather.tidal())
-        except:
-            tide = 0.0
-
-        # 3) 性別 & 年齡轉換
-        raw_gender = shared.user_gender.get(uid, "")
-        gender_code = FlexMessage.classify_gender(raw_gender)
-        age = shared.user_age.get(uid, 30)
-
-        # 4) 模型推薦
-        rec = XGBOOST_predicted.XGboost_recommend2(
-            np.array([w_str]), gender_code, age, tide, t, dont_go
+    bubbles = []
+    for place in places_data:
+        bubble = BubbleContainer(
+            size="micro", # 卡片大小，可改為 nano, micro, kilo, mega, giga
+            hero=ImageComponent(
+                url=place["img"],
+                size="full",
+                aspect_ratio="20:13",
+                aspect_mode="cover",
+                action=URIAction(uri=place["url"])
+            ),
+            body=BoxComponent(
+                layout="vertical",
+                contents=[
+                    TextComponent(text=place["name"], weight="bold", size="sm", wrap=True),
+                    TextComponent(text=place["desc"], size="xs", color="#aaaaaa", wrap=True)
+                ]
+            ),
+            footer=BoxComponent(
+                layout="vertical",
+                spacing="sm",
+                contents=[
+                    ButtonComponent(
+                        style="link",
+                        height="sm",
+                        action=URIAction(label="查看詳情", uri=place["url"])
+                    )
+                ]
+            )
         )
+        bubbles.append(bubble)
 
-        # 5) 產生 Flex Message
-        website, img, maplink = PH_Attractions.Attractions_recommend(rec)
-
-        msgs = [
-            TextSendMessage(text=_t("system_recommend", lang)),
-            TextSendMessage(text=rec),
-            ImageSendMessage(original_content_url=f"{img}.jpg", preview_image_url=f"{img}.jpg"),
-            TextSendMessage(text=website),
-            TextSendMessage(text=maplink)
-        ]
-        safe_reply(tk, msgs,uid)
+    carousel = CarouselContainer(contents=bubbles)
+    flex_message = FlexSendMessage(alt_text="為您推薦精選景點", contents=carousel)
+    
+    safe_reply(tk, flex_message, uid)
     except Exception as e:
         print("❌ recommend_general_places error:", e)
         safe_reply(tk, TextSendMessage(text=_t('data_fetch_failed', lang)),uid)
