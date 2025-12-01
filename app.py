@@ -13,7 +13,7 @@ from datetime import datetime as dt
 from random import randrange
 from collections import Counter
 from zh2en import TEXTS as I18N, to_en ,ZH2EN
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, render_template
 from linebot import LineBotApi, WebhookHandler
 from linebot.models import (
     TextSendMessage, ImageSendMessage, StickerSendMessage,
@@ -108,6 +108,36 @@ from resource_monitor import init_app
 load_dotenv()   # 這行會去根目錄找 .env，並把變數載入 os.environ
 # ─────────────── Flask App ───────────────
 app = Flask(__name__)
+# --- 應用程式路由定義 ---
+
+# 明確指定接受 GET 請求
+@app.route('/', methods=['GET'])
+def index():
+    """
+    處理首頁路由 (/)，並渲染 templates/index.html。
+    這裡可以傳遞動態資料到模板中。
+    """
+    # 範例動態資料：將環境變數傳遞給 HTML 模板
+    dynamic_data = {
+        'title': '探尋世界的角落',
+        'env': os.environ.get('APP_ENV', 'Local Development')
+    }
+    
+    # Flask 會自動在 'templates' 資料夾中尋找 index.html
+    return render_template('index.html', data=dynamic_data)
+
+@app.route('/healthz')
+def health_check():
+    """
+    健康檢查端點，供 Dockerfile 和 K8s 使用。
+    """
+    return "OK", 200
+
+# 只有在本地執行 (非 Gunicorn) 時才啟用
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 8000))
+    # 運行在 0.0.0.0 確保容器內外部可訪問
+    app.run(host='0.0.0.0', port=port, debug=True)
 
 init_app(app, interval=5)   # 只需這一行
 metrics.init_metrics(app)  
