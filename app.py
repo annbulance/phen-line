@@ -675,8 +675,8 @@ def recommend_general_places(tk, uid):
     """
     一般景點推薦：加入性別轉換後的模型呼叫
     """
-    lang = _get_lang(uid)
-    """try:
+    """lang = _get_lang(uid)
+    try:
         # 1) 人潮前五
         dont_go, _ = people_high5(tk,uid)
 
