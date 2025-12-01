@@ -683,13 +683,9 @@ def recommend_general_places(tk, uid):
         # 5) 產生 Flex Message
         
         # 1. 定義 6 個固定網址
-        urls = [
-            "1. 淡水老街
-            https://newtaipei.travel/zh-tw/attractions/detail/109658
-            2. 漁人碼頭
-            https://newtaipei.travel/zh-tw/attractions/detail/109659
-            "
-        ]
+        urls = "1. 淡水老街 https://newtaipei.travel/zh-tw/attractions/detail/109658 2. 漁人碼頭 https://newtaipei.travel/zh-tw/attractions/detail/109659"
+            
+        
 
         # 2. 設定標題
         head = "以下是為您推薦的淡水景點：" if lang == "zh" else "Here are the recommended attractions in Tamsui:"
