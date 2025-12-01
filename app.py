@@ -684,12 +684,7 @@ def recommend_general_places(tk, uid):
         
         # 1. 定義 6 個固定網址
         urls = [
-            "https://newtaipei.travel/zh-tw/attractions/detail/109658",
-            "https://newtaipei.travel/zh-tw/attractions/detail/109659",
-            "https://newtaipei.travel/zh-tw/attractions/detail/209657",
-            "https://newtaipei.travel/zh-tw/attractions/detail/110398",
-            "https://newtaipei.travel/zh-tw/attractions/detail/109672",
-            "https://egoldenyears.com/92435/"
+            "https://newtaipei.travel/zh-tw/attractions/detail/109658"
         ]
 
         # 2. 設定標題
