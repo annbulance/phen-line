@@ -728,9 +728,9 @@ def recommend_custom_six_places(tk, uid):
     
     safe_reply(tk, flex_message, uid)
     
-    except Exception as e:
-        print("❌ recommend_custom_six_places error:", e)
-        safe_reply(tk, TextSendMessage(text=_t('data_fetch_failed', lang)), uid)
+except Exception as e:
+print("❌ recommend_custom_six_places error:", e)
+safe_reply(tk, TextSendMessage(text=_t('data_fetch_failed', lang)), uid)
 
 @measure_time
 def recommend_sustainable_places(tk, uid):
