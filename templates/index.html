@@ -305,7 +305,9 @@
             水岸: ['IypHbgm', '4dzzaPq', 'Qieay6N', 'RgltdT7', 'G5v8XTN'],
             紅毛: ['EOFnHRd', '7vrs81g', 'q7UxjTu', 'QC5vHzO', '82CuSFP'],
             淡水: ['8wlVhDa', 'QDqFnd6', '8LjbaaF', '62mCw3o', 'DZdcRtw'],
-            滬尾: ['QIporWG', '8pV7PYm', 'eq1F9bE', 'T9yj4Io', 'r8nTuIs']
+            滬尾: ['QIporWG', '8pV7PYm', 'eq1F9bE', 'T9yj4Io', 'r8nTuIs'],
+            // 根據 img url.txt 補上漁人碼頭
+            漁人: ['BLjrrhz', 'LrPauky', '5NykEKD', '3kMnk6o', 'NDRojQV'] 
         };
 
         const getDirectImgurUrl = (hash) => `https://i.imgur.com/${hash}.jpeg`; // 假設為 Imgur 圖片直連格式
@@ -315,7 +317,8 @@
             '金色水岸 (Golden Shore)': rawUrls.水岸.map(getDirectImgurUrl),
             '淡水老街 (Old Street)': rawUrls.淡水.map(getDirectImgurUrl),
             '紅毛城 (Fort San Domingo)': rawUrls.紅毛.map(getDirectImgurUrl),
-            '漁人碼頭 (Fisherman\'s Wharf)': Array(5).fill(null), // 此分類圖片缺失，使用 null
+            // 修正：使用 rawUrls.漁人 的數據
+            '漁人碼頭 (Fisherman\'s Wharf)': rawUrls.漁人.map(getDirectImgurUrl), 
             '滬尾砲台 (Hobe Fort)': rawUrls.滬尾.map(getDirectImgurUrl),
             '沙崙海灘 (Shalun Beach)': rawUrls.沙崙.map(getDirectImgurUrl)
         };
