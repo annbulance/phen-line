@@ -672,31 +672,40 @@ def send_crowd_analysis(tk,uid):
 @measure_time
 def recommend_general_places(tk, uid):
     """
-    一般景點推薦：加入性別轉換後的模型呼叫
+    一般景點推薦：只傳送固定網址
     """
-      # 5) 產生 Flex Message
-        lang = _get_lang(uid)
+    # 確保 lang 在 try 區塊外初始化，以便在 except 區塊中使用
+    lang = _get_lang(uid)
+    
     try:
-        att_urls = [
-        "https://newtaipei.travel/zh-tw/attractions/detail/109658",
-        "https://newtaipei.travel/zh-tw/attractions/detail/109659",
-        "https://newtaipei.travel/zh-tw/attractions/detail/209657",
-        "https://newtaipei.travel/zh-tw/attractions/detail/110398",
-        "https://newtaipei.travel/zh-tw/attractions/detail/109672",
-        "https://egoldenyears.com/92435/"
+        # 5) 產生 Flex Message
+        
+        # 1. 定義 6 個固定網址
+        urls = [
+            "https://newtaipei.travel/zh-tw/attractions/detail/109658",
+            "https://newtaipei.travel/zh-tw/attractions/detail/109659",
+            "https://newtaipei.travel/zh-tw/attractions/detail/209657",
+            "https://newtaipei.travel/zh-tw/attractions/detail/110398",
+            "https://newtaipei.travel/zh-tw/attractions/detail/109672",
+            "https://egoldenyears.com/92435/"
         ]
 
-        head = "以下是為您推薦的淡水景點：" if lang=="zh" else "Here are the recommended attractions in Tamsui:"
+        # 2. 設定標題
+        head = "以下是為您推薦的淡水景點：" if lang == "zh" else "Here are the recommended attractions in Tamsui:"
 
-       msgs = [TextSendMessage(text=head)] + [
-        TextSendMessage(text=url) for url in att_urls
+        # 3. 產生訊息列表
+        msgs = [TextSendMessage(text=head)] + [
+            TextSendMessage(text=url) for url in urls
         ]
 
+        # 4. 傳送訊息
         safe_reply(tk, msgs, uid)
+        
     except Exception as e:
+        # 保留錯誤處理，防止服務崩潰
         print("❌ recommend_general_places error:", e)
-        safe_reply(tk, TextSendMessage(text=_t('data_fetch_failed', lang)),uid)
-
+        # 假設 _t 和 TextSendMessage 已經被導入
+        safe_reply(tk, TextSendMessage(text=_t('data_fetch_failed', lang)), uid)
 
 
 @measure_time
