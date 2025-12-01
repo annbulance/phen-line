@@ -758,23 +758,45 @@ def send_attraction_menu(tk, uid):
 def handle_attraction_choice(uid, text, replyTK):
     """
     當 stage == 'choose_attraction' 時，使用者輸入的文字會到這裡
-    例如：淡水老街 -> 回傳對應網址
+    例如：
+      zh: 淡水老街 → 回傳網址
+      en: Tamsui Old Street → 先轉成 淡水老街 再回傳網址
     """
     lang = _get_lang(uid)
-    name = text.strip()
+    name_raw = text.strip()
 
-    # 先照原本的中文名稱找
-    url = PLACE_URLS.get(name)
+    # ---- 1. 英文輸入轉成中文 key ----
+    # 統一轉小寫來比對
+    lower = name_raw.lower()
+
+    EN2ZH = {
+        "tamsui old street":   "淡水老街",
+        "fisherman’s wharf":   "漁人碼頭",
+        "fisherman's wharf":   "漁人碼頭",   # 手機有時候會打不同的 '
+        "golden riverside":    "金色水岸",
+        "huwei fort":          "滬尾砲台",
+        "fort san domingo":    "紅毛城",
+        "shalun beach":        "沙崙海灘",
+    }
+
+    # 如果是英文介面就先試著做 mapping
+    if lang == "en":
+        key = EN2ZH.get(lower, name_raw)   # 找不到就用原字串當 key（保留彈性）
+    else:
+        key = name_raw  # 中文直接用原本輸入
+
+    # ---- 2. 用「中文 key」去查 PLACE_URLS ----
+    url = PLACE_URLS.get(key)
 
     if url:
         if lang == "zh":
-            reply_text = f"這是「{name}」的連結：\n{url}"
+            reply_text = f"這是「{key}」的連結：\n{url}"
         else:
-            reply_text = f"Here is the link for {name}:\n{url}"
+            # 英文時顯示原本輸入的英文名稱比較自然
+            reply_text = f"Here is the link for {name_raw}:\n{url}"
 
         safe_reply(replyTK, TextSendMessage(text=reply_text), uid)
-        # 回到 ready，後續可以繼續用其他功能
-        shared.user_stage[uid] = "ready"
+        shared.user_stage[uid] = "ready"   # 回到 ready
     else:
         if lang == "zh":
             reply_text = "抱歉，我找不到這個景點，請確認名稱再輸入一次（例如：淡水老街）"
@@ -782,7 +804,7 @@ def handle_attraction_choice(uid, text, replyTK):
             reply_text = "Sorry, I can't find this attraction. Please type the exact name again."
 
         safe_reply(replyTK, TextSendMessage(text=reply_text), uid)
-        # stage 繼續維持在 choose_attraction，等他再輸入一次
+        # 保持在 choose_attraction，等使用者再輸入一次
 
 
 @measure_time
