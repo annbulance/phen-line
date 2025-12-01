@@ -669,12 +669,22 @@ def send_crowd_analysis(tk,uid):
         TextSendMessage("https://how-many-people.eeddyytaddy.workers.dev")
     ],uid)
 
+# 固定的餐廳/景點清單（你要的 6 個點）
+PLACE_URLS = {
+    "淡水老街": "https://newtaipei.travel/zh-tw/attractions/detail/109658",
+    "漁人碼頭": "https://newtaipei.travel/zh-tw/attractions/detail/109659",
+    "金色水岸": "https://newtaipei.travel/zh-tw/attractions/detail/209657",
+    "滬尾砲台": "https://newtaipei.travel/zh-tw/attractions/detail/110398",
+    "紅毛城":   "https://newtaipei.travel/zh-tw/attractions/detail/109672",
+    "沙崙海灘": "https://egoldenyears.com/92435/",
+}
 
 @measure_time
 def recommend_general_places(tk, uid):
     """
     一般景點推薦：加入性別轉換後的模型呼叫
     """
+
   
     # 確保 lang 在 try 區塊外初始化，以便在 except 區塊中使用
     lang = _get_lang(uid)
@@ -684,11 +694,7 @@ def recommend_general_places(tk, uid):
         
         # 1. 定義 6 個固定網址
         urls = [
-            "1. 淡水老街
-            https://newtaipei.travel/zh-tw/attractions/detail/109658
-            2. 漁人碼頭
-            https://newtaipei.travel/zh-tw/attractions/detail/109659
-            "
+            "https://newtaipei.travel/zh-tw/attractions/detail/109658"
         ]
 
         # 2. 設定標題
@@ -708,6 +714,75 @@ def recommend_general_places(tk, uid):
         # 假設 _t 和 TextSendMessage 已經被導入
         safe_reply(tk, TextSendMessage(text=_t('data_fetch_failed', lang)), uid)
 
+@measure_time
+def send_attraction_menu(tk, uid):
+    """
+    使用者選「景點」時，先列出可選的景點，請他輸入名稱
+    """
+    lang = _get_lang(uid)
+
+    if lang == "zh":
+        lines = [
+            "以下是可選擇的淡水景點：",
+            "",
+            "1. 淡水老街",
+            "2. 漁人碼頭",
+            "3. 金色水岸",
+            "4. 滬尾砲台",
+            "5. 紅毛城",
+            "6. 沙崙海灘",
+            "",
+            "請輸入想去的景點名稱，例如：淡水老街"
+        ]
+    else:
+        lines = [
+            "Here are the attractions in Tamsui:",
+            "",
+            "1. Tamsui Old Street",
+            "2. Fisherman’s Wharf",
+            "3. Golden Riverside",
+            "4. Huwei Fort",
+            "5. Fort San Domingo",
+            "6. Shalun Beach",
+            "",
+            "Please type the name of the attraction, e.g. Tamsui Old Street"
+        ]
+
+    msg = "\n".join(lines)
+    safe_reply(tk, TextSendMessage(text=msg), uid)
+
+    # 下一句文字就當成「選擇哪個景點」
+    shared.user_stage[uid] = "choose_attraction"
+    
+@measure_time
+def handle_attraction_choice(uid, text, replyTK):
+    """
+    當 stage == 'choose_attraction' 時，使用者輸入的文字會到這裡
+    例如：淡水老街 -> 回傳對應網址
+    """
+    lang = _get_lang(uid)
+    name = text.strip()
+
+    # 先照原本的中文名稱找
+    url = PLACE_URLS.get(name)
+
+    if url:
+        if lang == "zh":
+            reply_text = f"這是「{name}」的連結：\n{url}"
+        else:
+            reply_text = f"Here is the link for {name}:\n{url}"
+
+        safe_reply(replyTK, TextSendMessage(text=reply_text), uid)
+        # 回到 ready，後續可以繼續用其他功能
+        shared.user_stage[uid] = "ready"
+    else:
+        if lang == "zh":
+            reply_text = "抱歉，我找不到這個景點，請確認名稱再輸入一次（例如：淡水老街）"
+        else:
+            reply_text = "Sorry, I can't find this attraction. Please type the exact name again."
+
+        safe_reply(replyTK, TextSendMessage(text=reply_text), uid)
+        # stage 繼續維持在 choose_attraction，等他再輸入一次
 
 
 @measure_time
@@ -1215,9 +1290,15 @@ def handle_free_command(uid, text, replyTK):
 
     # 5) 永續 or 一般景點推薦
     if low in sustainable_keys:
-        recommend_sustainable_places(replyTK, uid); return
+        # 餐廳照舊：用 XGBoost 那個永續推薦（你也可以之後改成餐廳選單）
+        recommend_sustainable_places(replyTK, uid)
+        return
+
     if low in general_keys:
-        recommend_general_places(replyTK, uid); return
+        # 景點：改成出景點選單，讓使用者輸入名稱
+        send_attraction_menu(replyTK, uid)
+        return
+
 
 
     # 6) 附近搜尋
@@ -1524,6 +1605,11 @@ def handle_message_event(ev, uid, lang, replyTK):
         # Ready 階段：自由指令
         if stage == 'ready' and msgType == "text":
             handle_free_command(uid, text, replyTK)
+            return
+
+        # 使用者正在選景點（從景點選單來的）
+        if stage == "choose_attraction" and msgType == "text":
+            handle_attraction_choice(uid, text, replyTK)
             return
 
         # 圖片／貼圖
