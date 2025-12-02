@@ -680,7 +680,7 @@ PLACE_URLS = {
     "沙崙海灘": "https://egoldenyears.com/92435/",
 }
 
-# 🔹固定的餐廳網址（我提供的 10 個）
+# 🔹固定的餐廳網址（我提供的 18 個）
 RESTAURANT_URLS = [
     "https://maps.app.goo.gl/vixH7xDGPFE2oCsR7?g_st=ipc",
     "https://maps.app.goo.gl/d4hbj6oyGbRm8kLw5?g_st=ipc",
@@ -692,6 +692,14 @@ RESTAURANT_URLS = [
     "https://maps.app.goo.gl/rzt2zBBVP5451rKK9?g_st=ipc",  # 這個跟上面重複，看你要不要刪掉
     "https://maps.app.goo.gl/WZH1vy2K6bQ5sJT96?g_st=ipc",
     "https://maps.app.goo.gl/JYitYJrFXjcqaHqK9?g_st=ipc",
+    "https://maps.app.goo.gl/3A9xUnWKdGxdWTuE8?g_st=ipc",
+    "https://maps.app.goo.gl/xTfMLFTujsqKXUK38?g_st=ipc",
+    "https://maps.app.goo.gl/ZHV5Mnxq8ZFNjGyVA?g_st=ipc",
+    "https://maps.app.goo.gl/zLgdtzsj7Rp1ZfSZA?g_st=ipc",
+    "https://maps.app.goo.gl/SeAXF5MXAcVgbf8o7?g_st=ipc",
+    "https://maps.app.goo.gl/oFA4hURpZ2CNpZgV7?g_st=ipc",
+    "https://maps.app.goo.gl/YhSXEkBhw9M7tEPL6?g_st=ipc",
+    
 ]
 
 @measure_time
