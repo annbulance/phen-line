@@ -666,7 +666,7 @@ def send_questionnaire(tk,uid):
 @measure_time
 def send_crowd_analysis(tk,uid):
     safe_reply(tk, [
-        TextSendMessage("https://how-many-people.eeddyytaddy.workers.dev")
+        TextSendMessage("https://phen-line-547744493031.asia-east1.run.app/")
     ],uid)
 
 # 固定的餐廳/景點清單（你要的 6 個點）
