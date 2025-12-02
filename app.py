@@ -11,6 +11,7 @@ threading._after_fork = lambda *args, **kwargs: None
 threading.Thread._stop   = lambda self: None
 from datetime import datetime as dt
 from random import randrange
+import random
 from collections import Counter
 from zh2en import TEXTS as I18N, to_en ,ZH2EN
 from flask import Flask, request, jsonify, send_file, render_template
@@ -669,7 +670,7 @@ def send_crowd_analysis(tk,uid):
         TextSendMessage("https://phen-line-547744493031.asia-east1.run.app/")
     ],uid)
 
-# 固定的餐廳/景點清單（你要的 6 個點）
+# 固定的餐廳/景點清單（我要的 6 個點）
 PLACE_URLS = {
     "淡水老街": "https://newtaipei.travel/zh-tw/attractions/detail/109658",
     "漁人碼頭": "https://newtaipei.travel/zh-tw/attractions/detail/109659",
@@ -678,6 +679,47 @@ PLACE_URLS = {
     "紅毛城":   "https://newtaipei.travel/zh-tw/attractions/detail/109672",
     "沙崙海灘": "https://egoldenyears.com/92435/",
 }
+
+# 🔹固定的餐廳網址（我提供的 10 個）
+RESTAURANT_URLS = [
+    "https://maps.app.goo.gl/vixH7xDGPFE2oCsR7?g_st=ipc",
+    "https://maps.app.goo.gl/d4hbj6oyGbRm8kLw5?g_st=ipc",
+    "https://maps.app.goo.gl/rzt2zBBVP5451rKK9?g_st=ipc",
+    "https://maps.app.goo.gl/mLdSMS16V7htFrFC9?g_st=ipc",
+    "https://maps.app.goo.gl/1bWfr7zMXSvwF11s8?g_st=ipc",
+    "https://maps.app.goo.gl/kr9CHWTNtC32pSLK8?g_st=ipc",
+    "https://maps.app.goo.gl/mUKZjW3zBVn4iZqz6?g_st=ipc",
+    "https://maps.app.goo.gl/rzt2zBBVP5451rKK9?g_st=ipc",  # 這個跟上面重複，看你要不要刪掉
+    "https://maps.app.goo.gl/WZH1vy2K6bQ5sJT96?g_st=ipc",
+    "https://maps.app.goo.gl/JYitYJrFXjcqaHqK9?g_st=ipc",
+]
+
+@measure_time
+def recommend_restaurants(tk, uid):
+    """
+    使用者在「景點推薦」底下選『餐廳』時，
+    從 RESTAURANT_URLS 隨機抽 1 個網址推播出去。
+    """
+    lang = _get_lang(uid)
+
+    # 標題文字
+    head = (
+        "以下是為您隨機推薦的一間淡水餐廳：" if lang == "zh"
+        else "Here is a randomly selected restaurant in Tamsui:"
+    )
+
+    # 從清單中隨機抽 1 個網址
+    url = random.choice(RESTAURANT_URLS)
+
+    # 組成兩則訊息：說明 + 連結
+    msgs = [
+        TextSendMessage(text=head),
+        TextSendMessage(text=url),
+    ]
+
+    safe_reply(tk, msgs, uid)
+
+
 
 @measure_time
 def recommend_general_places(tk, uid):
@@ -1313,7 +1355,7 @@ def handle_free_command(uid, text, replyTK):
     # 5) 永續 or 一般景點推薦
     if low in sustainable_keys:
         # 餐廳照舊：用 XGBoost 那個永續推薦（你也可以之後改成餐廳選單）
-        recommend_sustainable_places(replyTK, uid)
+        recommend_restaurants(replyTK, uid)
         return
 
     if low in general_keys:
