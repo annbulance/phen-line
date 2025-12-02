@@ -838,7 +838,7 @@ def handle_attraction_choice(uid, text, replyTK):
             reply_text = f"Here is the link for {name_raw}:\n{url}"
 
         safe_reply(replyTK, TextSendMessage(text=reply_text), uid)
-        shared.user_stage[uid] = "ready"   # 回到 ready
+        #shared.user_stage[uid] = "ready"   # 回到 ready
     else:
         if lang == "zh":
             reply_text = "抱歉，我找不到這個景點，請確認名稱再輸入一次（例如：淡水老街）"
@@ -1244,6 +1244,8 @@ def handle_free_command(uid, text, replyTK):
         QuickReply, QuickReplyButton, MessageAction, StickerSendMessage
     )
     import threading
+    if shared.user_stage.get(uid) != 'ready':
+        shared.user_stage[uid] = 'ready'
 
     low = text.lower()
 
