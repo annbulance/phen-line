@@ -1608,7 +1608,7 @@ def handle_message_event(ev, uid, lang, replyTK):
             handle_ask_language(uid, replyTK)
             return
 
-        # —— 1) 自由指令 ——
+               # —— 1) 自由指令 ——
         crowd_keys  = {"景點人潮", "crowd analyzer", "3", "景點人潮(crowd analyzer)"}
         plan_keys   = {"行程規劃", "plan itinerary", "6", "行程規劃(itinerary planning)"}
         rec_keys    = {"景點推薦", "attraction recommendation", "2", "景點推薦(attraction recommendation)"}
@@ -1619,59 +1619,66 @@ def handle_message_event(ev, uid, lang, replyTK):
         keyword_map = {"餐廳": "restaurants", "停車場": "parking", "風景區": "scenic spots", "住宿": "accommodation"}
         is_keyword  = text in keyword_map or low in set(keyword_map.values())
 
-        if msgType == "text":
-            # 行程規劃：若缺資料則引導補齊
-            if low in plan_keys:
-                missing_field = None
-                if shared.user_age.get(uid) is None:
-                    missing_field = 'age'
-                elif shared.user_gender.get(uid) is None:
-                    missing_field = 'gender'
-                elif shared.user_location.get(uid) is None:
-                    missing_field = 'location'
-                elif shared.user_trip_days.get(uid) is None:
-                    missing_field = 'days'
+        # 先抓目前階段
+        stage = shared.user_stage.get(uid, 'ask_language')
+        number_keys = {"1", "2", "3", "4", "5", "6"}
 
-                if missing_field:
-                    current_lang = _get_lang(uid)
-                    if missing_field == 'age':
-                        shared.user_stage[uid] = 'got_age'
-                        safe_reply(replyTK, TextSendMessage(text=_t("ask_age", current_lang)), uid)
-                    elif missing_field == 'gender':
-                        shared.user_stage[uid] = 'got_gender'
-                        handle_gender_buttons(uid, current_lang, replyTK)
-                    elif missing_field == 'location':
-                        shared.user_stage[uid] = 'got_location'
-                        safe_reply(replyTK, FlexMessage.ask_location(), uid)
-                    elif missing_field == 'days':
-                        shared.user_stage[uid] = 'got_days'
-                        days_options = ["兩天一夜", "三天兩夜", "四天三夜", "五天四夜"]
-                        qr_items = [
-                            QuickReplyButton(
-                                action=MessageAction(
-                                    label=to_en(d) if current_lang == 'en' else d,
-                                    text = to_en(d) if current_lang == 'en' else d
+        if msgType == "text":
+            # ✅ 如果正在「選景點」階段，且輸入的是 1～6，
+            #    不要當作主選單指令處理，讓下面的 stage flow
+            #    去執行 handle_attraction_choice()
+            if stage == "choose_attraction" and text in number_keys:
+                pass
+            else:
+                # 行程規劃：若缺資料則引導補齊（原本程式不變）
+                if low in plan_keys:
+                    missing_field = None
+                    if shared.user_age.get(uid) is None:
+                        missing_field = 'age'
+                    elif shared.user_gender.get(uid) is None:
+                        missing_field = 'gender'
+                    elif shared.user_location.get(uid) is None:
+                        missing_field = 'location'
+                    elif shared.user_trip_days.get(uid) is None:
+                        missing_field = 'days'
+
+                    if missing_field:
+                        current_lang = _get_lang(uid)
+                        if missing_field == 'age':
+                            shared.user_stage[uid] = 'got_age'
+                            safe_reply(replyTK, TextSendMessage(text=_t("ask_age", current_lang)), uid)
+                        elif missing_field == 'gender':
+                            shared.user_stage[uid] = 'got_gender'
+                            handle_gender_buttons(uid, current_lang, replyTK)
+                        elif missing_field == 'location':
+                            shared.user_stage[uid] = 'got_location'
+                            safe_reply(replyTK, FlexMessage.ask_location(), uid)
+                        elif missing_field == 'days':
+                            shared.user_stage[uid] = 'got_days'
+                            days_options = ["兩天一夜", "三天兩夜", "四天三夜", "五天四夜"]
+                            qr_items = [
+                                QuickReplyButton(
+                                    action=MessageAction(
+                                        label=to_en(d) if current_lang == 'en' else d,
+                                        text = to_en(d) if current_lang == 'en' else d
+                                    )
                                 )
+                                for d in days_options
+                            ]
+                            safe_reply(
+                                replyTK,
+                                TextSendMessage(text=_t("ask_days", current_lang),
+                                                quick_reply=QuickReply(items=qr_items)),
+                                uid
                             )
-                            for d in days_options
-                        ]
-                        safe_reply(
-                            replyTK,
-                            TextSendMessage(text=_t("ask_days", current_lang),
-                                            quick_reply=QuickReply(items=qr_items)),
-                            uid
-                        )
+                        return
+
+                # 其他自由指令／關鍵字
+                if (low in crowd_keys or low in rec_keys or low in sust_keys or 
+                    low in gen_keys or low in nearby_keys or low in rental_keys or is_keyword):
+                    handle_free_command(uid, text, replyTK)
                     return
 
-                # 資料齊全 → 走自由指令分支
-                handle_free_command(uid, text, replyTK)
-                return
-
-            # 其他自由指令/關鍵字
-            if (low in crowd_keys or low in rec_keys or low in sust_keys or 
-                low in gen_keys or low in nearby_keys or low in rental_keys or is_keyword):
-                handle_free_command(uid, text, replyTK)
-                return
 
         # —— 2) 階段流程 ——
         stage = shared.user_stage.get(uid, 'ask_language')
