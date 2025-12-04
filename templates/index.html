@@ -822,9 +822,14 @@
         function initializeFromUrlParams() {
             const params = new URLSearchParams(window.location.search);
             // URL 解碼會自動將 %20 轉換回空格等，因此可以直接使用 categoryMap/densityMap 中的全名
-            const catName = params.get('category');
-            const densityName = params.get('density');
+            const rawCatName = params.get('category');
+            const rawDensityName = params.get('density');
             
+            // === 關鍵修正：對獲取到的參數進行 trim() 移除前後空格 ===
+            const catName = rawCatName ? rawCatName.trim() : null;
+            const densityName = rawDensityName ? rawDensityName.trim() : null;
+            // =========================================================
+
             let initialCatIdx = currentCatIdx;
             let initialSlotIdx = currentSlotIdx;
             
