@@ -96,6 +96,7 @@
             <div class="overflow-hidden">
                 <div class="pt-3 mt-2 border-t border-white/20">
                      <label class="text-[10px] text-gray-300 mb-1 block">特效切換 (Effect)</label>
+                     <!-- 確保初始值為自動 -->
                      <select id="weatherOverride" class="w-full bg-black/40 text-xs text-white rounded border border-white/20 p-1 outline-none hover:bg-black/60 cursor-pointer">
                          <option value="auto">自動 (Auto)</option>
                          <option value="clear">☀️ 晴天 (Sunny)</option>
@@ -607,13 +608,22 @@
                     const info = getWeatherStatus(fetchedWeatherCode);
                     weatherDesc.innerText = info.desc;
                     weatherIcon.innerText = info.icon;
-                    if (weatherOverride.value === 'auto') updateWeatherEffects(info.effect);
+                    
+                    // === 關鍵修改：在獲取到天氣數據後，若設置為 'auto' 則立即更新特效 ===
+                    if (weatherOverride.value === 'auto') {
+                        updateWeatherEffects(info.effect);
+                    }
+                    // =================================================================
                 }
             } catch (e) { console.error(e); weatherDesc.innerText = "連線失敗 (Connection Failed)"; }
         }
         function getWeatherStatus(code) {
+            // WMO Weather interpretation codes (0-100)
             if (code === 0) return { desc: "晴天 (Sunny)", icon: "☀️", effect: 'clear' };
+            // 1-3: Mainly clear, partly cloudy, and overcast
+            // 45, 48: Fog and depositing rime fog
             if (code <= 3 || code === 45 || code === 48) return { desc: "陰天 (Cloudy)", icon: "☁️", effect: 'cloudy' };
+            // Anything else (Drizzle, Rain, Snow, Thunderstorm) is treated as rain effect
             return { desc: "下雨 (Rainy)", icon: "🌧️", effect: 'rain' };
         }
         weatherOverride.addEventListener('change', (e) => {
@@ -624,7 +634,9 @@
                 updateWeatherEffects(e.target.value);
             }
         });
-        fetchTamsuiWeather(); setInterval(fetchTamsuiWeather, 300000);
+        
+        // 將初始 API 呼叫移到最後的 Init 區塊
+        // fetchTamsuiWeather(); setInterval(fetchTamsuiWeather, 300000);
 
 
         // --- Gallery UI Rendering ---
@@ -872,6 +884,9 @@
         renderGalleryUI();
         // 3. 創建預設場景（或載入圖片）
         createDefaultScene();
+        // 4. 開始定時獲取天氣資訊
+        fetchTamsuiWeather(); 
+        setInterval(fetchTamsuiWeather, 300000); // 每 5 分鐘更新一次天氣
 
         function animate() {
             requestAnimationFrame(animate);
