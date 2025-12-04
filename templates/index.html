@@ -317,12 +317,23 @@
             '金色水岸 (Golden Shore)': rawUrls.水岸.map(getDirectImgurUrl),
             '淡水老街 (Old Street)': rawUrls.淡水.map(getDirectImgurUrl),
             '紅毛城 (Fort San Domingo)': rawUrls.紅毛.map(getDirectImgurUrl),
-            // 修正：使用 rawUrls.漁人 的數據
+            // 使用 rawUrls.漁人 的數據
             '漁人碼頭 (Fisherman\'s Wharf)': rawUrls.漁人.map(getDirectImgurUrl), 
             '滬尾砲台 (Hobe Fort)': rawUrls.滬尾.map(getDirectImgurUrl),
             '沙崙海灘 (Shalun Beach)': rawUrls.沙崙.map(getDirectImgurUrl)
         };
         // --- End of URL Map ---
+        
+        // 建立名稱到索引的映射，用於 URL 參數解析
+        const categoryMap = categoryNames.reduce((map, name, index) => {
+            map[name] = index;
+            return map;
+        }, {});
+
+        const densityMap = slotNames.reduce((map, name, index) => {
+            map[name] = index;
+            return map;
+        }, {});
         
         // 初始化 Gallery 數據結構，包含 URL 和圖片物件緩存
         const galleryData = categoryNames.map((name, i) => {
@@ -792,6 +803,42 @@
             switchSlot(newIdx);
         }
 
+        /**
+         * 檢查 URL 參數並初始化頁面狀態
+         * @returns {void}
+         */
+        function initializeFromUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            // URL 解碼會自動將 %20 轉換回空格等，因此可以直接使用 categoryMap/densityMap 中的全名
+            const catName = params.get('category');
+            const densityName = params.get('density');
+            
+            let initialCatIdx = currentCatIdx;
+            let initialSlotIdx = currentSlotIdx;
+            
+            // 嘗試從參數中獲取索引
+            if (catName && categoryMap.hasOwnProperty(catName)) {
+                initialCatIdx = categoryMap[catName];
+            }
+            
+            if (densityName && densityMap.hasOwnProperty(densityName)) {
+                initialSlotIdx = densityMap[densityName];
+            }
+            
+            // 如果初始值有變化，則進行切換
+            if (initialCatIdx !== currentCatIdx || initialSlotIdx !== currentSlotIdx) {
+                currentCatIdx = initialCatIdx;
+                currentSlotIdx = initialSlotIdx;
+            }
+            
+            // 為了確保 URL 參數導航時，UI 面板會保持隱藏
+            if (catName || densityName) {
+                isUiVisible = false;
+                uiContainer.classList.add('hidden-panel');
+                reopenBtn.classList.remove('hidden-btn');
+            }
+        }
+
 
         window.addEventListener('keydown', (e) => {
             const key = e.key; 
@@ -818,8 +865,12 @@
 
         document.getElementById('autoRotateToggle').addEventListener('change', (e) => { controls.autoRotate = e.target.checked; });
 
-        // Init
+        // --- Init ---
+        // 1. 檢查 URL 參數
+        initializeFromUrlParams();
+        // 2. 渲染 UI
         renderGalleryUI();
+        // 3. 創建預設場景（或載入圖片）
         createDefaultScene();
 
         function animate() {
