@@ -679,7 +679,15 @@ PLACE_URLS = {
     "紅毛城":   "https://newtaipei.travel/zh-tw/attractions/detail/109672",
     "沙崙海灘": "https://egoldenyears.com/92435/",
 }
-
+# ✅ 代號對應表（1～6）
+PLACE_CODES = {
+    "1": "淡水老街",
+    "2": "漁人碼頭",
+    "3": "金色水岸",
+    "4": "滬尾砲台",
+    "5": "紅毛城",
+    "6": "沙崙海灘",
+}
 # 🔹固定的餐廳網址（我提供的 18 個）
 RESTAURANT_URLS = [
     "https://maps.app.goo.gl/vixH7xDGPFE2oCsR7?g_st=ipc",
@@ -808,32 +816,51 @@ def send_attraction_menu(tk, uid):
 def handle_attraction_choice(uid, text, replyTK):
     """
     當 stage == 'choose_attraction' 時，使用者輸入的文字會到這裡
-    例如：
-      zh: 淡水老街 → 回傳網址
-      en: Tamsui Old Street → 先轉成 淡水老街 再回傳網址
+    支援：
+      - 中文全名：淡水老街
+      - 英文全名：Tamsui Old Street
+      - 代號：1～6
     """
     lang = _get_lang(uid)
     name_raw = text.strip()
 
-    # ---- 1. 英文輸入轉成中文 key ----
-    # 統一轉小寫來比對
-    lower = name_raw.lower()
+    # ---- 0. 先試著把輸入當「代號」處理（1～6） ----
+    # 允許使用者輸入「1」、「1.」、「1、」這種形式
+    code = "".join(ch for ch in name_raw if ch.isdigit())
+    if code in PLACE_CODES:
+        zh_name = PLACE_CODES[code]                # 先取得中文名稱
+        url = PLACE_URLS.get(zh_name)
 
+        if url:
+            # 顯示給使用者看的名稱：中文介面用中文，英文介面轉英文
+            display_name = to_en(zh_name) if lang == "en" else zh_name
+
+            if lang == "zh":
+                reply_text = f"這是「{display_name}」的連結：\n{url}"
+            else:
+                reply_text = f"Here is the link for {display_name}:\n{url}"
+
+            safe_reply(replyTK, TextSendMessage(text=reply_text), uid)
+            # ❗ 不改 stage，維持在 choose_attraction，讓他可以繼續輸入下一個
+            return
+        # 如果照理說不會發生，還是讓它往下走用舊邏輯
+
+    # ---- 1. 英文輸入轉成中文 key ----
+    lower = name_raw.lower()
     EN2ZH = {
         "tamsui old street":   "淡水老街",
         "fisherman’s wharf":   "漁人碼頭",
-        "fisherman's wharf":   "漁人碼頭",   # 手機有時候會打不同的 '
+        "fisherman's wharf":   "漁人碼頭",
         "golden riverside":    "金色水岸",
         "huwei fort":          "滬尾砲台",
         "fort san domingo":    "紅毛城",
         "shalun beach":        "沙崙海灘",
     }
 
-    # 如果是英文介面就先試著做 mapping
     if lang == "en":
-        key = EN2ZH.get(lower, name_raw)   # 找不到就用原字串當 key（保留彈性）
+        key = EN2ZH.get(lower, name_raw)   # 找不到就用原字串當 key
     else:
-        key = name_raw  # 中文直接用原本輸入
+        key = name_raw                     # 中文直接用原本輸入
 
     # ---- 2. 用「中文 key」去查 PLACE_URLS ----
     url = PLACE_URLS.get(key)
@@ -846,15 +873,17 @@ def handle_attraction_choice(uid, text, replyTK):
             reply_text = f"Here is the link for {name_raw}:\n{url}"
 
         safe_reply(replyTK, TextSendMessage(text=reply_text), uid)
-        #shared.user_stage[uid] = "ready"   # 回到 ready
+        # ✅ 不把 stage 改回 ready，這樣可以連續查多個景點
+        # shared.user_stage[uid] = "ready"
     else:
         if lang == "zh":
-            reply_text = "抱歉，我找不到這個景點，請確認名稱再輸入一次（例如：淡水老街）"
+            reply_text = "抱歉，我找不到這個景點，請確認名稱再輸入一次（例如：淡水老街 或 1）"
         else:
-            reply_text = "Sorry, I can't find this attraction. Please type the exact name again."
+            reply_text = "Sorry, I can't find this attraction. Please type the exact name or its number (e.g. 1)."
 
         safe_reply(replyTK, TextSendMessage(text=reply_text), uid)
         # 保持在 choose_attraction，等使用者再輸入一次
+
 
 
 @measure_time
