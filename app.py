@@ -1293,14 +1293,14 @@ def handle_free_command(uid, text, replyTK):
     days_label = to_en(days) if _get_lang(uid) == 'en' and days else days
 
     # 指令集合
-    recollect_keys   = {"收集資料", "data collection", "collect data", "1"}
-    crowd_keys       = {"景點人潮", "景點人潮(crowd analyzer)", "crowd analyzer", "crowd analysis", "crowd info", "3"}
-    plan_keys        = {"行程規劃", "行程規劃(itinerary planning)", "itinerary planning", "plan itinerary", "6"}
-    recommend_keys   = {"景點推薦", "景點推薦(attraction recommendation)", "attraction recommendation", "recommend spot", "2"}
+    recollect_keys   = {"收集資料", "data collection", "collect data"}
+    crowd_keys       = {"景點人潮", "景點人潮(crowd analyzer)", "crowd analyzer", "crowd analysis", "crowd info"}
+    plan_keys        = {"行程規劃", "行程規劃(itinerary planning)", "itinerary planning", "plan itinerary"}
+    recommend_keys   = {"景點推薦", "景點推薦(attraction recommendation)", "attraction recommendation", "recommend spot"}
     sustainable_keys = {"餐廳", "餐廳(restaurant)", "restaurant", "2-1"}
     general_keys     = {"景點", "景點(attraction)", "attraction", "2-2"}
-    nearby_keys      = {"附近搜尋", "附近搜尋(nearby search)", "nearby search", "4"}
-    rental_keys      = {"租車", "租車(car rental)", "car rental information", "car rental", "5", "大眾運輸", "public transport", "大眾運輸(public transport)"}
+    nearby_keys      = {"附近搜尋", "附近搜尋(nearby search)", "nearby search"}
+    rental_keys      = {"租車", "租車(car rental)", "car rental information", "car rental", "大眾運輸", "public transport", "大眾運輸(public transport)"}
     update_loc_keys  = {"更新位置", "update location", "set location"}   # ← 新增
     keyword_map      = {"餐廳": "restaurants", "停車場": "parking", "風景區": "scenic spots", "住宿": "accommodation"}
     is_keyword       = text in keyword_map or low in set(keyword_map.values())
