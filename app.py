@@ -803,7 +803,7 @@ def send_attraction_menu(tk, uid):
             "5. Fort San Domingo",
             "6. Shalun Beach",
             "",
-            "Please type the name of the attraction, e.g. Tamsui Old Street"
+            "Please type the number or the name of the attraction, e.g. 1 or Tamsui Old Street"
         ]
 
     msg = "\n".join(lines)
