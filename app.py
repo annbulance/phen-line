@@ -1483,7 +1483,7 @@ def handle_free_command(uid, text, replyTK):
         return
 
     # 7) 關鍵字搜尋
-     if is_keyword:
+    if is_keyword:
             lang = _get_lang(uid)
     
             # 中文與英文都對應到同一個 type
