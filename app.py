@@ -1140,6 +1140,67 @@ def handle_language(uid, text, replyTK):
 
 # 在 app.py 中新增，放在 handle_language、handle_gender_buttons 之後，handle_message_event 之前
 @measure_time
+def ask_student_buttons(uid, replyTK):
+    """
+    第二步：問使用者「你是否為學生？」（是 / 否 按鈕）
+    """
+    lang = _get_lang(uid)
+
+    question = "你是否為學生？" if lang == "zh" else "Are you a student?"
+
+    # 按鈕的文字與回傳文字一樣（中文：是/否；英文：Yes/No）
+    yes_label = "是" if lang == "zh" else "Yes"
+    no_label  = "否" if lang == "zh" else "No"
+
+    actions = [
+        MessageAction(label=yes_label, text=yes_label),
+        MessageAction(label=no_label,  text=no_label),
+    ]
+
+    tpl = ButtonsTemplate(text=question, actions=actions)
+    safe_reply(
+        replyTK,
+        TemplateSendMessage(alt_text=question, template=tpl),
+        uid
+    )
+    # 更新階段
+    shared.user_stage[uid] = "ask_student"
+
+
+@measure_time
+def handle_student(uid, text, replyTK):
+    """
+    處理「是否為學生？」的回答（stage='ask_student'）
+    回覆必須是：中文：是/否；英文：Yes/No
+    """
+    lang = _get_lang(uid)
+    low  = text.lower()
+
+    is_student = None
+    if lang == "zh":
+        if text == "是":
+            is_student = True
+        elif text == "否":
+            is_student = False
+    else:
+        if low == "yes":
+            is_student = True
+        elif low == "no":
+            is_student = False
+
+    if is_student is None:
+        # 使用者沒有按按鈕，而是亂打字
+        msg = "請點選「是」或「否」" if lang == "zh" else 'Please tap "Yes" or "No".'
+        safe_reply(replyTK, TextSendMessage(text=msg), uid)
+        return
+
+    # ✅ 把是否為學生記起來（你要在 shared.py 補上一行：user_student = {}）
+    shared.user_student[uid] = is_student
+
+    # 下一步：跟原本一樣，進到「選擇性別」按鈕
+    handle_gender_buttons(uid, lang, replyTK)
+
+
 def handle_age(uid, text, replyTK):
     """
     處理使用者輸入的年齡 (stage='got_age')：
