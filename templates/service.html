@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>淡水旅訊 | Tamsui Service Guide</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tamsui: {
+                            blue: '#4A7F9D',
+                            gold: '#D4AF37',
+                            sunset: '#E88D67',
+                            sand: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-bg {
+            /* 預設使用遊客服務/地圖諮詢相關的情境圖 */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1548345680-f5475ea5df84?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .img-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 50%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-700">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <!-- Icon 換成資訊相關 -->
+                    <i class="fa-solid fa-circle-info text-tamsui-blue text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wider text-gray-800">淡水旅訊</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#centers" class="text-gray-600 hover:text-tamsui-blue font-medium transition">遊客中心一覽</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-[60vh] flex items-center justify-center text-center px-4">
+        <div class="text-white max-w-3xl animate-fade-in-up">
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4 drop-shadow-lg tracking-wide">貼心服務 暢遊無礙</h1>
+            <p class="text-lg md:text-xl font-light opacity-95 mb-8 text-shadow">提供最完整的旅遊諮詢與休憩空間，是您探索淡水的最佳後盾</p>
+            <a href="#centers" class="bg-tamsui-gold hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full transition shadow-lg inline-flex items-center gap-2 transform hover:scale-105 duration-200">
+                尋找服務 <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+        <!-- Service Centers List -->
+        <section id="centers" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Service Map</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">遊客服務中心</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">無論您在捷運站、老街河岸或是漁人碼頭，都能找到熱情的服務人員為您解惑。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                
+                <!-- Center 3: 捷運淡水站旅遊服務中心 (排序1) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/YJRo6M7KnYqTPc839" target="_blank" class="block relative overflow-hidden h-64">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzkiDYCBSfYQvS_sKkdurNaHws2YdCcrMDHalo3z_Tewm-MFHFagwhaunUyvDGuOFX7o460VObY-Ejrwhi3irqX8bFU2Zl3IIKyX1_x1sDcj6SSSBmwYCha4WHWTjy1PYVjhhzV=w408-h306-k-no" alt="捷運淡水站旅遊服務中心" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">捷運淡水站旅遊服務中心</h3>
+                            <div class="flex items-center text-tamsui-blue text-sm">
+                                <i class="fa-solid fa-train-subway"></i><span class="ml-1 font-medium">捷運站內</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">設於捷運淡水站出口閘門旁，是搭乘捷運抵達淡水的旅客獲取第一手地圖與諮詢最方便的窗口。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">多語服務</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">站內服務</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center 1: 新北市淡水遊客中心 (排序2 - 修正描述) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/r8R4xBrVRPP8E8Un9" target="_blank" class="block relative overflow-hidden h-64">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyY09mGEaSFr1QF4-DDncOygnh9sGFmtBWe1xSUkzCZ9TUPZxD5AtAfUNPR1dYtOGYApqLDf74zwQJKrGCjHBtqUsemvA_ITH1Q8YE8rsCPn8ErgjVzKrxb7QiRi5u_3kXS3YY=w408-h306-k-no" alt="新北市淡水遊客中心" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue">
+                            <i class="fa-solid fa-location-dot mr-1"></i> 點擊導航
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">新北市淡水遊客中心</h3>
+                            <div class="flex items-center text-tamsui-blue text-sm">
+                                <i class="fa-solid fa-map"></i><span class="ml-1 font-medium">老街入口</span>
+                            </div>
+                        </div>
+                        <!-- 修正描述：改為老街入口/捷運站外 -->
+                        <p class="text-gray-500 text-sm mb-4">位於捷運站外側、中正路老街入口處，位置醒目，提供詳細的旅遊摺頁、住宿諮詢與廣播尋人服務。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">旅遊諮詢</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">老街地標</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center 2: 榕堤旅客服務中心 (排序3) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/PSqMGwKANjKmm53x6" target="_blank" class="block relative overflow-hidden h-64">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSypGFJ55_LE8hQGyVKEsthKspgRgYyq7Rsit11AQ17M9XADv490ENsKxlzbCBAe-uTdr588-TUjOuUmhB3oEtv9wl7jTYTJGTvK2df9CbXBb7QH5FdUYOVvOqCOD6HV8PMtAMKB=w426-h240-k-no" alt="榕堤旅客服務中心" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">榕堤旅客服務中心</h3>
+                            <div class="flex items-center text-tamsui-blue text-sm">
+                                <i class="fa-solid fa-tree"></i><span class="ml-1 font-medium">河岸中段</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">座落於風景優美的榕堤河岸段，提供遊客飲水、旅遊摺頁索取，並設有舒適的景觀休息區。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">景觀休憩</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">飲水服務</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center 4: 淡水旅客服務中心 (排序4 - 修正描述) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/ZdJTxpd3HroAGDCt6" target="_blank" class="block relative overflow-hidden h-64">
+                        <!-- 更新圖片：淡水旅客服務中心 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwFX7TVqSIj--Nyp-pfLI5Hbmt373T8KdvK9SnWO5uyN1x73AEil4Lf7IflH8YZ2FcKEH0kwlL4M9CZogyJF0XZphq7s1xMo5EFeUcn9AG4UEeOOlYDcq5sGzp19_BCZKMEuilnXQ=w408-h544-k-no" alt="淡水旅客服務中心" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">淡水旅客服務中心</h3>
+                            <div class="flex items-center text-tamsui-blue text-sm">
+                                <i class="fa-solid fa-water"></i><span class="ml-1 font-medium">河岸中段</span>
+                            </div>
+                        </div>
+                        <!-- 修正描述：改為河岸中段/老街尾端 -->
+                        <p class="text-gray-500 text-sm mb-4">位於淡水老街尾端與河岸步道交界處，鄰近藝術工坊，提供遊客休憩、旅遊諮詢及欣賞河岸風光的絕佳位置。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">河岸景觀</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">手機充電</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="font-serif text-2xl font-bold">淡水旅訊</span>
+                    <p class="text-gray-400 text-sm mt-2">探索新北最舒適的休憩角落</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
