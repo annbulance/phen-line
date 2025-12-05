@@ -37,8 +37,8 @@ else:
         "BASE_CSV_PATH",
         path.join(BASE_PROJECT, "penghu_csv_file")
     )
-    MYSQL_HOST = os.getenv("MYSQL_HOST", "127.0.0.1")
-    MYSQL_PORT = int(os.getenv("MYSQL_PORT", 3307))
+    MYSQL_HOST = os.getenv("MYSQL_HOST", "34.81.79.112")
+    MYSQL_PORT = int(os.getenv("MYSQL_PORT", 3306))
     D1_DB_PATH = os.getenv(                           # 本機 / 雲端都優先讀環境變數
         "D1_DB_PATH",
         path.join(BASE_PROJECT, "d1_database.sqlite")
@@ -104,6 +104,6 @@ NON_SUSTAINABLE_NON_MODEL_PATH  = path.join(MODEL_DIR, "non_sustainable_non_Attr
 # ──────────────────────────────────────────────────────────────
 MYSQL_USER      = os.getenv("MYSQL_USER", "root")
 MYSQL_PASSWORD  = os.getenv("MYSQL_PASSWORD", "nclab722")
-MYSQL_DATABASE  = os.getenv("MYSQL_DATABASE", "penghu")
+MYSQL_DATABASE  = os.getenv("MYSQL_DATABASE", "tamsui")
 
 # End of file
