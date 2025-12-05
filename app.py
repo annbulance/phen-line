@@ -1362,8 +1362,16 @@ def handle_free_command(uid, text, replyTK):
     nearby_keys      = {"附近搜尋", "附近搜尋(nearby search)", "nearby search"}
     rental_keys      = {"租車", "租車(car rental)", "car rental information", "car rental", "大眾運輸", "public transport", "大眾運輸(public transport)"}
     update_loc_keys  = {"更新位置", "update location", "set location"}   # ← 新增
-    keyword_map      = {"附近餐廳": "restaurants nearby", "停車場": "parking", "服務": "service", "住宿": "accommodation"}
-    is_keyword       = text in keyword_map or low in set(keyword_map.values())
+        # ---- 關鍵字對應（中英都吃）----
+    keyword_map = {
+        "附近餐廳": "restaurants nearby",
+        "停車場":   "parking",
+        "服務":     "service",
+        "住宿":     "accommodation",
+    }
+    # 使用者輸入是否是我們的關鍵字（中文 or 英文）
+    is_keyword = text in keyword_map or low in set(keyword_map.values())
+
 
     # 1) 重新收集資料
     if low in recollect_keys:
@@ -1475,13 +1483,51 @@ def handle_free_command(uid, text, replyTK):
         return
 
     # 7) 關鍵字搜尋
-    if is_keyword:
-        if low in set(keyword_map.values()):
-            zh = next(k for k, v in keyword_map.items() if v == low)
-            search_nearby_places(replyTK, uid, zh)
-        else:
-            search_nearby_places(replyTK, uid, text)
-        return
+        # 7) 關鍵字 → 直接回固定網址
+        if is_keyword:
+            lang = _get_lang(uid)
+    
+            # 中文與英文都對應到同一個 type
+            type_map = {
+                "附近餐廳":          "food",
+                "restaurants nearby": "food",
+    
+                "停車場":            "parking",
+                "parking":           "parking",
+    
+                "住宿":              "stay",
+                "accommodation":     "stay",
+    
+                "服務":              "service",
+                "service":           "service",
+            }
+    
+            key = text if text in type_map else low
+            t   = type_map.get(key)
+    
+            if t:
+                url = f"https://phen-line-547744493031.asia-east1.run.app/map_guide?type={t}"
+    
+                if lang == "zh":
+                    head = "以下是為您查詢到的地圖連結："
+                else:
+                    head = "Here is the map link for your selection:"
+    
+                safe_reply(
+                    replyTK,
+                    [
+                        TextSendMessage(text=head),
+                        TextSendMessage(text=url),
+                    ],
+                    uid
+                )
+            else:
+                # 理論上不會進來，只是保險
+                safe_reply(replyTK, TextSendMessage(text=_t("data_fetch_failed", lang)), uid)
+    
+            return
+
+        
 
     # 8) 租車資訊
     if low in rental_keys:
