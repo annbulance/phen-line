@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>淡水地圖導覽選單 | Tamsui Map Menu</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (與其他地圖文件相同) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tamsui: {
+                            blue: '#4A7F9D', /* 淡水藍 */
+                            gold: '#D4AF37', /* 夕陽金 */
+                            sunset: '#E88D67',
+                            sand: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-bg {
+            /* 使用一個廣闊的淡水全景圖作為背景 */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1629811656839-4d8e78e12185?q=80&w=1920&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .map-card { 
+            transition: all 0.3s ease; 
+            border: 1px solid #e5e7eb;
+            background: #fff;
+        }
+        .map-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15); 
+            border-color: #4A7F9D; /* Highlight on hover */
+        }
+        .icon-bg-wrapper {
+            /* 讓圖示的背景色使用主題色 */
+            background: #D4AF37; 
+            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-700">
+
+    <!-- Navigation (簡化版，無內部連結) -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="fa-solid fa-map-location-dot text-tamsui-blue text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wider text-gray-800">淡水地圖導覽</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-[50vh] flex items-center justify-center text-center px-4 pt-16">
+        <div class="text-white max-w-3xl animate-fade-in-up">
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4 drop-shadow-lg tracking-wide">淡水旅遊資訊總覽</h1>
+            <p class="text-lg md:text-xl font-light opacity-95 mb-8 text-shadow">一站式查詢美食、住宿、停車與服務地圖，讓您的旅程萬無一失。</p>
+        </div>
+    </header>
+
+    <!-- Main Content: Map Options -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
+        <div class="text-center mb-12">
+            <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Main Menu</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">請選擇導覽主題</h2>
+            <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <!-- 美食地圖 -->
+            <a href="/map_guide?type=food" target="_self" class="map-card p-6 rounded-xl shadow-md flex items-center space-x-6">
+                <div class="w-16 h-16 rounded-full icon-bg-wrapper flex items-center justify-center text-white text-3xl shadow-md">
+                    <i class="fa-solid fa-bowl-food"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-tamsui-blue">淡水食旅地圖</h2>
+                    <p class="text-sm text-gray-500">美食景點與在地人氣小吃推薦</p>
+                </div>
+                <i class="fa-solid fa-chevron-right ml-auto text-gray-400"></i>
+            </a>
+
+            <!-- 住宿地圖 -->
+            <a href="/map_guide?type=stay" target="_self" class="map-card p-6 rounded-xl shadow-md flex items-center space-x-6">
+                <div class="w-16 h-16 rounded-full icon-bg-wrapper flex items-center justify-center text-white text-3xl shadow-md">
+                    <i class="fa-solid fa-bed"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-tamsui-blue">淡水泊旅地圖</h2>
+                    <p class="text-sm text-gray-500">河景飯店、民宿、青旅住宿指南</p>
+                </div>
+                <i class="fa-solid fa-chevron-right ml-auto text-gray-400"></i>
+            </a>
+
+            <!-- 停車地圖 -->
+            <a href="/map_guide?type=parking" target="_self" class="map-card p-6 rounded-xl shadow-md flex items-center space-x-6">
+                <div class="w-16 h-16 rounded-full icon-bg-wrapper flex items-center justify-center text-white text-3xl shadow-md">
+                    <i class="fa-solid fa-square-parking"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-tamsui-blue">淡水行旅地圖</h2>
+                    <p class="text-sm text-gray-500">景區周邊立體/平面停車場資訊</p>
+                </div>
+                <i class="fa-solid fa-chevron-right ml-auto text-gray-400"></i>
+            </a>
+
+            <!-- 服務地圖 -->
+            <a href="/map_guide?type=service" target="_self" class="map-card p-6 rounded-xl shadow-md flex items-center space-x-6">
+                <div class="w-16 h-16 rounded-full icon-bg-wrapper flex items-center justify-center text-white text-3xl shadow-md">
+                    <i class="fa-solid fa-circle-info"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-tamsui-blue">淡水旅訊地圖</h2>
+                    <p class="text-sm text-gray-500">遊客中心、諮詢站位置與功能</p>
+                </div>
+                <i class="fa-solid fa-chevron-right ml-auto text-gray-400"></i>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="font-serif text-2xl font-bold">淡水地圖導覽</span>
+                    <p class="text-gray-400 text-sm mt-2">一站式服務，讓您的淡水之旅更順暢</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
