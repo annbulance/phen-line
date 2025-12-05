@@ -108,16 +108,16 @@ import metrics
 from resource_monitor import init_app
 
 def init_app(app, interval):
-    """模擬原有的應用程式初始化函數"""
     print(f"Initializing app with interval: {interval}")
     
 class Metrics:
-    """模擬 Metrics 類別"""
     def init_metrics(self, app):
         print("Initializing metrics...")
 
 metrics = Metrics()
 
+# 模擬 routes_metrics 模組的導入
+import sys
 # 為了避免 NameError，我們將模組內容直接定義在這裡
 class MockRoutesMetrics:
     def register_png_routes(self, app):
@@ -125,12 +125,31 @@ class MockRoutesMetrics:
 sys.modules['routes_metrics'] = MockRoutesMetrics()
 import routes_metrics
 
-load_dotenv()   # 這行會去根目錄找 .env，並把變數載入 os.environ
+
 # ─────────────── Flask App ───────────────
+app = Flask(__name__)
+
+init_app(app, interval=5)   # 只需這一行
+metrics.init_metrics(app)
+routes_metrics.register_png_routes(app)
+
+
+# --- 1. 設置地圖類型與檔案名的映射 ---
+# 這是讓程式知道 'type=food' 應該對應到哪個 HTML 檔案的字典
+MAP_FILENAME_MAPPING: Dict[str, str] = {
+    'parking': 'parking.html',
+    'stay': 'stay.html',
+    'food': 'food.html',
+    'service': 'service.html',
+}
+
+# -------------------------------------
+
 @app.route('/', methods=['GET'])
 def index():
     """
-    處理首頁路由 (/)，通常用於渲染人流示意圖 index.html。
+    處理首頁路由 (/)，並渲染 templates/index.html (人流示意圖)。
+    這裡可以傳遞動態資料到模板中。
     """
     # 範例動態資料：將環境變數傳遞給 HTML 模板
     dynamic_data = {
@@ -139,31 +158,30 @@ def index():
     }
     
     # Flask 會自動在 'templates' 資料夾中尋找 index.html
+    # 由於您沒有提供 index.html，這裡假設您的人流示意圖首頁檔案名是 index.html
     return render_template('index.html', data=dynamic_data)
 
 
 @app.route('/map_guide', methods=['GET'])
 def map_guide_endpoint():
     """
-    淡水地圖導覽的入口端點 (/map_guide)。
-    根據 URL 查詢參數 'type' 渲染對應的地圖 HTML 模板。
+    淡水地圖導覽的入口端點。
+    根據 URL 參數 'type' 渲染對應的 HTML 模板。
     """
-    # 獲取 URL 參數 'type'
     map_type = request.args.get('type')
 
     if not map_type:
-        # 如果沒有提供 type 參數，渲染選單頁面 (menu_default.html)
+        # 如果沒有提供 type 參數，渲染選單頁面
         return render_template('menu_default.html')
 
     # 查找對應的模板檔案名稱
-    # 使用 .lower() 確保參數不區分大小寫
     filename = MAP_FILENAME_MAPPING.get(map_type.lower())
 
     if filename:
         # 渲染找到的 HTML 模板
         return render_template(filename)
     else:
-        # 如果地圖類型無效，返回 404 錯誤頁面
+        # 如果地圖類型無效，返回錯誤訊息或回到選單
         error_message = (
             f"<h1>錯誤：找不到 {map_type} 相關的地圖資訊。</h1>"
             f"<p>請檢查 URL 中的 'type' 參數是否正確，例如: /map_guide?type=food</p>"
