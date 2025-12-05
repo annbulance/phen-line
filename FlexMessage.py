@@ -85,7 +85,7 @@ def ask_keyword():
                                     preview_image_url=sanitize_url("i.imgur.com/0H0JmYX.png"),
                                     aspect_ratio="1:1", aspect_mode="cover", size="md"
                                 ),
-                                make_kw_button('service')
+                                make_kw_button('服務')
                             ]
                         ),
                         # 餐廳
@@ -97,7 +97,7 @@ def ask_keyword():
                                     preview_image_url=sanitize_url("thumb.silhouette-ac.com/t/d8/d8a7e9674d55ca5fe9173b02cc4fb7dd_w.jpeg"),
                                     aspect_ratio="1:1", aspect_mode="cover", size="md"
                                 ),
-                                make_kw_button('restaurant nearby')
+                                make_kw_button('附近餐廳')
                             ]
                         ),
                     ]
