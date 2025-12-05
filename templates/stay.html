@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>淡水泊旅 | Tamsui Accommodation Guide</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tamsui: {
+                            blue: '#4A7F9D',
+                            gold: '#D4AF37',
+                            sunset: '#E88D67',
+                            sand: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-bg {
+            /* 這裡換成淡水情人橋/河岸的圖片 */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://newtaipei.travel/content/images/tours/48338/1024x768_tours-image-hj0sg9fzv02t_sq8-pluma.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .img-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 50%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-700">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <!-- Icon 換成床鋪/住宿相關 -->
+                    <i class="fa-solid fa-bed text-tamsui-blue text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wider text-gray-800">淡水泊旅</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#zone1" class="text-gray-600 hover:text-tamsui-blue font-medium transition">老街＆金色水岸</a>
+                    <a href="#zone2" class="text-gray-600 hover:text-tamsui-blue font-medium transition">紅毛城＆滬尾</a>
+                    <a href="#zone3" class="text-gray-600 hover:text-tamsui-blue font-medium transition">漁人碼頭＆沙崙</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-white border-t" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#zone1" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">老街＆金色水岸</a>
+                <a href="#zone2" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">紅毛城＆滬尾</a>
+                <a href="#zone3" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">漁人碼頭＆沙崙</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-[60vh] flex items-center justify-center text-center px-4">
+        <div class="text-white max-w-3xl animate-fade-in-up">
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4 drop-shadow-lg tracking-wide">尋找淡水夢鄉</h1>
+            <p class="text-lg md:text-xl font-light opacity-95 mb-8 text-shadow">從溫馨民宿到豪華河景酒店，體驗最舒適的在地住宿</p>
+            <a href="#zone1" class="bg-tamsui-gold hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full transition shadow-lg inline-flex items-center gap-2 transform hover:scale-105 duration-200">
+                開始探索 <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+        <!-- Zone 1: Old Street & Golden Shore -->
+        <section id="zone1" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 01</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">淡水老街 ＆ 金色水岸</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">交通最便利的區域，緊鄰捷運站與老街商圈，適合喜歡熱鬧、享受夜市美食與方便購物的旅客。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Hotel 1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/ugyscdPr45WWaRMa7" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 更新圖片：夕說淡水 -->
+                        <img src="https://www.colatour.com.tw/COLA_AppFiles/A03H_Hotel/Images/256166-01.GIF" alt="夕說淡水" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue">
+                            <i class="fa-solid fa-location-dot mr-1"></i> 點擊導航
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">夕說淡水。輕旅民宿</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.5</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">隱身巷弄的質感民宿，風格溫馨簡約，提供旅人如家一般的舒適感，距離老街步行可達。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">質感民宿</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">交通便利</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel 2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/j6ZvoEePkKpJ13mj6" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 更新圖片：火車頭民宿 -->
+                        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/318504579.jpg?k=bfa287a2d98a182d32ac9f0d6d7e701973680ee37c83ccafd95cfafa7c6c260a&o=" alt="火車頭民宿" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">火車頭民宿</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.2</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">地理位置極佳，鄰近淡水捷運站與英專路夜市，價格親民，是小資旅遊的熱門選擇。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">近夜市</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">CP值高</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel 3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/eihxJFcQWant5qDm7" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 更新圖片：台北旅人國際青年旅館 -->
+                        <img src="https://newtaipei.travel/content/images/shops/18563/1024x768_00a3cdd6-9327-4921-a790-2aa77a5487b5.jpg" alt="台北旅人國際青年旅館" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">台北旅人國際青年旅館</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.3</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">深受背包客喜愛的青年旅館，交誼廳氛圍熱絡，容易結識新朋友，且環境乾淨整潔。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">背包客</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">青年旅館</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel 4 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/hv521wj8BGB5WGoD6" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 更新圖片：福格大飯店 -->
+                        <img src="https://www.easytravel.com.tw/ehotel/hotelimg/picture/b/7434_201601141532213154_291.jpg" alt="福格大飯店" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">福格大飯店</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">位於學府路上的傳統飯店，居高臨下可眺望淡水景致，設施完善，適合家庭與商務旅客。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">商務飯店</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">景觀視野</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel 5 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/b2SCTictcU4G5f28A" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 更新圖片：雀客快捷 -->
+                        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/362243730.jpg?k=3c1b137f1b564590dade30b7cfefefc78bf52a616739089bfe8c7460ac633ea5&o=" alt="雀客快捷 - 新北淡水" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">雀客快捷 - 新北淡水</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.1</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">現代化設計的快捷旅店，房間簡潔明亮，提供舒適便捷的住宿體驗，交通亦相當便利。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">現代風格</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">快捷旅店</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zone 2: Fort San Domingo & Hobe Fort -->
+        <section id="zone2" class="scroll-mt-24 pt-8 border-t border-gray-200">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 02</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">紅毛城 ＆ 滬尾砲台</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">充滿歷史與文藝氣息的區域，這裡的住宿多享有河岸第一排美景，環境相對清幽舒適。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Hotel 1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/pUuWosBZM95W9DuS6" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 更新圖片：淡水將捷金鬱金香酒店 -->
+                        <img src="https://www.goldentulip-fabhotel.com.tw/upload/room_list_pic/twL_room_20C13_2dizknv6fg.jpg" alt="淡水將捷金鬱金香酒店" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">淡水將捷金鬱金香酒店</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.7</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">純白色的優雅建築，結合商場與影城，擁有絕美的空中花園與河景房，是淡水的新地標。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">高級度假</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">網美必訪</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel 2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/jznMnyKCaByn8BvN9" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 更新圖片：淡水藍色水岸海景旅店 -->
+                        <!-- 將 scale-125 改為 scale-[1.2] (放大1.2倍)，並調整 hover 效果為 1.3倍 -->
+                        <img src="https://newtaipei.travel/content/images/shops/18454/1024x768_20160108163906.jpg" alt="淡水藍色水岸海景旅店" class="w-full h-full object-cover object-left-top origin-top-left scale-[1.2] group-hover:scale-[1.3] transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">淡水藍色水岸海景旅店</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.2</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">緊鄰淡水河畔，部分房型可直接欣賞河岸風光，位置便利，適合喜歡散步看海的旅客。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">河景第一排</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">情侶住宿</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel 3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/STt3aw1p3p4ksSGq7" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 更新圖片：和昌商旅 -->
+                        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/114291494.jpg?k=1c7f18ec7eec7f8d0f4fc5421c6e5cdc21680ed1ee009271101edab7b3584631&o=" alt="和昌商旅" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">和昌商旅</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">乾淨簡約的商務型旅館，交通機能便利，適合預算有限但要求住宿品質的商務客與旅人。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">商務便捷</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">高性價比</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zone 3: Fisherman's Wharf & Shalum -->
+        <section id="zone3" class="scroll-mt-24 pt-8 border-t border-gray-200">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 03</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">漁人碼頭 ＆ 沙崙海灘</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">度假氛圍濃厚的區域，遠離塵囂，擁有大型飯店與休閒設施，最適合全家大小放鬆度假。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Hotel 1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/h6BodDeKU4tMMWat7" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 更新圖片：福容大飯店 淡水漁人碼頭 -->
+                        <img src="https://www.easytravel.com.tw/ehotel/hotelimg/photo/7786_10_0_2013100711200528848.jpg" alt="福容大飯店" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">福容大飯店 淡水漁人碼頭</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.5</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">著名的郵輪造型外觀，擁有絕美海景與豐富設施，是淡水地區最頂級的親子度假飯店。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">五星度假</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">親子首選</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel 2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/73LocvhPRs4jhWrr9" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 更新圖片：承億文旅 - 淡水吹風 -->
+                        <img src="https://hotelday.com.tw/wp-content/uploads/2023/11/%E6%B7%A1%E6%B0%B4%E5%90%B9%E9%A2%A8-%E6%B0%B4%E9%B3%A5%E6%A8%99%E6%BA%96%E4%B8%80%E5%A4%A7%E5%BA%8A20170913-0217s.jpg" alt="承億文旅 - 淡水吹風" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">承億文旅 - 淡水吹風</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.3</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">充滿設計感與藝術氣息的文創旅店，大廳與房間細節別具巧思，提供不同於傳統飯店的體驗。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">文創設計</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">藝術氛圍</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel 3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/nPrNT479wuxnKxXD7" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 更新圖片：漁人碼頭休閒旅館 -->
+                        <img src="https://cdn.myfunnow.com/imgs/branch/cover%2Fp14900_d63bd9.jpg" alt="漁人碼頭休閒旅館" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">漁人碼頭休閒旅館</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">位置極佳，距離漁人碼頭非常近，價格實惠，適合單純想要享受碼頭風情的旅客。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">近碼頭</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">經濟實惠</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel 4 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/Acqg649ay3HQLjuk6" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 更新圖片：富悅渡假休閒旅館 -->
+                        <img src="https://www.easytravel.com.tw/ehotel/hotelimg/picture/b/9858_201601271624156742_327.jpg" alt="富悅渡假休閒旅館" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">富悅渡假休閒旅館</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.1</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">空間寬敞舒適，提供汽車旅館式的便利與隱私，適合開車前往淡水旅遊的族群。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">空間寬敞</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">停車便利</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel 5 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/vfoF742qXUpr6FoR6" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 更新圖片：長緹海景飯店 -->
+                        <img src="https://www.easytravel.com.tw/ehotel/hotelimg/picture/b/6860_201702201615537171_327.jpg" alt="長緹海景飯店" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">長緹海景飯店</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">位於漁人碼頭附近，價格平實，高樓層房間可欣賞到不錯的海景，是經濟實惠的選擇。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">海景房</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">經濟實惠</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="font-serif text-2xl font-bold">淡水泊旅</span>
+                    <p class="text-gray-400 text-sm mt-2">探索新北最舒適的休憩角落</p>
+                </div>
+                <!-- Icons Removed -->
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
