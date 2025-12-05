@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>淡水食旅 | Tamsui Food Guide</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tamsui: {
+                            blue: '#4A7F9D',
+                            gold: '#D4AF37',
+                            sunset: '#E88D67',
+                            sand: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1568254183919-78a4f43a2877?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .img-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 50%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-700">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="fa-solid fa-water text-tamsui-blue text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wider text-gray-800">淡水食旅</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#zone1" class="text-gray-600 hover:text-tamsui-blue font-medium transition">老街＆金色水岸</a>
+                    <a href="#zone2" class="text-gray-600 hover:text-tamsui-blue font-medium transition">紅毛城＆滬尾</a>
+                    <a href="#zone3" class="text-gray-600 hover:text-tamsui-blue font-medium transition">漁人碼頭＆沙崙</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-white border-t" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#zone1" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">老街＆金色水岸</a>
+                <a href="#zone2" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">紅毛城＆滬尾</a>
+                <a href="#zone3" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">漁人碼頭＆沙崙</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-[60vh] flex items-center justify-center text-center px-4">
+        <div class="text-white max-w-3xl animate-fade-in-up">
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4 drop-shadow-lg tracking-wide">探索淡水味蕾地圖</h1>
+            <p class="text-lg md:text-xl font-light opacity-95 mb-8 text-shadow">從老街懷舊小吃到漁港浪漫夕陽，精選在地必訪美食</p>
+            <a href="#zone1" class="bg-tamsui-gold hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full transition shadow-lg inline-flex items-center gap-2 transform hover:scale-105 duration-200">
+                開始探索 <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+        <!-- Zone 1: Old Street -->
+        <section id="zone1" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 01</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">淡水老街 ＆ 金色水岸</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">熙來攘往的老街與開闊的河岸步道，這裡是淡水最熱鬧的核心，匯集了傳統小吃與景觀餐廳。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Restaurant 1: 大都會廣場 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="http://www.tc-group.com.tw/edcontent_d.php?lang=tw&tb=4&id=724" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：現代化商場建築/美食街氛圍 -->
+                        <img src="https://lh4.googleusercontent.com/proxy/ezsfg52Y8DdMNG9EL8tJZ4JH-omKFwDYqAnYVchqWKOGNfFwyBnzwPqLQ-QiUsTYoGccQDprNkjiaXAOpqqZuJBHB3uInbW8M1Q_z35PXQcKm7Xsn172BZBf3UnowdpxBPMGeECnmJFvx40Bmcp7" alt="大都會廣場" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue">
+                            <i class="fa-solid fa-location-dot mr-1"></i> 點擊看詳情
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">大都會廣場</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">位於淡水捷運站對面的複合式商場，內含多家知名連鎖餐廳，適合想要舒適冷氣與多樣選擇的旅客。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">百貨美食</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">捷運對面</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 2: 黑殿飯店 (重點：排骨飯) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/B6ZRtfHt8JaNxNhu5" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：炸排骨飯/台式便當 (使用者提供真實照片) -->
+                        <img src="https://girlsplan.com/wp-content/uploads/2022/05/DSC_7049.jpg" alt="黑殿飯店" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">黑殿飯店 (右岸店)</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.2</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">淡水傳奇排骨飯的老字號，厚實的帶骨豬排搭配酸菜與炸醬豆干，是來淡水必吃的古早味回憶。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">古早味排骨</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">老字號</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 3: 鷄道樂 (重點：拉麵) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/QbpKHWCABoMwMX9z9" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：日式拉麵 (使用者提供真實照片) -->
+                        <img src="https://i0.wp.com/ramenroamer.com/wp-content/uploads/2022/06/3-2.png?resize=840%2C473&ssl=1" alt="鷄道樂" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">鷄道樂</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.4</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">隱身巷弄的人氣日式拉麵，主打濃郁雞白湯頭，叉燒軟嫩，是拉麵愛好者在淡水的首選。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">日式拉麵</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">雞白湯</span>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Restaurant 4: 肉多多火鍋 (重點：火鍋肉片) -->
+                 <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/1pgkW27Qctf6fjvX8" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：火鍋/Shabu Shabu (使用者提供真實照片) -->
+                        <img src="https://nancybolg.com/wp-content/uploads/2022/01/%E8%82%89%E5%A4%9A%E5%A4%9A%E6%B7%A1%E6%B0%B4%E4%B8%AD%E6%AD%A3%E5%BA%97-22.jpg" alt="肉多多火鍋" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">肉多多火鍋</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.6</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">擁有無敵河岸景觀的火鍋店，大份量肉盤是其特色，一邊涮肉一邊欣賞淡水河景是一大享受。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">河岸景觀</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">暴龍級肉盤</span>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Restaurant 5: 老街海味小館 (重點：熱炒/海鮮) -->
+                 <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/Ki7f6m585bn9dcH29" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：中式熱炒/蛤蜊 (使用者提供真實照片) -->
+                        <img src="https://travelss.net/wp-content/uploads/2025/07/my_prefix_1751978570.png" alt="老街海味小館" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">老街海味小館</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.1</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">在地人推薦的熱炒海鮮小館，食材新鮮且價格公道，適合三五好友點幾道菜配啤酒。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">台式熱炒</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">海鮮</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zone 2: Fort San Domingo -->
+        <section id="zone2" class="scroll-mt-24 pt-8 border-t border-gray-200">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 02</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">紅毛城 ＆ 滬尾砲台</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">充滿歷史底蘊的區域，這裡的餐廳多結合古蹟氛圍或擁有絕佳的夕陽視野，適合文青與情侶。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Restaurant 1: LA VILLA (重點：夕陽/景觀) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/LXmKiJRb5g5Vm4zv9" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：夕陽海景餐廳 (使用者提供真實照片) -->
+                        <img src="https://angelababy0822.com/wp-content/uploads/flickr/43093341620_72d2661144_b.jpg" alt="LA VILLA DANSHUI" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">LA VILLA DANSHUI</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.3</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">淡水極具代表性的景觀義式餐廳，戶外座位區可直接欣賞夕陽落下河面的美景，氛圍浪漫。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">義式料理</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">浪漫夕陽</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 2: 文化阿給 (重點：阿給/小吃) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/EeNphcx7fb1aUVtUA" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：台式小吃/豆腐類 (使用者提供真實照片) -->
+                        <img src="https://momoblog.tw/wp-content/uploads/DSCF0728.jpg" alt="文化阿給" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">文化阿給</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">真理街上的老字號阿給店，包裹冬粉的油豆腐淋上特製辣醬，是淡水最具代表性的銅板美食。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">在地小吃</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">銅板美食</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 3: 墨尼尼 (重點：義大利麵) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/xtcr5gwEAfZD7iDN7" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：義大利麵 (使用者提供真實照片) -->
+                        <img src="https://resizer.otstatic.com/v3/photos/78354919-1?width=1280&height=720&webp=true" alt="墨尼尼義大利餐廳" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">墨尼尼義大利餐廳</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.2</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">空間寬敞舒適，適合家庭聚餐或團體活動，提供份量十足的義大利麵與燉飯。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">聚餐首選</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">義式料理</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 4: 時光樹影 (重點：古蹟/紅磚) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/VnLiUumGRdhJBppV6" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：紅磚建築/老屋新生 (使用者提供真實照片) -->
+                        <img src="https://bunnyann.tw/wp-content/uploads/S__9969753.jpeg" alt="時光樹影" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">時光樹影-Memory</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.5</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">由歷史建築修復而成的餐廳，保留了古蹟韻味，坐在老樹下用餐，盡覽河岸風光。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">古蹟餐廳</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">文青必訪</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 5: 文森食堂 (重點：法式料理) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/Zd813hcRB5vyw82b6" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：精緻西餐 (使用者提供真實照片) -->
+                        <img src="https://resize-image.vocus.cc/resize?norotation=true&quality=80&url=https%3A%2F%2Fimages.vocus.cc%2Ff8d8f0f3-4ccd-4bcb-a6d5-c47338798cd4.jpg&width=740&sign=6gUoIYSlCoN8bMtcA_xBKhEzXCd07EA_wdZS3qZdm60" alt="文森食堂" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">文森食堂 法式小餐酒館</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.7</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">溫馨低調的法式小館，主廚用心製作每一道料理，適合想要安靜品嘗美食與美酒的饕客。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">法式料理</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">餐酒館</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zone 3: Fisherman's Wharf -->
+        <section id="zone3" class="scroll-mt-24 pt-8 border-t border-gray-200">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 03</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">漁人碼頭 ＆ 沙崙海灘</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">遠離塵囂的休閒勝地，擁有情人橋的浪漫夜景與沙崙的自然海風，海鮮與燒肉是這裡的主角。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Restaurant 1: 天町燒肉屋 (重點：燒肉/烤肉) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/nzZBjXKcwNHgPLZc6" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：日式燒肉/炭火 (使用者提供真實照片) -->
+                        <img src="https://www.popdaily.com.tw/u/202005/ac1152e5-8db9-4966-a38c-a6a569b57fd7.jpg" alt="天町燒肉屋" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">天町燒肉屋-淡水店</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.6</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">CP值極高的日式燒肉店，肉質優良且服務周到，裝潢時尚，是淡水地區吃燒肉的熱門選擇。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">日式燒肉</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">聚餐</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 2: 阿基師觀海茶樓 (重點：港式點心/蒸籠) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/jMTtdqr3Yt1MxAfa8" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：港式點心/蒸籠 (使用者提供真實照片) -->
+                        <img src="https://www.fullon-hotels.com.tw/upload/news_list_pic_s/fw_twL_news_23K13_mf9fptaegr.jpg" alt="阿基師觀海茶樓" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">阿基師觀海茶樓</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.3</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">位於福容飯店內的港式飲茶，由名廚坐鎮，提供精緻港點，能一邊享用美食一邊眺望情人橋。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">港式飲茶</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">飯店景觀</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 3: 大胖活海產 (重點：新鮮海鮮) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/MSZS8u27WCyNFoEi8" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：豐盛海鮮/龍蝦/螃蟹 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/5-3yZfuSk6NxcodUK0CIcWQJ58eIlF5G03GSoMpwuSQr17rHIlpzE_a22nD5yN165fPvrnvPSA9aiYxoIwEY3digd4lZsA=s600" alt="大胖活海產" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">大胖活海產</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.2</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">漁人碼頭旁的老字號海鮮餐廳，食材新鮮現撈，料理手法道地，是團體享用海鮮大餐的好地方。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">現撈海鮮</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">合菜</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 4: 那年海邊 (重點：海景咖啡) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/dTeU33eAyQWeua93A" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：海景咖啡廳/放鬆 (使用者提供真實照片) -->
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/9a/80/a4/shop-front.jpg?w=900&h=500&s=1" alt="那年海邊" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">那年海邊</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.4</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">氣氛輕鬆的景觀餐廳，提供義大利麵與下午茶，面海的座位讓人能盡情放空，享受海風吹拂。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">下午茶</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">海景第一排</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 5: 漁村拉麵屋 (重點：日式拉麵/平價) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/mJadUR7aAXbTAp539" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：日式拉麵/湯頭 (使用者提供真實照片) -->
+                        <img src="https://lh5.googleusercontent.com/p/AF1QipNb7Va2vZSgAmSl1LtBZC0ZrXeIL83hCZ8tAM3Y" alt="漁村拉麵屋" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">漁村拉麵屋</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.1</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">沙崙路上的平價拉麵店，湯頭濃郁，份量實在，是在地居民與學生喜愛的隱藏版美食。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">高CP值</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">在地美食</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 6: 魚藏海鮮 (重點：宴會/海鮮) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/jDdpQjoTqSwfF2iT7" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：圓桌宴會/海鮮大餐 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/places/ANXAkqHmw5TlCA1Fph6AbkM70Haq6SguUp2d1PXqlY4C1jyd1u6Sc9gzP6eSkGSfy4M8YRpfaxJmRpswscaXF9TO9YR9azQqxIFBMYk=s1600-w480" alt="魚藏海鮮宴會廣場" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">魚藏海鮮宴會廣場</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">擁有廣闊的場地，適合大型聚餐或婚宴，以新鮮的海鮮合菜聞名，地理位置極佳。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">大型聚餐</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">婚宴會館</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="font-serif text-2xl font-bold">淡水食旅</span>
+                    <p class="text-gray-400 text-sm mt-2">探索新北最迷人的河岸風味</p>
+                </div>
+                <!-- Icons removed here -->
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
