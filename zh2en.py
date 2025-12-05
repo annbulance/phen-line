@@ -86,6 +86,7 @@ TEXTS: dict[str, dict[str, object]] = {
         "ask_age":             "你是否是學生?",
         "ask_gender":          "請選擇你的性別",
         "ask_days":            "請選擇旅行天數",
+        "ask_student_bottons": "你是否是學生?",
 
         # 位置與行程
         "position_saved":      "位置已儲存，請選擇預計旅行天數：",
@@ -163,6 +164,7 @@ TEXTS: dict[str, dict[str, object]] = {
         "ask_days":            "Please choose trip duration",
         "ask_location":        "Please tell the system your current location",
         "send_location":       "Send Location",
+        "ask_student_bottons": "Are you a student?",
 
         # 規劃結果通知（已加入）
         "planning_completed":  "✅ Your itinerary is ready.",
