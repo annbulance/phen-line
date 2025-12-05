@@ -1483,8 +1483,7 @@ def handle_free_command(uid, text, replyTK):
         return
 
     # 7) 關鍵字搜尋
-        # 7) 關鍵字 → 直接回固定網址
-        if is_keyword:
+     if is_keyword:
             lang = _get_lang(uid)
     
             # 中文與英文都對應到同一個 type
@@ -1526,6 +1525,7 @@ def handle_free_command(uid, text, replyTK):
                 safe_reply(replyTK, TextSendMessage(text=_t("data_fetch_failed", lang)), uid)
     
             return
+       
 
         
 
