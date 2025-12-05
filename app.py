@@ -1743,6 +1743,11 @@ def handle_message_event(ev, uid, lang, replyTK):
         # —— 2) 階段流程 ——
         stage = shared.user_stage.get(uid, 'ask_language')
         print(f"[Stage flow] type={msgType}, text={text}, stage={stage}")
+        # —— 處理是否為學生 ——  
+        if stage == "ask_student" and msgType == "text":
+            handle_student(uid, text, replyTK)
+            return
+
 
         # 第一步：選擇語言
         if stage == 'ask_language' and msgType == "text":
