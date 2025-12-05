@@ -1135,8 +1135,7 @@ def handle_language(uid, text, replyTK):
         safe_reply(replyTK, TextSendMessage(text=_t("invalid_language", _get_lang(uid))),uid)
         return
 
-    shared.user_stage[uid] = 'got_age'
-    safe_reply(replyTK, TextSendMessage(text=_t("ask_age", _get_lang(uid))),uid)
+    ask_student_buttons(uid, replyTK)
 
 # 在 app.py 中新增，放在 handle_language、handle_gender_buttons 之後，handle_message_event 之前
 @measure_time
