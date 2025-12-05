@@ -1362,7 +1362,7 @@ def handle_free_command(uid, text, replyTK):
     nearby_keys      = {"附近搜尋", "附近搜尋(nearby search)", "nearby search"}
     rental_keys      = {"租車", "租車(car rental)", "car rental information", "car rental", "大眾運輸", "public transport", "大眾運輸(public transport)"}
     update_loc_keys  = {"更新位置", "update location", "set location"}   # ← 新增
-    keyword_map      = {"餐廳": "restaurants", "停車場": "parking", "風景區": "scenic spots", "住宿": "accommodation"}
+    keyword_map      = {"附近餐廳": "restaurants nearby", "停車場": "parking", "服務": "service", "住宿": "accommodation"}
     is_keyword       = text in keyword_map or low in set(keyword_map.values())
 
     # 1) 重新收集資料
@@ -1676,7 +1676,7 @@ def handle_message_event(ev, uid, lang, replyTK):
         gen_keys    = {"景點", "attraction", "2-2"}
         nearby_keys = {"附近搜尋", "nearby search", "4", "附近搜尋(nearby search)"}
         rental_keys = {"大眾運輸", "public transport", "5", "大眾運輸(public transport)"}
-        keyword_map = {"餐廳": "restaurants", "停車場": "parking", "風景區": "scenic spots", "住宿": "accommodation"}
+        keyword_map = {"附近餐廳": "restaurants nearby", "停車場": "parking", "服務": "service", "住宿": "accommodation"}
         is_keyword  = text in keyword_map or low in set(keyword_map.values())
 
         # 先抓目前階段
