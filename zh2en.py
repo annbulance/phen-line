@@ -83,7 +83,7 @@ TEXTS: dict[str, dict[str, object]] = {
         # 基本互動
         "ask_language":        "請選擇語言：『中文』或『英文』\nPlease select language: 'Chinese' or 'English'",
         "invalid_language":    "請輸入正確指令",
-        "ask_age":             "請輸入你的年紀",
+        "ask_age":             "你是否是學生?",
         "ask_gender":          "請選擇你的性別",
         "ask_days":            "請選擇旅行天數",
 
@@ -158,7 +158,7 @@ TEXTS: dict[str, dict[str, object]] = {
         # Basics
         "ask_language":        "請選擇語言：『中文』或『英文』\nPlease select language: 'Chinese' or 'English'",
         "invalid_language":    "Please enter the correct command",
-        "ask_age":             "Please enter your age",
+        "ask_age":             "Are you a student?",
         "ask_gender":          "Please select your gender",
         "ask_days":            "Please choose trip duration",
         "ask_location":        "Please tell the system your current location",
