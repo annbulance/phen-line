@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>淡水行旅 | Tamsui Parking Guide</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tamsui: {
+                            blue: '#4A7F9D',
+                            gold: '#D4AF37',
+                            sunset: '#E88D67',
+                            sand: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-bg {
+            /* 預設使用交通/道路相關的情境圖 */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .img-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 50%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-700">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <!-- Icon 換成停車場 -->
+                    <i class="fa-solid fa-square-parking text-tamsui-blue text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wider text-gray-800">淡水行旅</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#zone1" class="text-gray-600 hover:text-tamsui-blue font-medium transition">老街＆金色水岸</a>
+                    <a href="#zone2" class="text-gray-600 hover:text-tamsui-blue font-medium transition">紅毛城＆滬尾</a>
+                    <a href="#zone3" class="text-gray-600 hover:text-tamsui-blue font-medium transition">漁人碼頭＆沙崙</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-white border-t" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#zone1" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">老街＆金色水岸</a>
+                <a href="#zone2" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">紅毛城＆滬尾</a>
+                <a href="#zone3" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">漁人碼頭＆沙崙</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-[60vh] flex items-center justify-center text-center px-4">
+        <div class="text-white max-w-3xl animate-fade-in-up">
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4 drop-shadow-lg tracking-wide">暢遊淡水 停車無憂</h1>
+            <p class="text-lg md:text-xl font-light opacity-95 mb-8 text-shadow">輕鬆找到最適合的停車位，讓自駕旅程更加順暢便利</p>
+            <a href="#zone1" class="bg-tamsui-gold hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full transition shadow-lg inline-flex items-center gap-2 transform hover:scale-105 duration-200">
+                尋找車位 <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+        <!-- Zone 1: Old Street & Golden Shore -->
+        <section id="zone1" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 01</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">淡水老街 ＆ 金色水岸</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">最熱鬧的精華地段，車流量較大，建議選擇捷運站周邊或大型立體停車場，步行至老街相當便利。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Parking 1: 捷運淡水站轉乘停車場 (地下/室內) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/k1CdRZNLRhWeoJWr8" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：地下停車場/室內車位 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwi56ZpuaNNQVbWo7OP_bGJu6reM1BmDJ2UYj5hE2C1iC7Tw_2_Osz5WyUQzdvvaimek2shzzaK0SnJ0HiJnaMO-1oFXUPzJT7lWHEQgtvCNhhNNtqFSvFZlne9EmEetgj_x5EO3g=w408-h306-k-no" alt="捷運淡水站轉乘停車場" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue">
+                            <i class="fa-solid fa-location-dot mr-1"></i> 點擊導航
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">捷運淡水站轉乘停車場</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.5</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">位於捷運站地下，位置最為便利，出站即達老街與河岸，假日熱門時段容易客滿。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">捷運共構</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">室內</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Parking 2: 城市車旅 (平面/戶外) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/XF7K9NxKLgfUGpC27" target="_blank" class="block relative overflow-hidden h-56">
+                         <!-- 圖片：戶外停車場 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwz42-prwdJP1_wKTL7ClT2VRGKhdZLcJkE9H4tVKI112J1EBZJ-AkYR79-J97VG-hh7b9nkQmH88FbuZay7e74QVUo0ncCMnhmrf0m00AoSlv0ySAcd95gTTADHhD2qYSlhokETA=w408-h544-k-no" alt="CITY PARKING 城市車旅" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">城市車旅 淡水學府站</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">位於學府路，周邊餐飲店家眾多，適合要前往學府路商圈或淡江大學方向的遊客。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">連鎖停車</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">學府路</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Parking 3: 驛林交通 (平面) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/BwcLnMizd5pDQYSE8" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：一般停車場 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwwh3NI89a_jVKtzmDQlxCBKFyLu_am2yLvEGzC7SfHABf0n8GaPM1mc0VTdNaHumIBbqlqqvdesSbXF8qgPdmmO5Yrw647PzrPx2aZlQJI3dObRxr-ZIGOjh7MtcGHZggCJeE=w426-h240-k-no" alt="驛林交通淡水站停車場" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">驛林交通淡水站停車場</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">3.8</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">緊鄰淡水捷運站的平面停車場，進出方便，對於不想停地下室的駕駛來說是不錯的選擇。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">平面車位</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">近捷運</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Parking 4: 三民立體停車場 (立體結構) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/up8gEeDj648C4VG66" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：停車場結構/多層 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxAoLvQu1LK91SZ2OplYoZb2ESMvYCj-fscHOKlAm5iI6qLgz9nIx1o_jTXa13gPCoOH2gP0yfg0tFoEFzSLDZGsPnimTYdbzTMbQhWQ4CstYuhlndeVajhHDZLhYI44Q=w408-h306-k-no" alt="淡水公有三民立體停車場" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">淡水公有三民立體停車場</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.2</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">車位數量較多的立體停車場，距離老街末端與建設街較近，是分流人潮的好選擇。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">立體停車</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">公有</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Parking 5: 文化機車 (機車) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/wWzw47pdqrqNDPSw7" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：機車/Scooter 停車 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSy7Fbz9ZW7MY9UCYTw26p-w2F15VwKrG48H0CM-btAwCvBk3QYkej2el7p6OztZXyolPeW-n9W5SiDbNVmohJkd43cEup_wQRkJpG-q0LKlCnPdD7iNH1NYVWXmhyU5yAcvHqUl=w408-h309-k-no" alt="文化機車&自行車停車場" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">文化機車&自行車停車場</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.3</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">專門提供給機車與自行車的停放空間，對於騎車漫遊淡水的騎士來說非常方便。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">機車專用</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">自行車</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zone 2: Fort San Domingo & Hobe Fort -->
+        <section id="zone2" class="scroll-mt-24 pt-8 border-t border-gray-200">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 02</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">紅毛城 ＆ 滬尾砲台</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">此區古蹟眾多，適合要參觀紅毛城、小白宮的遊客停放，避開老街擁擠路段。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Parking 1: 小白宮停車場 (戶外/樹蔭) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/5RRTjLoZCi9s759b8" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：戶外停車 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzFgYxcR1M2mUVR6QwmETTtP6Rj7KatcvVdSfjcyY10sBQzr-sZSiRqWhIQjeQDHgnkfwALvNG220uqCheERv0bwMelE8O5FO6ggOm6N3uBRoIYWXfXStb5-nfcZTdYXrjictZd3A=w408-h306-k-no" alt="淡水小白宮停車場" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">淡水小白宮停車場</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.1</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">鄰近小白宮與真理大學，環境清幽，步行可至文化阿給等知名小吃店。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">近古蹟</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">真理大學</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Parking 2: 文強停車場 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/RQ1sU9pjfufWwfUX8" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：一般車位 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzETsD-5DUXq2wIlr6jE12hvmwnxh8zXBydpOeVPJCu9ArUTq0C5cqz_rzefhu76_GvCdfoCZqFeAGYBGGAwpORmo4KkEO6LaHUfYndLxg66-YvD3pwT35QjSIVaqAR0b7Hwtgb=w408-h544-k-no" alt="文強淡水新民停車場" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">文強淡水新民停車場</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">3.9</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">位於新民街，雖然距離河岸稍遠，但價格相對實惠，適合長時間停放的遊客。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">價格實惠</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">長時間</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Parking 3: 日月亭 (平面) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/YDxXdhhYs4tDgMdi7" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：車輛停放 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSy4JaIZytUJX0Y_yBMtqQOn_Ej-vJl8u0ZKRzJdTibgixpZDoTtSUdO6Y2YOB0iNzzl8wHjsRJjJ979B7nbuPnwoujL1YcO9mnyepLGOwhKmumvIvz3Ga-jztuffpwVBjrQWmBH=w408-h306-k-no" alt="日月亭 - 淡水中正路停車場" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">日月亭 - 淡水中正路停車場</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">位於中正路後段，接近紅毛城與海關碼頭，是遊覽古蹟園區非常方便的停車點。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">近紅毛城</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">中正路</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Parking 4: Hi PARKING (紅毛城旁) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/vr7SgnooE698xMfJ9" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：停車場景 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxkQGDAyIyrIcMwwrEpDk0XonqXhsyWYuo4R74uMJ8TEWYt2ZrY3GiJJs-Ap88tzROHoLY53U_H_37WSXoYVy9Zd0-nzflYBLMBE0RD9gGf5QJU6GZ_DaJGV1FwyveWHnnPVag=w408-h306-k-no" alt="Hi PARKING 淡水紅毛城停車場" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Hi PARKING 淡水紅毛城停車場</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">位置極佳，直接位於紅毛城對面區域，過個馬路即可抵達古蹟入口，省去步行時間。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">紅毛城對面</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">方便</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zone 3: Fisherman's Wharf & Shalum -->
+        <section id="zone3" class="scroll-mt-24 pt-8 border-t border-gray-200">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 03</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">漁人碼頭 ＆ 沙崙海灘</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">腹地廣大，車位相對充足，適合開車前往漁人碼頭看夕陽或去沙崙海灘遊玩的旅客。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Parking 1: 油車口 (大型平面) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/svzMEbxu9ixcBWYF7" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：大型停車場 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzCQVRddnYR8nrBB9DxBZ1kkGevSUFJlsrC6fhWoWQ8N7n_jxs8IEfEBbIyIO96nJJ7Cu-DzjeODMKqs26wb5-br8EwxrKkvXcbD7QM_8pZI10BOZ4OcqLwrjcz-h9wKcRS9uqitb-qVIs=w426-h240-k-no" alt="油車口公有停車場" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">油車口公有停車場</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.2</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">位於中正路尾端，是進入漁人碼頭區域前的大型公有停車場，價格公道。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">公有停車</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">近海邊</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Parking 2: 沙崙 (平面/空曠) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/CGsVcL9U8mpmqp6D8" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：空曠停車場 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxdv3Z3BqMpQ7w9SitbNKdp5i0wV3bwxK5f76qBVCIdhEPz0Oxe-tabjuoT3filJXnYfidpB8Wzo-Axs4serGYcEZyVh66DxOcxQaIug-_9gikv1yBtupMK9nmoHAG1vlMdabkk=w408-h306-k-no" alt="淡水沙崙段平面停車場" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">淡水沙崙段平面停車場</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">鄰近沙崙海灘，平面車位好停，適合要去看海、拍婚紗或到附近馬場的遊客。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">近沙崙海灘</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">平面</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Parking 3: 漁人碼頭 (非常大) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/Xk8jn3W5LWm5HTL77" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：滿滿的車 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxGXlNIol-DeI0wH95sPiGXwptOWHfzTsn-L9w4VFNkwJv49DNALn1B65xpWcaMHfPSxGknTkjpIuBLE7IZp1Qf75pTZeuzN0P9xYFLA7lj2doot8CsJprymFpKgJ9uhqy7lMrq=w408-h307-k-no" alt="漁人碼頭場 俥亭停車場" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">漁人碼頭場 俥亭停車場</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.3</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">漁人碼頭內的主要停車場，腹地極大，可以直接停在景區內，走情人橋非常近。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">景區內</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">腹地大</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Parking 4: 台灣大車位 (平面) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/VBqunhPgSLPTkumS6" target="_blank" class="block relative overflow-hidden h-56">
+                        <!-- 圖片：一般車位 (使用者提供真實照片) -->
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyq3QWJn9ME6jDQza98wjUBhuYBaYqYi3OaNvcsBUlTkiI6_XPjWSTvH5J5g_QD6z8WxQcIXA68eH1VbMgOkSAH9kud7U6S8s0E0Yb2bXRd4vYpTjmsXKpv2MGPjSM9LOSSm6Y=w408-h306-k-no" alt="台灣大車位-新北淡水淡海路場" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> 點擊導航</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">台灣大車位 淡海路場</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">位於淡海路，距離漁人碼頭稍有距離但價格可能較優惠，是假日滿位時的替代方案。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">替代方案</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">淡海路</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="font-serif text-2xl font-bold">淡水行旅</span>
+                    <p class="text-gray-400 text-sm mt-2">探索新北最舒適的休憩角落</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
