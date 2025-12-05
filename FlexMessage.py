@@ -76,7 +76,7 @@ def ask_keyword():
                 BoxComponent(
                     layout='horizontal', spacing='xs',
                     contents=[
-                        # 風景區
+                        # 服務
                         BoxComponent(
                             layout='vertical', spacing='xs',
                             contents=[
@@ -85,7 +85,7 @@ def ask_keyword():
                                     preview_image_url=sanitize_url("i.imgur.com/0H0JmYX.png"),
                                     aspect_ratio="1:1", aspect_mode="cover", size="md"
                                 ),
-                                make_kw_button('風景區')
+                                make_kw_button('服務')
                             ]
                         ),
                         # 餐廳
@@ -97,7 +97,7 @@ def ask_keyword():
                                     preview_image_url=sanitize_url("thumb.silhouette-ac.com/t/d8/d8a7e9674d55ca5fe9173b02cc4fb7dd_w.jpeg"),
                                     aspect_ratio="1:1", aspect_mode="cover", size="md"
                                 ),
-                                make_kw_button('餐廳')
+                                make_kw_button('附近餐廳')
                             ]
                         ),
                     ]
