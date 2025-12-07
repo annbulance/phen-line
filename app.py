@@ -141,6 +141,11 @@ MAP_FILENAME_MAPPING: Dict[str, str] = {
     'stay': 'stay.html',
     'food': 'food.html',
     'service': 'service.html',
+    # 新增英文版檔案映射
+    'parking_en': 'parking_en.html',
+    'stay_en': 'stay_en.html',
+    'food_en': 'food_en.html',
+    'service_en': 'service_en.html',
 }
 
 # -------------------------------------
@@ -197,7 +202,7 @@ def map_guide_endpoint():
 def map_guide_endpoint_en():
     """
     【英文入口】 淡水地圖導覽的英文入口端點 (/map_guide_en)。
-    此處直接渲染英文版選單。
+    根據 URL 查詢參數 'type' 渲染對應的地圖 HTML 模板。
     """
     map_type = request.args.get('type')
 
@@ -205,9 +210,12 @@ def map_guide_endpoint_en():
         # 如果沒有提供 type 參數，渲染英文選單頁面 (menu_default_en.html)
         return render_template('menu_default_en.html')
 
-    # 由於英文版只需要顯示選單，我們讓它在無參數時返回選單，
-    # 有參數時，仍使用中文版對應的 HTML 檔案 (food.html, stay.html, ...)，因為內容本身是雙語的。
-    filename = MAP_FILENAME_MAPPING.get(map_type.lower())
+    # 由於英文版選單中的連結會帶 type=food, type=stay 等，
+    # 這裡我們必須找到對應的英文版檔案，例如 'food' 應對應到 'food_en.html'。
+    
+    # 嘗試找尋英文版檔案，檔案名稱規則為: [type]_en.html
+    filename = MAP_FILENAME_MAPPING.get(map_type.lower() + '_en')
+    
     if filename:
         return render_template(filename)
     else:
