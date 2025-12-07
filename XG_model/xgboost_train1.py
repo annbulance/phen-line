@@ -6,7 +6,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 import joblib
 import numpy as np
 
-from config1 import CSV_FILE, MODEL_FILE, ENCODER_FILE
+from config import CSV_FILE, MODEL_FILE, ENCODER_FILE
 # ============================
 # 1. 設定與讀取資料
 # ============================
@@ -97,4 +97,5 @@ encoders = {
     'Attraction': le_attraction
 }
 joblib.dump(encoders, ENCODER_FILE)
+
 print(f"編碼器已儲存至: {ENCODER_FILE}")
