@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamsui Travel Guide Menu | 淡水地圖導覽選單</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (與其他地圖文件相同) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tamsui: {
+                            blue: '#4A7F9D', /* Tamsui Blue */
+                            gold: '#D4AF37', /* Sunset Gold */
+                            sunset: '#E88D67',
+                            sand: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-bg {
+            /* Using the same background image for consistency */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1629811656839-4d8e78e12185?q=80&w=1920&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .map-card { 
+            transition: all 0.3s ease; 
+            border: 1px solid #e5e7eb;
+            background: #fff;
+        }
+        .map-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15); 
+            border-color: #4A7F9D; /* Highlight on hover */
+        }
+        .icon-bg-wrapper {
+            background: #D4AF37; 
+            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-700">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="fa-solid fa-map-location-dot text-tamsui-blue text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wider text-gray-800">Tamsui Guide Map</span>
+                </div>
+                <div class="text-sm text-gray-500 hidden md:block">
+                    <a href="/map_guide" class="text-tamsui-blue font-medium hover:underline">切換中文介面</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-[50vh] flex items-center justify-center text-center px-4 pt-16">
+        <div class="text-white max-w-3xl animate-fade-in-up">
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4 drop-shadow-lg tracking-wide">Tamsui Travel Information Hub</h1>
+            <p class="text-lg md:text-xl font-light opacity-95 mb-8 text-shadow">Find guides for dining, accommodation, parking, and essential services in one place.</p>
+        </div>
+    </header>
+
+    <!-- Main Content: Map Options -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
+        <div class="text-center mb-12">
+            <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Main Menu</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Select Your Guide Topic</h2>
+            <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <!-- Food Guide -->
+            <a href="/map_guide_en?type=food" target="_self" class="map-card p-6 rounded-xl shadow-md flex items-center space-x-6">
+                <div class="w-16 h-16 rounded-full icon-bg-wrapper flex items-center justify-center text-white text-3xl shadow-md">
+                    <i class="fa-solid fa-bowl-food"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-tamsui-blue">Tamsui Dining Map</h2>
+                    <p class="text-sm text-gray-500">Local street food and scenic restaurants recommendations</p>
+                </div>
+                <i class="fa-solid fa-chevron-right ml-auto text-gray-400"></i>
+            </a>
+
+            <!-- Stay Guide -->
+            <a href="/map_guide_en?type=stay" target="_self" class="map-card p-6 rounded-xl shadow-md flex items-center space-x-6">
+                <div class="w-16 h-16 rounded-full icon-bg-wrapper flex items-center justify-center text-white text-3xl shadow-md">
+                    <i class="fa-solid fa-bed"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-tamsui-blue">Tamsui Accommodation Map</h2>
+                    <p class="text-sm text-gray-500">River-view hotels, B&Bs, and hostel guides</p>
+                </div>
+                <i class="fa-solid fa-chevron-right ml-auto text-gray-400"></i>
+            </a>
+
+            <!-- Parking Guide -->
+            <a href="/map_guide_en?type=parking" target="_self" class="map-card p-6 rounded-xl shadow-md flex items-center space-x-6">
+                <div class="w-16 h-16 rounded-full icon-bg-wrapper flex items-center justify-center text-white text-3xl shadow-md">
+                    <i class="fa-solid fa-square-parking"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-tamsui-blue">Tamsui Parking Map</h2>
+                    <p class="text-sm text-gray-500">Parking lots near Old Street and scenic areas</p>
+                </div>
+                <i class="fa-solid fa-chevron-right ml-auto text-gray-400"></i>
+            </a>
+
+            <!-- Service Guide -->
+            <a href="/map_guide_en?type=service" target="_self" class="map-card p-6 rounded-xl shadow-md flex items-center space-x-6">
+                <div class="w-16 h-16 rounded-full icon-bg-wrapper flex items-center justify-center text-white text-3xl shadow-md">
+                    <i class="fa-solid fa-circle-info"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-tamsui-blue">Tamsui Service Guide</h2>
+                    <p class="text-sm text-gray-500">Tourist centers and essential information services</p>
+                </div>
+                <i class="fa-solid fa-chevron-right ml-auto text-gray-400"></i>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="font-serif text-2xl font-bold">Tamsui Guide Map</span>
+                    <p class="text-gray-400 text-sm mt-2">Your seamless guide to Tamsui travel</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
