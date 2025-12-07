@@ -193,6 +193,35 @@ def map_guide_endpoint():
             status=404
         )
 
+@app.route('/map_guide_en', methods=['GET'])
+def map_guide_endpoint_en():
+    """
+    【英文入口】 淡水地圖導覽的英文入口端點 (/map_guide_en)。
+    此處直接渲染英文版選單。
+    """
+    map_type = request.args.get('type')
+
+    if not map_type:
+        # 如果沒有提供 type 參數，渲染英文選單頁面 (menu_default_en.html)
+        return render_template('menu_default_en.html')
+
+    # 由於英文版只需要顯示選單，我們讓它在無參數時返回選單，
+    # 有參數時，仍使用中文版對應的 HTML 檔案 (food.html, stay.html, ...)，因為內容本身是雙語的。
+    filename = MAP_FILENAME_MAPPING.get(map_type.lower())
+    if filename:
+        return render_template(filename)
+    else:
+        error_message = (
+            f"<h1>Error: Could not find map information for {map_type}.</h1>"
+            f"<p>Please check the 'type' parameter in the URL, e.g., /map_guide_en?type=food</p>"
+            f"<p><a href=\"/map_guide_en\">Return to English Menu</a></p>"
+        )
+        return Response(
+            error_message,
+            mimetype='text/html',
+            status=404
+        )
+
 
 @app.route('/healthz')
 def health_check():
