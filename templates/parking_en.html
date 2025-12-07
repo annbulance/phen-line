@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamsui Travel | Parking Guide</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tamsui: {
+                            blue: '#4A7F9D',
+                            gold: '#D4AF37',
+                            sunset: '#E88D67',
+                            sand: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .img-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 50%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-700">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <!-- Icon -->
+                    <i class="fa-solid fa-square-parking text-tamsui-blue text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wider text-gray-800">Tamsui Travel</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#zone1" class="text-gray-600 hover:text-tamsui-blue font-medium transition">Old Street & Golden Shore</a>
+                    <a href="#zone2" class="text-gray-600 hover:text-tamsui-blue font-medium transition">Fort San Domingo</a>
+                    <a href="#zone3" class="text-gray-600 hover:text-tamsui-blue font-medium transition">Fisherman's Wharf</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-white border-t" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#zone1" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">Old Street & Golden Shore</a>
+                <a href="#zone2" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">Fort San Domingo</a>
+                <a href="#zone3" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">Fisherman's Wharf</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-[60vh] flex items-center justify-center text-center px-4">
+        <div class="text-white max-w-3xl animate-fade-in-up">
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4 drop-shadow-lg tracking-wide">Explore Tamsui, Park Worry-Free</h1>
+            <p class="text-lg md:text-xl font-light opacity-95 mb-8 text-shadow">Easily find the perfect parking spot for a smooth self-driving journey.</p>
+            <a href="#zone1" class="bg-tamsui-gold hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full transition shadow-lg inline-flex items-center gap-2 transform hover:scale-105 duration-200">
+                Find Parking <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+        <!-- Zone 1: Old Street & Golden Shore -->
+        <section id="zone1" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 01</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Old Street & Golden Shore</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">The most bustling central area with heavy traffic. It is recommended to choose parking near the MRT station or large multi-story parking garages. Walking to the Old Street is very convenient.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Parking 1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/k1CdRZNLRhWeoJWr8" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwi56ZpuaNNQVbWo7OP_bGJu6reM1BmDJ2UYj5hE2C1iC7Tw_2_Osz5WyUQzdvvaimek2shzzaK0SnJ0HiJnaMO-1oFXUPzJT7lWHEQgtvCNhhNNtqFSvFZlne9EmEetgj_x5EO3g=w408-h306-k-no" alt="Tamsui MRT Station Parking" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue">
+                            <i class="fa-solid fa-location-dot mr-1"></i> Navigate
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Tamsui MRT Station Park & Ride</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.5</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Located underground at the MRT station, offering the most convenient access to Old Street and the riverfront immediately upon exit.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">MRT Connected</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Indoor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parking 2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/XF7K9NxKLgfUGpC27" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwz42-prwdJP1_wKTL7ClT2VRGKhdZLcJkE9H4tVKI112J1EBZJ-AkYR79-J97VG-hh7b9nkQmH88FbuZay7e74QVUo0ncCMnhmrf0m00AoSlv0ySAcd95gTTADHhD2qYSlhokETA=w408-h544-k-no" alt="City Parking" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">City Parking (Xuefu Station)</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Located on Xuefu Road with many restaurants nearby. Suitable for visitors heading to the Xuefu Road shopping area or Tamkang University.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Chain Parking</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Xuefu Road</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parking 3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/BwcLnMizd5pDQYSE8" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwwh3NI89a_jVKtzmDQlxCBKFyLu_am2yLvEGzC7SfHABf0n8GaPM1mc0VTdNaHumIBbqlqqvdesSbXF8qgPdmmO5Yrw647PzrPx2aZlQJI3dObRxr-ZIGOjh7MtcGHZggCJeE=w426-h240-k-no" alt="Yilin Parking" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Yilin Parking (Tamsui Station)</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">3.8</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">A surface parking lot right next to Tamsui MRT Station. Convenient access for drivers who prefer not to park underground.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Surface Parking</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Near MRT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parking 4 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/up8gEeDj648C4VG66" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxAoLvQu1LK91SZ2OplYoZb2ESMvYCj-fscHOKlAm5iI6qLgz9nIx1o_jTXa13gPCoOH2gP0yfg0tFoEFzSLDZGsPnimTYdbxTMbQhWQ4CstYuhlndeVajhHDZLhYI44Q=w408-h306-k-no" alt="Sanmin Public Parking" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Sanmin Public Parking Garage</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.2</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">A multi-story parking garage with ample capacity. Located closer to the end of Old Street and Jianshe Street, good for avoiding crowds.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Multi-story</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Public</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parking 5 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/wWzw47pdqrqNDPSw7" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSy7Fbz9ZW7MY9UCYTw26p-w2F15VwKrG48H0CM-btAwCvBk3QYkej2el7p6OztZXyolPeW-n9W5SiDbNVmohJkd43cEup_wQRkJpG-q0LKlCnPdD7iNH1NYVWXmhyU5yAcvHqUl=w408-h309-k-no" alt="Scooter Parking" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Wenhua Scooter & Bicycle Parking</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.3</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Dedicated parking space for scooters and bicycles. Very convenient for riders exploring Tamsui.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Scooter Only</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Bicycle</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zone 2: Fort San Domingo & Hobe Fort -->
+        <section id="zone2" class="scroll-mt-24 pt-8 border-t border-gray-200">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 02</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Fort San Domingo & Hobe Fort</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">An area full of historical sites. Suitable for visitors visiting Fort San Domingo and the Little White House to park here and avoid the crowded sections of the Old Street.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Parking 1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/5RRTjLoZCi9s759b8" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzFgYxcR1M2mUVR6QwmETTtP6Rj7KatcvVdSfjcyY10sBQzr-sZSiRqWhIQjeQDHgnkfwALvNG220uqCheERv0bwMelE8O5FO6ggOm6N3uBRoIYWXfXStb5-nfcZTdYXrjictZd3A=w408-h306-k-no" alt="Little White House Parking" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Little White House Parking Lot</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.1</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Close to the Little White House and Aletheia University. Quiet environment and within walking distance to famous local eateries.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Near Historic Sites</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Aletheia Univ.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parking 2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/RQ1sU9pjfufWwfUX8" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzETsD-5DUXq2wIlr6jE12hvmwnxh8zXBydpOeVPJCu9ArUTq0C5cqz_rzefhu76_GvCdfoCZqFeAGYBGGAwpORmo4KkEO6LaHUfYndLxg66-YvD3pwT35QjSIVaqAR0b7Hwtgb=w408-h544-k-no" alt="Wenqiang Parking" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Wenqiang Xinmin Parking</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">3.9</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Located on Xinmin Street. Although slightly further from the river, the rates are relatively affordable, making it suitable for long-term parking.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Affordable</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Long-term</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parking 3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/YDxXdhhYs4tDgMdi7" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSy4JaIZytUJX0Y_yBMtqQOn_Ej-vJl8u0ZKRzJdTibgixpZDoTtSUdO6Y2YOB0iNzzl8wHjsRJjJ979B7nbuPnwoujL1YcO8mnyepLGOwhKmumvIvz3Ga-jztuffpwVBjrQWmBH=w408-h306-k-no" alt="Riyueting Parking" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Riyueting - Zhongzheng Rd. Parking</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Located at the end of Zhongzheng Road, close to Fort San Domingo and the Customs Wharf. Very convenient for visiting the historic park area.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Near Fort San Domingo</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Zhongzheng Rd.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parking 4 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/vr7SgnooE698xMfJ9" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxkQGDAyIyrIcMwwrEpDk0XonqXhsyWYuo4R74uMJ8TEWYt2ZrY3GiJJs-Ap88tzROHoLY53U_H_37WSXoYVy9Zd0-nzflYBLMBE0RD9gGf5QJU6GZ_DaJGV1FwyveWHnnPVag=w408-h306-k-no" alt="Hi PARKING" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Hi PARKING (Fort San Domingo)</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Excellent location directly opposite Fort San Domingo. Just cross the street to reach the historic site entrance, saving walking time.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Opposite Fort</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Convenient</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zone 3: Fisherman's Wharf & Shalun -->
+        <section id="zone3" class="scroll-mt-24 pt-8 border-t border-gray-200">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 03</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Fisherman's Wharf & Shalun Beach</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">A vast hinterland with ample parking spaces. Perfect for travelers driving to Fisherman's Wharf for the sunset or visiting Shalun Beach.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Parking 1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/svzMEbxu9ixcBWYF7" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzCQVRddnYR8nrBB9DxBZ1kkGevSUFJlsrC6fhWoWQ8N7n_jxs8IEfEBbIyIO96nJJ7Cu-DzjeODMKqs26wb5-br8EwxrKkvXcbD7QM_8pZI10BOZ4OcqLwrjcz-h9wKcRS9uqitb-qVIs=w426-h240-k-no" alt="Youchekou Parking" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Youchekou Public Parking Lot</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.2</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Located at the end of Zhongzheng Road, a large public parking lot before entering the Fisherman's Wharf area. Reasonable rates.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Public Parking</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Near Seaside</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parking 2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/CGsVcL9U8mpmqp6D8" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxdv3Z3BqMpQ7w9SitbNKdp5i0wV3bwxK5f76qBVCIdhEPz0Oxe-tabjuoT3filJXnYfidpB8Wzo-Axs4serGYcEZyVh66DxOcxQaIug-_9gikv1yBtupMK9nmoHAG1vlMdabkk=w408-h306-k-no" alt="Shalun Surface Parking" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Tamsui Shalun Surface Parking Lot</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Close to Shalun Beach with easy-to-park surface spaces. Suitable for visitors watching the sea, taking wedding photos, or visiting the nearby stables.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Near Shalun Beach</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Surface</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parking 3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/Xk8jn3W5LWm5HTL77" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxGXlNIol-DeI0wH95sPiGXwptOWHfzTsn-L9w4VFNkwJv49DNALn1B65xpWcaMHfPSxGknTkjpIuBLE7IZp1Qf75pTZeuzN0P9xYFLA7lj2doot8CsJprymFpKgJ9uhqy7lMrq=w408-h307-k-no" alt="Fisherman's Wharf Parking" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Fisherman's Wharf Cheting Parking</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.3</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">The main parking lot inside Fisherman's Wharf. Huge capacity, allowing you to park directly inside the scenic area, very close to the Lover's Bridge.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Inside Scenic Area</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Huge Capacity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parking 4 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/VBqunhPgSLPTkumS6" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyq3QWJn9ME6jDQza98wjUBhuYBaYqYi3OaNvcsBUlTkiI6_XPjWSTvH5J5g_QD6z8WxQcIXA68eH1VbMgOkSAH9kud7U6S8s0E0Yb2bXRd4vYpTjmsXKpv2MGPjSM9LOSSm6Y=w408-h306-k-no" alt="Taiwan Taxi Parking" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Taiwan Taxi Parking (Danhai Rd.)</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Located on Danhai Road. A bit of a distance from Fisherman's Wharf but potentially offers better rates. An alternative when other lots are full during holidays.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Alternative</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Danhai Road</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="font-serif text-2xl font-bold">Tamsui Travel</span>
+                    <p class="text-gray-400 text-sm mt-2">Discover the most comfortable corners of New Taipei</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
