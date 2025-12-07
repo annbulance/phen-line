@@ -1484,47 +1484,58 @@ def handle_free_command(uid, text, replyTK):
 
     # 7) 關鍵字搜尋
     if is_keyword:
-            lang = _get_lang(uid)
-    
-            # 中文與英文都對應到同一個 type
-            type_map = {
-                "附近餐廳":          "food",
-                "restaurants nearby": "food",
-    
-                "停車場":            "parking",
-                "parking":           "parking",
-    
-                "住宿":              "stay",
-                "accommodation":     "stay",
-    
-                "服務":              "service",
-                "service":           "service",
-            }
-    
-            key = text if text in type_map else low
-            t   = type_map.get(key)
-    
-            if t:
-                url = f"https://phen-line-547744493031.asia-east1.run.app/map_guide?type={t}"
-    
-                if lang == "zh":
-                    head = "以下是為您查詢到的地圖連結："
-                else:
-                    head = "Here is the map link for your selection:"
-    
-                safe_reply(
-                    replyTK,
-                    [
-                        TextSendMessage(text=head),
-                        TextSendMessage(text=url),
-                    ],
-                    uid
-                )
+        lang = _get_lang(uid)
+
+        # 中文與英文都對應到同一個 type
+        type_map = {
+            "附近餐廳":          "food",
+            "restaurants nearby": "food",
+
+            "停車場":            "parking",
+            "parking":           "parking",
+
+            "住宿":              "stay",
+            "accommodation":     "stay",
+
+            "服務":              "service",
+            "service":           "service",
+        }
+
+        key = text if text in type_map else low
+        t   = type_map.get(key)
+
+        if t:
+            base = "https://phen-line-547744493031.asia-east1.run.app"
+
+            # 🌏 根據語言切換中文／英文版網址
+            if lang == "zh":
+                # 原本的中文：/map_guide?type=...
+                url  = f"{base}/map_guide?type={t}"
+                head = "以下是為您查詢到的地圖連結："
             else:
-                # 理論上不會進來，只是保險
-                safe_reply(replyTK, TextSendMessage(text=_t("data_fetch_failed", lang)), uid)
-    
-            return
+                # 新增的英文版：/map_guide_en?type=...
+                # 會對應到你提供的這四個網址：
+                # service:       .../map_guide_en?type=service
+                # accommodation: .../map_guide_en?type=stay
+                # parking:       .../map_guide_en?type=parking
+                # food:          .../map_guide_en?type=food
+                url  = f"{base}/map_guide_en?type={t}"
+                head = "Here is the map link for your selection:"
+
+            safe_reply(
+                replyTK,
+                [
+                    TextSendMessage(text=head),
+                    TextSendMessage(text=url),
+                ],
+                uid
+            )
+        else:
+            # 理論上不會進來，只是保險
+            safe_reply(replyTK, TextSendMessage(text=_t("data_fetch_failed", lang)), uid)
+
+        return
+
        
 
         
