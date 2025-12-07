@@ -1,79 +1,119 @@
-import xgboost as xgb
-import joblib
+# model_trainer.py
+
 import pandas as pd
 import numpy as np
-from config1 import MODEL_FILE, ENCODER_FILE, OUT_PUT
+from xgboost import XGBClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
-# ============================
-# 1. 載入模型與編碼器
-# ============================
+from config import (
+    PENGHU_ORIGINAL_CSV,
+    GENERATED_DATA_CSV,
+    XGB_MODEL1_PATH,
+    XGB_MODEL2_PATH,
+    PHTEST_MODEL_PATH,
+)
 
-try:
-    model = xgb.XGBRegressor()
-    model.load_model(MODEL_FILE)
-    encoders = joblib.load(ENCODER_FILE)
-    print("模型與編碼器載入成功！")
-except Exception as e:
-    print(f"載入失敗，請先執行訓練程式 (Tamsui_model_train.py)。錯誤: {e}")
-    exit()
-
-# ============================
-# 2. 定義預測函數
-# ============================
-def predict_preference(identity_input, gender_input):
+def XGboost_recommend1():
     """
-    輸入身分與性別，回傳該使用者對所有景點的預測評分
+    訓練並儲存第一支 XGBoost 模型，使用原始 penghu_orignal2.csv 資料。
     """
-    
-    # 取得所有景點名稱
-    all_attractions = encoders['Attraction'].classes_
-    
-    # 準備輸入資料
-    # 我們需要為每一個景點建立一筆輸入數據
-    input_data = []
-    
-    try:
-        id_code = encoders['Identity'].transform([identity_input])[0]
-        gender_code = encoders['Gender'].transform([gender_input])[0]
-    except ValueError as e:
-        return f"輸入錯誤: {e}。請確認輸入值是否符合訓練資料 (如 Student, Male)。"
+    le = LabelEncoder()
+    labelencoder = LabelEncoder()
+    tree_deep = 100
+    learning_rate = 0.3
 
-    for attr in all_attractions:
-        attr_code = encoders['Attraction'].transform([attr])[0]
-        input_data.append([id_code, gender_code, attr_code])
-    
-    # 轉換為 DataFrame (feature names 必須與訓練時一致)
-    X_pred = pd.DataFrame(input_data, columns=['Identity_Code', 'Gender_Code', 'Attraction_Code'])
-    
-    # 進行預測
-    predicted_scores = model.predict(X_pred)
-    
-    # 整理結果
-    results = pd.DataFrame({
-        '景點 (Attraction)': all_attractions,
-        '預測評分 (Predicted Rating)': predicted_scores
-    })
-    
-    # 按照分數排序
-    results = results.sort_values(by='預測評分 (Predicted Rating)', ascending=False)
-    return results
+    # 讀取原始資料
+    Data = pd.read_csv(PENGHU_ORIGINAL_CSV, encoding='utf-8-sig')
+    df_data = pd.DataFrame(
+        data=np.c_[Data['weather'], Data['gender'], Data['age'], Data['設置點']],
+        columns=['weather', 'gender', 'age', 'label']
+    )
 
-# ============================
-# 3. 互動式測試
-# ============================
+    # Label Encoding
+    df_data['weather'] = labelencoder.fit_transform(df_data['weather'])
+    X = df_data.drop(labels=['label'], axis=1).values
+
+    # One-Hot Encoding
+    onehot = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+    X = onehot.fit_transform(X)
+    Y = df_data['label'].values
+
+    # 切分資料
+    X_train, _, Y_train, _ = train_test_split(X, Y, test_size=0.3, random_state=42)
+    Y_train = le.fit_transform(Y_train)
+
+    # 訓練模型
+    model = XGBClassifier(n_estimators=tree_deep, learning_rate=learning_rate)
+    model.fit(X_train, Y_train)
+
+    # 儲存模型
+    model.save_model(XGB_MODEL1_PATH)
+    print(f"模型已儲存至 {XGB_MODEL1_PATH}")
+
+def XGboost_recommend2():
+    """
+    訓練並儲存第二支 XGBoost 模型，使用原始 penghu_orignal2.csv 資料含 tidal、temperature 欄位。
+    """
+    le = LabelEncoder()
+    labelencoder = LabelEncoder()
+    tree_deep = 100
+    learning_rate = 0.3
+
+    Data = pd.read_csv(PENGHU_ORIGINAL_CSV, encoding='utf-8-sig')
+    df_data = pd.DataFrame(
+        data=np.c_[Data['weather'], Data['gender'], Data['age'], Data['tidal'], Data['temperature'], Data['設置點']],
+        columns=['weather', 'gender', 'age', 'tidal', 'temperature', 'label']
+    )
+
+    df_data['weather'] = labelencoder.fit_transform(df_data['weather'])
+    X = df_data.drop(labels=['label'], axis=1).values
+
+    onehot = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+    X = onehot.fit_transform(X)
+    Y = df_data['label'].values
+
+    X_train, _, Y_train, _ = train_test_split(X, Y, test_size=0.3, random_state=42)
+    Y_train = le.fit_transform(Y_train)
+
+    model = XGBClassifier(n_estimators=tree_deep, learning_rate=learning_rate)
+    model.fit(X_train, Y_train)
+    model.save_model(XGB_MODEL2_PATH)
+    print(f"模型已儲存至 {XGB_MODEL2_PATH}")
+    print('訓練集Accuracy: %.2f%%' % (model.score(X_train, Y_train) * 100.0))
+
+def XGboost_recommend3():
+    """
+    訓練並儲存第三支 XGBoost 模型，使用 generated_data_updated1.csv。
+    """
+    le = LabelEncoder()
+    labelencoder = LabelEncoder()
+    tree_deep = 100
+    learning_rate = 0.3
+
+    Data = pd.read_csv(GENERATED_DATA_CSV, encoding='utf-8-sig')
+    df_data = pd.DataFrame(
+        data=np.c_[Data['weather'], Data['gender'], Data['age'], Data['tidal'], Data['temperature'], Data['設置點']],
+        columns=['weather', 'gender', 'age', 'tidal', 'temperature', 'label']
+    )
+
+    df_data['weather'] = labelencoder.fit_transform(df_data['weather'])
+    X = df_data.drop(labels=['label'], axis=1).values
+
+    onehot = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+    X = onehot.fit_transform(X)
+    Y = df_data['label'].values
+
+    X_train, _, Y_train, _ = train_test_split(X, Y, test_size=0.3, random_state=42)
+    Y_train = le.fit_transform(Y_train)
+
+    model = XGBClassifier(n_estimators=tree_deep, learning_rate=learning_rate)
+    model.fit(X_train, Y_train)
+    model.save_model(PHTEST_MODEL_PATH)
+    print(f"模型已儲存至 {PHTEST_MODEL_PATH}")
+
 if __name__ == "__main__":
-    identity_input = input("請輸入身份 (如 Student, Worker): ") 
-    gender_input = input("請輸入性別 (如 Male, Female): ") 
-
-    results = predict_preference(identity_input, gender_input)
-
-    if isinstance(results, str):
-        print(results)
-    else:
-        print("\n預測結果：")
-        print(results)
-
-        # === 將預測結果輸出到 CSV ===
-        results.to_csv(OUT_PUT, index=False, encoding="utf-8-sig")
-
-        print(f"\n✔ 預測結果已成功輸出到 CSV：{OUT_PUT}")
+    # 訓練並儲存所有模型
+    XGboost_recommend1()
+    XGboost_recommend2()
+    XGboost_recommend3()
