@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamsui Info | Tamsui Service Guide</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tamsui: {
+                            blue: '#4A7F9D',
+                            gold: '#D4AF37',
+                            sunset: '#E88D67',
+                            sand: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-bg {
+            /* Using service/map context image */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1548345680-f5475ea5df84?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .img-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 50%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-700">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <!-- Icon -->
+                    <i class="fa-solid fa-circle-info text-tamsui-blue text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wider text-gray-800">Tamsui Info</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#centers" class="text-gray-600 hover:text-tamsui-blue font-medium transition">Visitor Centers</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-[60vh] flex items-center justify-center text-center px-4">
+        <div class="text-white max-w-3xl animate-fade-in-up">
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4 drop-shadow-lg tracking-wide">Helpful Service, Seamless Travel</h1>
+            <p class="text-lg md:text-xl font-light opacity-95 mb-8 text-shadow">Providing complete travel information and resting spaces, we are your best support for exploring Tamsui.</p>
+            <a href="#centers" class="bg-tamsui-gold hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full transition shadow-lg inline-flex items-center gap-2 transform hover:scale-105 duration-200">
+                Find Services <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+        <!-- Service Centers List -->
+        <section id="centers" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Service Map</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Visitor Service Centers</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Whether you are at the MRT station, the Old Street riverfront, or Fisherman's Wharf, you can find enthusiastic staff ready to assist you.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                
+                <!-- Center 3: Tamsui MRT Station Visitor Information Center -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/YJRo6M7KnYqTPc839" target="_blank" class="block relative overflow-hidden h-64">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzkiDYCBSfYQvS_sKkdurNaHws2YdCcrMDHalo3z_Tewm-MFHFagwhaunUyvDGuOFX7o460VObY-Ejrwhi3irqX8bFU2Zl3IIKyX1_x1sDcj6SSSBmwYCha4WHWTjy1PYVjhhzV=w408-h306-k-no" alt="Tamsui MRT Station Visitor Information Center" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Tamsui MRT Station Visitor Info Center</h3>
+                            <div class="flex items-center text-tamsui-blue text-sm">
+                                <i class="fa-solid fa-train-subway"></i><span class="ml-1 font-medium">Inside Station</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">Located right next to the MRT exit gates. It is the most convenient spot for travelers arriving by metro to get first-hand maps and advice.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Multi-lingual</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Station Service</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center 1: New Taipei City Tamsui Visitor Center -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/r8R4xBrVRPP8E8Un9" target="_blank" class="block relative overflow-hidden h-64">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyY09mGEaSFr1QF4-DDncOygnh9sGFmtBWe1xSUkzCZ9TUPZxD5AtAfUNPR1dYtOGYApqLDf74zwQJKrGCjHBtqUsemvA_ITH1Q8YE8rsCPn8ErgjVzKrxb7QiRi5u_3kXS3YY=w408-h306-k-no" alt="New Taipei City Tamsui Visitor Center" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue">
+                            <i class="fa-solid fa-location-dot mr-1"></i> Navigate
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">New Taipei City Tamsui Visitor Center</h3>
+                            <div class="flex items-center text-tamsui-blue text-sm">
+                                <i class="fa-solid fa-map"></i><span class="ml-1 font-medium">Old Street Entrance</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">Prominently located outside the MRT station at the entrance of Zhongzheng Road Old Street. Offers detailed brochures, accommodation info, and broadcasting services.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Travel Consulting</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Landmark</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center 2: Rongti Visitor Information Center -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/PSqMGwKANjKmm53x6" target="_blank" class="block relative overflow-hidden h-64">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSypGFJ55_LE8hQGyVKEsthKspgRgYyq7Rsit11AQ17M9XADv490ENsKxlzbCBAe-uTdr588-TUjOuUmhB3oEtv9wl7jTYTJGTvK2df9CbXBb7QH5FdUYOVvOqCOD6HV8PMtAMKB=w426-h240-k-no" alt="Rongti Visitor Information Center" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Rongti Visitor Information Center</h3>
+                            <div class="flex items-center text-tamsui-blue text-sm">
+                                <i class="fa-solid fa-tree"></i><span class="ml-1 font-medium">Riverfront Mid-section</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">Situated along the scenic Rongti riverbank section. Provides drinking water, travel brochures, and a comfortable scenic resting area.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Scenic Rest Area</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Water Service</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center 4: Tamsui Visitor Information Center -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/ZdJTxpd3HroAGDCt6" target="_blank" class="block relative overflow-hidden h-64">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwFX7TVqSIj--Nyp-pfLI5Hbmt373T8KdvK9SnWO5uyN1x73AEil4Lf7IflH8YZ2FcKEH0kwlL4M9CZogyJF0XZphq7s1xMo5EFeUcn9AG4UEeOOlYDcq5sGzp19_BCZKMEuilnXQ=w408-h544-k-no" alt="Tamsui Visitor Information Center" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Tamsui Visitor Information Center</h3>
+                            <div class="flex items-center text-tamsui-blue text-sm">
+                                <i class="fa-solid fa-water"></i><span class="ml-1 font-medium">Riverfront Promenade</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">Located at the intersection of the end of Old Street and the riverfront walkway, near the Art Workshop. A great spot for resting and enjoying river views.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">River View</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Mobile Charging</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="font-serif text-2xl font-bold">Tamsui Info</span>
+                    <p class="text-gray-400 text-sm mt-2">Discover the most comfortable corners of New Taipei</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
