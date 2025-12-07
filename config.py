@@ -74,6 +74,8 @@ PLAN_3DAY             = path.join(BASE_CSV_PATH, "plan_3day.csv")
 PLAN_4DAY             = path.join(BASE_CSV_PATH, "plan_4day.csv")
 PLAN_5DAY             = path.join(BASE_CSV_PATH, "plan_5day.csv")
 LOCATION_FILE         = path.join(BASE_CSV_PATH, "location.csv")
+tamsui                = path.join(BASE_CSV_PATH, "tamsui.csv")
+
 
 RECOMMEND_CSV         = path.join(BASE_CSV_PATH, "recommend.csv")
 HOTEL_DATA_CSV        = path.join(BASE_CSV_PATH, "hotel_data.csv")
