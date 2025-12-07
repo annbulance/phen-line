@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamsui Foodie | Tamsui Food Guide</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tamsui: {
+                            blue: '#4A7F9D',
+                            gold: '#D4AF37',
+                            sunset: '#E88D67',
+                            sand: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1568254183919-78a4f43a2877?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .img-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 50%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-700">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="fa-solid fa-water text-tamsui-blue text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wider text-gray-800">Tamsui Foodie</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#zone1" class="text-gray-600 hover:text-tamsui-blue font-medium transition">Old Street & Golden Shore</a>
+                    <a href="#zone2" class="text-gray-600 hover:text-tamsui-blue font-medium transition">Fort San Domingo</a>
+                    <a href="#zone3" class="text-gray-600 hover:text-tamsui-blue font-medium transition">Fisherman's Wharf</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-white border-t" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#zone1" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">Old Street & Golden Shore</a>
+                <a href="#zone2" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">Fort San Domingo</a>
+                <a href="#zone3" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">Fisherman's Wharf</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-[60vh] flex items-center justify-center text-center px-4">
+        <div class="text-white max-w-3xl animate-fade-in-up">
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4 drop-shadow-lg">Explore Tamsui's Flavors</h1>
+            <p class="text-lg md:text-xl font-light opacity-90 mb-8">From bustling old streets to sunset wharfs, curated local must-eats.</p>
+            <a href="#zone1" class="bg-tamsui-gold hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full transition shadow-lg inline-flex items-center gap-2">
+                Start Exploring <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+        <!-- Zone 1: Old Street -->
+        <section id="zone1" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 01</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Old Street & Golden Shore</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">The bustling Old Street and open riverfront promenade are the heart of Tamsui, gathering traditional snacks and scenic restaurants.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Restaurant 1: Metro Plaza -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="http://www.tc-group.com.tw/edcontent_d.php?lang=tw&tb=4&id=724" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh4.googleusercontent.com/proxy/ezsfg52Y8DdMNG9EL8tJZ4JH-omKFwDYqAnYVchqWKOGNfFwyBnzwPqLQ-QiUsTYoGccQDprNkjiaXAOpqqZuJBHB3uInbW8M1Q_z35PXQcKm7Xsn172BZBf3UnowdpxBPMGeECnmJFvx40Bmcp7" alt="Metro Plaza" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue">
+                            <i class="fa-solid fa-location-dot mr-1"></i> View Details
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Metro Plaza</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">A complex mall opposite Tamsui MRT Station featuring many well-known chain restaurants. Perfect for travelers seeking air-conditioned comfort and variety.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Mall Dining</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Great View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 2: Dark Palace Taiwanese Gourmet -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://www.girlslifeplan.com/blackda/" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://girlsplan.com/wp-content/uploads/2022/05/DSC_7049.jpg" alt="Hei Dian Hotel" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> View Details</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Hei Dian Hotel (Right Bank)</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.2</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">A legendary Tamsui pork chop rice establishment. Thick pork chops with pickled mustard greens and fried tofu curd are a must-try nostalgic flavor.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Pork Chop Rice</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Classic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 3: Toridouraku Ramen -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/QbpKHWCABoMwMX9z9" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://i0.wp.com/ramenroamer.com/wp-content/uploads/2022/06/3-2.png?resize=840%2C473&ssl=1" alt="Toridouraku Ramen" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Toridouraku Ramen</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.4</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">A popular Japanese ramen shop hidden in the alleys, specializing in rich chicken broth and tender chashu. A top choice for ramen lovers.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Japanese Ramen</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Chicken Broth</span>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Restaurant 4: Rododo Hot Pot -->
+                 <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/1pgkW27Qctf6fjvX8" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://nancybolg.com/wp-content/uploads/2022/01/%E8%82%89%E5%A4%9A%E5%A4%9A%E6%B7%A1%E6%B0%B4%E4%B8%AD%E6%AD%A3%E5%BA%97-22.jpg" alt="Rododo Hot Pot" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Rododo Hot Pot</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.6</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">A hot pot restaurant with unbeatable river views, featuring massive meat platters. Enjoying shabu-shabu while admiring the Tamsui River is a delight.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">River View</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Hot Pot</span>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Restaurant 5: Old Street Seafood -->
+                 <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/Ki7f6m585bn9dcH29" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://travelss.net/wp-content/uploads/2025/07/my_prefix_1751978570.png" alt="Old Street Seafood" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Old Street Seafood</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.1</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">A local favorite for stir-fried seafood. Fresh ingredients and reasonable prices make it perfect for groups to enjoy dishes with beer.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Stir-fry</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Seafood</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zone 2: Fort San Domingo -->
+        <section id="zone2" class="scroll-mt-24 pt-8 border-t border-gray-200">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 02</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Fort San Domingo & Hobe Fort</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">An area rich in history. Restaurants here often combine historic atmosphere with excellent sunset views, perfect for culture lovers and couples.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Restaurant 1: LA VILLA -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/LXmKiJRb5g5Vm4zv9" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://angelababy0822.com/wp-content/uploads/flickr/43093341620_72d2661144_b.jpg" alt="LA VILLA DANSHUI" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">LA VILLA DANSHUI</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.3</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">An iconic Italian landscape restaurant in Tamsui. The outdoor seating area offers a direct view of the sunset over the river, creating a romantic atmosphere.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Italian</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Sunset View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 2: Wenhua A-Gei -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/EeNphcx7fb1aUVtUA" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://momoblog.tw/wp-content/uploads/DSCF0728.jpg" alt="Wenhua A-Gei" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Wenhua A-Gei</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">A historic A-Gei shop on Zhenli Street. Fried tofu stuffed with glass noodles and topped with special spicy sauce, it's Tamsui's signature affordable snack.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Local Snack</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Budget Friendly</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 3: Monini -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/xtcr5gwEAfZD7iDN7" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://resizer.otstatic.com/v3/photos/78354919-1?width=1280&height=720&webp=true" alt="Monini Italian Restaurant" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Monini Italian Restaurant</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.2</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Spacious and comfortable, suitable for family gatherings or group events, serving generous portions of pasta and risotto.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Gathering</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Italian</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 4: Memory -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/VnLiUumGRdhJBppV6" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://bunnyann.tw/wp-content/uploads/S__9969753.jpeg" alt="Memory" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Memory</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.5</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">A restaurant restored from a historic building, preserving its charm. Dining under old trees while enjoying the river view.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Historic Site</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Cultural</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 5: Vincent's Kitchen -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/Zd813hcRB5vyw82b6" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://resize-image.vocus.cc/resize?norotation=true&quality=80&url=https%3A%2F%2Fimages.vocus.cc%2Ff8d8f0f3-4ccd-4bcb-a6d5-c47338798cd4.jpg&width=740&sign=6gUoIYSlCoN8bMtcA_xBKhEzXCd07EA_wdZS3qZdm60" alt="Vincent's Kitchen" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Vincent's Kitchen</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.7</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">A warm and low-key French bistro where the chef puts heart into every dish. Perfect for gourmets seeking quiet dining with good wine.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">French</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Bistro</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zone 3: Fisherman's Wharf -->
+        <section id="zone3" class="scroll-mt-24 pt-8 border-t border-gray-200">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Zone 03</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Fisherman's Wharf & Shalun</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">A leisure resort away from the hustle, featuring romantic night views of the Lover's Bridge and natural sea breeze at Shalun. Seafood and Yakiniku are the stars here.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Restaurant 1: Tian Ding Yakiniku -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/nzZBjXKcwNHgPLZc6" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://www.popdaily.com.tw/u/202005/ac1152e5-8db9-4966-a38c-a6a569b57fd7.jpg" alt="Tian Ding Yakiniku" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Tian Ding Yakiniku</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.6</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">A high CP value Japanese BBQ restaurant with excellent meat quality, attentive service, and stylish decor. A popular choice for Yakiniku in Tamsui.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Japanese BBQ</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Gathering</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 2: Ah Ji Shi Tea House -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/jMTtdqr3Yt1MxAfa8" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://www.fullon-hotels.com.tw/upload/news_list_pic_s/fw_twL_news_23K13_mf9fptaegr.jpg" alt="Ah Ji Shi Tea House" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Ah Ji Shi Tea House</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.3</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Located inside Fullon Hotel, offering exquisite Dim Sum by famous chefs. Enjoy delicious food while overlooking the Lover's Bridge.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Dim Sum</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Hotel View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 3: Da Pan Live Seafood -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/MSZS8u27WCyNFoEi8" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/5-3yZfuSk6NxcodUK0CIcWQJ58eIlF5G03GSoMpwuSQr17rHIlpzE_a22nD5yN165fPvrnvPSA9aiYxoIwEY3digd4lZsA=s600" alt="Da Pan Live Seafood" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Da Pan Live Seafood</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.2</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">A long-established seafood restaurant near Fisherman's Wharf. Freshly caught ingredients and authentic cooking make it a great place for group seafood feasts.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Fresh Seafood</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Banquet</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 4: Memories of the Sea -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/dTeU33eAyQWeua93A" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/9a/80/a4/shop-front.jpg?w=900&h=500&s=1" alt="Memories of the Sea" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Memories of the Sea</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.4</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">A relaxing scenic restaurant offering pasta and afternoon tea. Ocean-facing seats allow you to zone out and enjoy the sea breeze.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Afternoon Tea</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Ocean View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 5: Fishing Village Ramen -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/mJadUR7aAXbTAp539" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh5.googleusercontent.com/p/AF1QipNb7Va2vZSgAmSl1LtBZC0ZrXeIL83hCZ8tAM3Y" alt="Fishing Village Ramen" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Fishing Village Ramen</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.1</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">An affordable ramen shop on Shalun Road with rich broth and generous portions. A hidden gem loved by locals and students.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">High Value</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Local Food</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant 6: Fish Warehouse Seafood -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="https://maps.app.goo.gl/jDdpQjoTqSwfF2iT7" target="_blank" class="block relative overflow-hidden h-56">
+                        <img src="https://lh3.googleusercontent.com/places/ANXAkqHmw5TlCA1Fph6AbkM70Haq6SguUp2d1PXqlY4C1jyd1u6Sc9gzP6eSkGSfy4M8YRpfaxJmRpswscaXF9TO9YR9azQqxIFBMYk=s1600-w480" alt="Fish Warehouse Seafood" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay"></div>
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-tamsui-blue"><i class="fa-solid fa-location-dot mr-1"></i> Navigate</div>
+                    </a>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Fish Warehouse Seafood</h3>
+                            <div class="flex items-center text-yellow-400 text-sm">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 text-gray-600 font-medium">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Featuring a vast venue suitable for large gatherings or wedding banquets. Famous for fresh seafood sets and an excellent location.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Large Group</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Banquet</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="font-serif text-2xl font-bold">Tamsui Foodie</span>
+                    <p class="text-gray-400 text-sm mt-2">Discover the charming riverside flavors of New Taipei</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
