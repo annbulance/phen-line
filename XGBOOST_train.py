@@ -1,100 +1,119 @@
+# model_trainer.py
+
 import pandas as pd
-import xgboost as xgb
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import mean_squared_error, r2_score
-import joblib
 import numpy as np
+from xgboost import XGBClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
-from config1 import CSV_FILE, MODEL_FILE, ENCODER_FILE
-# ============================
-# 1. 設定與讀取資料
-# ============================
-
-print(f"正在讀取資料: {CSV_FILE}...")
-df = pd.read_csv(CSV_FILE)
-
-# ============================
-# 2. 資料前處理 (Data Preprocessing)
-# ============================
-# 定義景點欄位
-attractions = [
-    'Fort San Domingo', 'Tamsui Old Street', 'Tamshui Gold Seashore',
-    'Hobe Fort', "Fisherman's Wharf", 'Shalun Beach'
-]
-
-# 檢查欄位是否存在
-missing_cols = [col for col in attractions if col not in df.columns]
-if missing_cols:
-    raise ValueError(f"缺少欄位: {missing_cols}")
-
-# --- 關鍵步驟：將寬表格轉為長表格 (Melt) ---
-# 轉換前: [User, Gender, Score_A, Score_B]
-# 轉換後: [User, Gender, Attraction_Name] -> Rating
-melted_df = df.melt(
-    id_vars=['Identity', 'Gender'], # 保留的身分特徵
-    value_vars=attractions,         # 要轉置的景點欄位
-    var_name='Attraction',          # 新的景點名稱欄位
-    value_name='Rating'             # 新的評分欄位
+from config import (
+    PENGHU_ORIGINAL_CSV,
+    GENERATED_DATA_CSV,
+    XGB_MODEL1_PATH,
+    XGB_MODEL2_PATH,
+    PHTEST_MODEL_PATH,
 )
 
-print(f"資料轉換完成，樣本數: {len(melted_df)}")
+def XGboost_recommend1():
+    """
+    訓練並儲存第一支 XGBoost 模型，使用原始 penghu_orignal2.csv 資料。
+    """
+    le = LabelEncoder()
+    labelencoder = LabelEncoder()
+    tree_deep = 100
+    learning_rate = 0.3
 
-# ============================
-# 3. 特徵編碼 (Label Encoding)
-# ============================
-# 初始化編碼器
-le_identity = LabelEncoder()
-le_gender = LabelEncoder()
-le_attraction = LabelEncoder()
+    # 讀取原始資料
+    Data = pd.read_csv(PENGHU_ORIGINAL_CSV, encoding='utf-8-sig')
+    df_data = pd.DataFrame(
+        data=np.c_[Data['weather'], Data['gender'], Data['age'], Data['設置點']],
+        columns=['weather', 'gender', 'age', 'label']
+    )
 
-# 執行編碼
-melted_df['Identity_Code'] = le_identity.fit_transform(melted_df['Identity'])
-melted_df['Gender_Code'] = le_gender.fit_transform(melted_df['Gender'])
-melted_df['Attraction_Code'] = le_attraction.fit_transform(melted_df['Attraction'])
+    # Label Encoding
+    df_data['weather'] = labelencoder.fit_transform(df_data['weather'])
+    X = df_data.drop(labels=['label'], axis=1).values
 
-# 準備特徵 (X) 與目標 (y)
-X = melted_df[['Identity_Code', 'Gender_Code', 'Attraction_Code']]
-y = melted_df['Rating']
+    # One-Hot Encoding
+    onehot = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+    X = onehot.fit_transform(X)
+    Y = df_data['label'].values
 
-# ============================
-# 4. 模型訓練 (Training)
-# ============================
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    # 切分資料
+    X_train, _, Y_train, _ = train_test_split(X, Y, test_size=0.3, random_state=42)
+    Y_train = le.fit_transform(Y_train)
 
-print("開始訓練 XGBoost 模型...")
-MODEL = xgb.XGBRegressor(
-    n_estimators=100,
-    learning_rate=0.1,
-    max_depth=5,
-    random_state=42,
-    objective='reg:squarederror'
-)
+    # 訓練模型
+    model = XGBClassifier(n_estimators=tree_deep, learning_rate=learning_rate)
+    model.fit(X_train, Y_train)
 
-MODEL.fit(X_train, y_train)
+    # 儲存模型
+    model.save_model(XGB_MODEL1_PATH)
+    print(f"模型已儲存至 {XGB_MODEL1_PATH}")
 
-# ============================
-# 5. 評估與儲存 (Evaluation & Saving)
-# ============================
-predictions = MODEL.predict(X_test)
-mse = mean_squared_error(y_test, predictions)
-r2 = r2_score(y_test, predictions)
+def XGboost_recommend2():
+    """
+    訓練並儲存第二支 XGBoost 模型，使用原始 penghu_orignal2.csv 資料含 tidal、temperature 欄位。
+    """
+    le = LabelEncoder()
+    labelencoder = LabelEncoder()
+    tree_deep = 100
+    learning_rate = 0.3
 
-print("="*30)
-print(f"模型評估結果:")
-print(f"MSE (均方誤差): {mse:.4f}")
-print(f"R2 Score (準確度): {r2:.4f}") # 因為您的數據是規律生成的，這裡應該會接近 1.0
-print("="*30)
+    Data = pd.read_csv(PENGHU_ORIGINAL_CSV, encoding='utf-8-sig')
+    df_data = pd.DataFrame(
+        data=np.c_[Data['weather'], Data['gender'], Data['age'], Data['tidal'], Data['temperature'], Data['設置點']],
+        columns=['weather', 'gender', 'age', 'tidal', 'temperature', 'label']
+    )
 
-# 儲存模型
-MODEL.save_model(MODEL_FILE)
-print(f"模型已儲存至: {MODEL_FILE}")
+    df_data['weather'] = labelencoder.fit_transform(df_data['weather'])
+    X = df_data.drop(labels=['label'], axis=1).values
 
-# 儲存編碼器 (預測時需要用來解碼)
-encoders = {
-    'Identity': le_identity,
-    'Gender': le_gender,
-    'Attraction': le_attraction
-}
-joblib.dump(encoders, ENCODER_FILE)
-print(f"編碼器已儲存至: {ENCODER_FILE}")
+    onehot = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+    X = onehot.fit_transform(X)
+    Y = df_data['label'].values
+
+    X_train, _, Y_train, _ = train_test_split(X, Y, test_size=0.3, random_state=42)
+    Y_train = le.fit_transform(Y_train)
+
+    model = XGBClassifier(n_estimators=tree_deep, learning_rate=learning_rate)
+    model.fit(X_train, Y_train)
+    model.save_model(XGB_MODEL2_PATH)
+    print(f"模型已儲存至 {XGB_MODEL2_PATH}")
+    print('訓練集Accuracy: %.2f%%' % (model.score(X_train, Y_train) * 100.0))
+
+def XGboost_recommend3():
+    """
+    訓練並儲存第三支 XGBoost 模型，使用 generated_data_updated1.csv。
+    """
+    le = LabelEncoder()
+    labelencoder = LabelEncoder()
+    tree_deep = 100
+    learning_rate = 0.3
+
+    Data = pd.read_csv(GENERATED_DATA_CSV, encoding='utf-8-sig')
+    df_data = pd.DataFrame(
+        data=np.c_[Data['weather'], Data['gender'], Data['age'], Data['tidal'], Data['temperature'], Data['設置點']],
+        columns=['weather', 'gender', 'age', 'tidal', 'temperature', 'label']
+    )
+
+    df_data['weather'] = labelencoder.fit_transform(df_data['weather'])
+    X = df_data.drop(labels=['label'], axis=1).values
+
+    onehot = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+    X = onehot.fit_transform(X)
+    Y = df_data['label'].values
+
+    X_train, _, Y_train, _ = train_test_split(X, Y, test_size=0.3, random_state=42)
+    Y_train = le.fit_transform(Y_train)
+
+    model = XGBClassifier(n_estimators=tree_deep, learning_rate=learning_rate)
+    model.fit(X_train, Y_train)
+    model.save_model(PHTEST_MODEL_PATH)
+    print(f"模型已儲存至 {PHTEST_MODEL_PATH}")
+
+if __name__ == "__main__":
+    # 訓練並儲存所有模型
+    XGboost_recommend1()
+    XGboost_recommend2()
+    XGboost_recommend3()
