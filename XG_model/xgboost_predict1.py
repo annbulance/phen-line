@@ -2,7 +2,7 @@ import xgboost as xgb
 import joblib
 import pandas as pd
 import numpy as np
-from config1 import MODEL_FILE, ENCODER_FILE, OUT_PUT
+from config import MODEL_FILE, ENCODER_FILE, OUT_PUT
 
 # ============================
 # 1. 載入模型與編碼器
@@ -75,5 +75,6 @@ if __name__ == "__main__":
 
         # === 將預測結果輸出到 CSV ===
         results.to_csv(OUT_PUT, index=False, encoding="utf-8-sig")
+
 
         print(f"\n✔ 預測結果已成功輸出到 CSV：{OUT_PUT}")
