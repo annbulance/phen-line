@@ -141,13 +141,13 @@ MAP_FILENAME_MAPPING: Dict[str, str] = {
     'stay': 'stay.html',
     'food': 'food.html',
     'service': 'service.html',
-    'trip': 'trip.html'
+    'trip': 'trip.html',
     # 新增英文版檔案映射
     'parking_en': 'parking_en.html',
     'stay_en': 'stay_en.html',
     'food_en': 'food_en.html',
     'service_en': 'service_en.html',
-    'trip_en': 'trip.html'
+    'trip_en': 'trip.html',
 }
 
 # -------------------------------------
