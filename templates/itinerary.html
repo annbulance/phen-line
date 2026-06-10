@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>男大生專屬 | 淡水兩天一夜行程規劃</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tamsui: {
+                            blue: '#4A7F9D',
+                            gold: '#D4AF37',
+                            sunset: '#E88D67',
+                            sand: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-bg {
+            /* 使用充滿活力的海岸或夕陽意象圖 */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('https://i.meee.com.tw/wEohz6T.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .img-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-700">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="fa-solid fa-route text-tamsui-blue text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wider text-gray-800">淡水啟程</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#day1" class="text-gray-600 hover:text-tamsui-blue font-medium transition">Day 1：古蹟與海岸放空</a>
+                    <a href="#day2" class="text-gray-600 hover:text-tamsui-blue font-medium transition">Day 2：老街爆吃與水岸單車</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-white border-t" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#day1" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">Day 1：古蹟與海岸放空</a>
+                <a href="#day2" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">Day 2：老街爆吃與水岸單車</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-[60vh] flex items-center justify-center text-center px-4">
+        <div class="text-white max-w-3xl animate-fade-in-up mt-10">
+            <span class="inline-block py-1 px-3 rounded-full bg-tamsui-gold text-white text-sm font-bold tracking-widest mb-4">男大生專屬 2D1N</span>
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4 drop-shadow-lg tracking-wide">淡水兩天一夜</h1>
+            <p class="text-lg md:text-xl font-light opacity-95 mb-8 text-shadow">軍事要塞探險、沙灘踏浪看夕陽，再用老街美食塞爆胃袋！</p>
+            <a href="#day1" class="bg-tamsui-blue hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition shadow-lg inline-flex items-center gap-2 transform hover:scale-105 duration-200">
+                展開旅程 <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+        <!-- Day 1 Section -->
+        <section id="day1" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Day 01</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">歷史解鎖 ＆ 海岸放空</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                
+            </div>
+
+            <!-- Day 1 Grid: 4 items (2x2 on large screens) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Attraction 1: 紅毛城 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="#" class="block relative overflow-hidden h-64">
+                        <img src="https://i.meee.com.tw/oK8r2ll.jpg" alt="紅毛城" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="bg-tamsui-gold text-xs font-bold px-2 py-1 rounded mb-2 inline-block">13:30 下午</span>
+                            <h3 class="text-2xl font-bold">紅毛城 (Fort San Domingo)</h3>
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <p class="text-gray-500 text-sm mb-4">來到淡水絕對要打卡的指標性古蹟！超過三百年的鮮紅洋樓，居高臨下俯瞰淡水河。和兄弟們在這裡拍幾張充滿歷史感的帥照當作起點。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded"><i class="fa-solid fa-camera mr-1"></i> 必拍地標</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">國家一級古蹟</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attraction 2: 滬尾砲台 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="#" class="block relative overflow-hidden h-64">
+                        <img src="https://i.meee.com.tw/Tx0ancP.jpg" alt="滬尾砲台" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="bg-tamsui-gold text-xs font-bold px-2 py-1 rounded mb-2 inline-block">15:00 下午</span>
+                            <h3 class="text-2xl font-bold">滬尾砲台 (Hobe Fort)</h3>
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <p class="text-gray-500 text-sm mb-4">男人的浪漫就是軍事要塞！由劉銘傳親自題字「北門鎖鑰」的隱蔽砲台，走進幽暗厚實的防禦甬道，感受清法戰爭時期的肅殺氛圍與歷史重量。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded"><i class="fa-solid fa-shield-halved mr-1"></i> 軍事探險</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">防禦工事</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attraction 3: 沙崙海灘 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="#" class="block relative overflow-hidden h-64">
+                        <img src="https://i.meee.com.tw/oGkcP43.jpg" alt="沙崙海灘" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="bg-tamsui-sunset text-xs font-bold px-2 py-1 rounded mb-2 inline-block">16:30 傍晚</span>
+                            <h3 class="text-2xl font-bold">沙崙海灘 (Shalun Beach)</h3>
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <p class="text-gray-500 text-sm mb-4">脫下鞋子踩在廣闊平緩的沙灘上！這裡是淡水看夕陽的秘境之一。聽海浪聲、吹海風，甚至有機會看到附近馬場的人在沙灘騎馬，超有 Chill 感。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded"><i class="fa-solid fa-water mr-1"></i> 踏浪放空</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">海灘夕陽</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attraction 4: 漁人碼頭 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="#" class="block relative overflow-hidden h-64">
+                        <img src="https://i.meee.com.tw/FjxlqF4.jpg" alt="漁人碼頭" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="bg-gray-800 text-xs font-bold px-2 py-1 rounded mb-2 inline-block">18:30 入夜</span>
+                            <h3 class="text-2xl font-bold">漁人碼頭 (Fisherman's Wharf)</h3>
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <p class="text-gray-500 text-sm mb-4">沿著木棧道散步，看純白的情人橋點亮七彩霓虹。晚上在碼頭邊買杯飲料、吃點小吃，吹著海風跟朋友聊個天南地北，為第一天劃下完美句點。</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded"><i class="fa-solid fa-moon mr-1"></i> 絕美夜景</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">木棧道散步</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Day 2 Section -->
+        <section id="day2" class="scroll-mt-24 pt-8 border-t border-gray-200">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Day 02</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">老街爆吃 ＆ 水岸單車</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+                
+            </div>
+
+            <!-- Day 2 Grid: 2 items, wider -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Attraction 5: 淡水老街 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="#" class="block relative overflow-hidden h-72">
+                        <img src="https://i.meee.com.tw/RCjkzS7.jpg" alt="淡水老街" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="bg-tamsui-gold text-xs font-bold px-2 py-1 rounded mb-2 inline-block">11:30 中午</span>
+                            <h3 class="text-2xl font-bold">淡水老街 (Tamsui Old Street)</h3>
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <p class="text-gray-500 text-base mb-4">男大生出遊就是要吃！阿給、魚丸湯、巨無霸霜淇淋、鐵蛋、魚酥... 從街頭吃到街尾，順便帶點伴手禮回去。穿梭在舊商圈與古廟之間，體驗最道地的淡水市井活力。</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded"><i class="fa-solid fa-bowl-food mr-1"></i> 街頭爆吃</span>
+                            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded">在地名產</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attraction 6: 金色水岸 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="#" class="block relative overflow-hidden h-72">
+                        <img src="https://newtaipei.travel/content/images/tours/48338/1024x768_tours-image-hj0sg9fzv02t_sq8-pluma.jpg" alt="金色水岸" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="bg-tamsui-blue text-xs font-bold px-2 py-1 rounded mb-2 inline-block">14:30 下午</span>
+                            <h3 class="text-2xl font-bold">金色水岸 (Tamshui Gold Seashore)</h3>
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <p class="text-gray-500 text-base mb-4">吃飽喝足後，租台 YouBike 沿著金色水岸自行車道騎行。右邊是寬廣的淡水河，左邊是熱鬧的街市。享受著微風拂面，一邊看著觀音山景，痛快地流點汗再搭捷運回家！</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded"><i class="fa-solid fa-bicycle mr-1"></i> 單車追風</span>
+                            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded">河岸風光</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="font-serif text-2xl font-bold">淡水啟程</span>
+                    <p class="text-gray-400 text-sm mt-2">給男大生的淡水 2D1N 熱血企劃</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
