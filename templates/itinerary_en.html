@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Male Students Choice | Tamsui 2D1N Travel Itinerary Planning</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tamsui: {
+                            blue: '#4A7F9D',
+                            gold: '#D4AF37',
+                            sunset: '#E88D67',
+                            sand: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('https://i.meee.com.tw/wEohz6T.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .img-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-700">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="fa-solid fa-route text-tamsui-blue text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wider text-gray-800">Tamsui Travel Guide</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#day1" class="text-gray-600 hover:text-tamsui-blue font-medium transition">Day 1: Historic Sites & Coastal Stroll</a>
+                    <a href="#day2" class="text-gray-600 hover:text-tamsui-blue font-medium transition">Day 2: Old Street Food & Waterfront Cycling</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-white border-t" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#day1" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">Day 1: Historic Sites & Coastal Stroll</a>
+                <a href="#day2" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-tamsui-blue">Day 2: Old Street Food & Waterfront Cycling</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-[60vh] flex items-center justify-center text-center px-4">
+        <div class="text-white max-w-3xl animate-fade-in-up mt-10">
+            <span class="inline-block py-1 px-3 rounded-full bg-tamsui-gold text-white text-sm font-bold tracking-widest mb-4">Male Students Route 2D1N</span>
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4 drop-shadow-lg tracking-wide">Tamsui 2D1N Itinerary</h1>
+            <p class="text-lg md:text-xl font-light opacity-95 mb-8 text-shadow">Visit classic historic sites, enjoy sunset strolls on the beach, and savor authentic local specialty snacks along the old street.</p>
+            <a href="#day1" class="bg-tamsui-blue hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition shadow-lg inline-flex items-center gap-2 transform hover:scale-105 duration-200">
+                View Itinerary <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+        <!-- Day 1 Section -->
+        <section id="day1" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Day 01</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Historic Site Exploration & Coastal Stroll</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Day 1 Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Attraction 1: Fort San Domingo -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="#" class="block relative overflow-hidden h-64">
+                        <img src="https://i.meee.com.tw/oK8r2ll.jpg" alt="Fort San Domingo" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="bg-tamsui-gold text-xs font-bold px-2 py-1 rounded mb-2 inline-block">13:30 PM</span>
+                            <h3 class="text-2xl font-bold">Fort San Domingo</h3>
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <p class="text-gray-500 text-sm mb-4">One of the most iconic attractions in Tamsui. This vibrant red fortress carries over 300 years of history. The compound is well-maintained and offers an expansive view overlooking the Tamsui River, making it an excellent spot to explore and take pictures with classmates.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded"><i class="fa-solid fa-camera mr-1"></i> Classic Landmark</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Grade-A Historic Site</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attraction 2: Hobe Fort -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="#" class="block relative overflow-hidden h-64">
+                        <img src="https://i.meee.com.tw/Tx0ancP.jpg" alt="Hobe Fort" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="bg-tamsui-gold text-xs font-bold px-2 py-1 rounded mb-2 inline-block">15:00 PM</span>
+                            <h3 class="text-2xl font-bold">Hobe Fort</h3>
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <p class="text-gray-500 text-sm mb-4">A historic military defense fortress preserved from the Qing Dynasty, featuring the inscription "Key to the North Gate" written by Liu Ming-chuan above the entrance. Walking through the thick stone walls and tunnels gives a strong sense of history, surrounded by a peaceful, lush green environment.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded"><i class="fa-solid fa-shield-halved mr-1"></i> Historic Fortress</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">National Monument</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attraction 3: Shalun Beach -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="#" class="block relative overflow-hidden h-64">
+                        <img src="https://i.meee.com.tw/oGkcP43.jpg" alt="Shalun Beach" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="bg-tamsui-sunset text-xs font-bold px-2 py-1 rounded mb-2 inline-block">16:30 PM</span>
+                            <h3 class="text-2xl font-bold">Shalun Beach</h3>
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <p class="text-gray-500 text-sm mb-4">Featuring a wide and gentle shoreline, this beach is a favored spot for catching the sunset in Tamsui. The atmosphere here is remarkably leisurely and quiet, perfect for relaxing by the coast, enjoying the sea breeze, and walking while chatting.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded"><i class="fa-solid fa-water mr-1"></i> Coastal Walk</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Sunset Viewing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attraction 4: Fisherman's Wharf -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="#" class="block relative overflow-hidden h-64">
+                        <img src="https://i.meee.com.tw/FjxlqF4.jpg" alt="Fisherman's Wharf" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="bg-gray-800 text-xs font-bold px-2 py-1 rounded mb-2 inline-block">18:30 PM</span>
+                            <h3 class="text-2xl font-bold">Fisherman's Wharf</h3>
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <p class="text-gray-500 text-sm mb-4">Strolling along the extensive wooden boardwalk offers a clear view of the illuminated Lover's Bridge and the night river scape. As evening sets in, the harbor lights up beautifully, making it an ideal place to grab a drink, sample local snacks, and unwind.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded"><i class="fa-solid fa-moon mr-1"></i> Night View Spot</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">Leisure Harbor</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Day 2 Section -->
+        <section id="day2" class="scroll-mt-24 pt-8 border-t border-gray-200">
+            <div class="text-center mb-12">
+                <span class="text-tamsui-blue font-bold tracking-widest uppercase text-sm">Day 02</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Old Street Food Discovery & Waterfront Cycling</h2>
+                <div class="w-16 h-1 bg-tamsui-gold mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Day 2 Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Attraction 5: Tamsui Old Street -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="#" class="block relative overflow-hidden h-72">
+                        <img src="https://i.meee.com.tw/RCjkzS7.jpg" alt="Tamsui Old Street" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="bg-tamsui-gold text-xs font-bold px-2 py-1 rounded mb-2 inline-block">11:30 AM</span>
+                            <h3 class="text-2xl font-bold">Tamsui Old Street</h3>
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <p class="text-gray-500 text-base mb-4">After checkout, head to the bustling Old Street commercial district. The area brings together a rich variety of famous local treats, such as A-gei, fish ball soup, shrimp rolls, and iron eggs, allowing you to sample authentic delicacies while experiencing the lively town environment.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded"><i class="fa-solid fa-bowl-food mr-1"></i> Local Cuisine</span>
+                            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded">Historic Market</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attraction 6: Tamshui Gold Seashore -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 card-hover group">
+                    <a href="#" class="block relative overflow-hidden h-72">
+                        <img src="https://newtaipei.travel/content/images/tours/48338/1024x768_tours-image-hj0sg9fzv02t_sq8-pluma.jpg" alt="Tamshui Gold Seashore" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 img-overlay group-hover:opacity-80 transition"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="bg-tamsui-blue text-xs font-bold px-2 py-1 rounded mb-2 inline-block">14:30 PM</span>
+                            <h3 class="text-2xl font-bold">Tamshui Gold Seashore</h3>
+                        </div>
+                    </a>
+                    <div class="p-6">
+                        <p class="text-gray-500 text-base mb-4">After a satisfying meal, it is highly recommended to rent a YouBike and enjoy a pleasant ride along the waterfront cycling path. You can look out over the expansive Tamsui River and Guanyin Mountain while catching a refreshing breeze, concluding the journey on a highly relaxing note.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded"><i class="fa-solid fa-bicycle mr-1"></i> Riverside Cycling</span>
+                            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded">Waterfront Scenery</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="font-serif text-2xl font-bold">Tamsui Travel Guide</span>
+                    <p class="text-gray-400 text-sm mt-2">A classic 2D1N Tamsui itinerary route recommended for male students.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
