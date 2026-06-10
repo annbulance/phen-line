@@ -141,11 +141,13 @@ MAP_FILENAME_MAPPING: Dict[str, str] = {
     'stay': 'stay.html',
     'food': 'food.html',
     'service': 'service.html',
+    'itinerary': 'itinerary.html'
     # 新增英文版檔案映射
     'parking_en': 'parking_en.html',
     'stay_en': 'stay_en.html',
     'food_en': 'food_en.html',
     'service_en': 'service_en.html',
+    'itinerary_en': 'itinerary.html'
 }
 
 # -------------------------------------
@@ -671,9 +673,9 @@ def process_travel_planning(option, reply_token, user_id):
 
     # 2. 機器學習排序
     try:
-        sorted_user_list = run_ml_sort(option, reply_token, user_id, df_plan)
+        sorted_user_list = run_ml_sort(option, reply_token, user_id, df_)
     except Exception as e:
-        print("XGboost_plan error:", e)
+        print("XGboost_ error:", e)
         lang = _get_lang(user_id)
         safe_push(user_id, TextSendMessage(text=_t('data_fetch_failed', lang)))
         shared.user_preparing[user_id] = False
@@ -691,7 +693,7 @@ def process_travel_planning(option, reply_token, user_id):
 
     # 4. 重排名（加入即時人潮與距離）
     try:
-        run_ranking(option, reply_token, user_id, PLAN_CSV)
+        run_ranking(option, reply_token, user_id, _CSV)
     except Exception as e:
         print("ranking error:", e)
         lang = _get_lang(user_id)
@@ -710,11 +712,11 @@ def process_travel_planning(option, reply_token, user_id):
         return
 
     # 6. 標記該使用者的規劃已完成
-    shared.user_plan_ready[user_id] = True
+    shared.user__ready[user_id] = True
     shared.user_preparing[user_id]  = False
 
     # 可選）如需立即推送結果給使用者，取消下行註解：
-    # safe_push(user_id, FlexMessage.show_plan(PLAN_CSV))
+    # safe_push(user_id, FlexMessage.show_(_CSV))
 
 
 
@@ -1094,11 +1096,11 @@ def handle_days(uid, text, replyTK):
 
     shared.user_trip_days[uid]   = choice
     shared.user_preparing[uid]   = True
-    shared.user_plan_ready[uid]  = False
+    shared.user__ready[uid]  = False
     shared.user_stage[uid]       = 'ready'
 
     threading.Thread(
-        target=_background_planning,
+        target=_background_ning,
         args=(choice, replyTK, uid),
         daemon=True
     ).start()
@@ -1123,14 +1125,14 @@ def handle_free_command(uid, text, replyTK):
 
     # 使用者目前狀態
     preparing = shared.user_preparing.get(uid, False)
-    plan_ready = shared.user_plan_ready.get(uid, False)
+    _ready = shared.user__ready.get(uid, False)
     days      = shared.user_trip_days.get(uid)  # e.g. "三天兩夜"
     days_label = to_en(days) if _get_lang(uid) == 'en' and days else days
 
     # 指令集合
     recollect_keys   = {"收集資料", "data collection", "collect data", "1"}
     crowd_keys       = {"景點人潮", "景點人潮(crowd analyzer)", "crowd analyzer", "crowd analysis", "crowd info", "3"}
-    plan_keys        = {"行程規劃", "行程規劃(itinerary planning)", "itinerary planning", "plan itinerary", "6"}
+    _keys        = {"行程規劃", "行程規劃(itinerary planning)", "itinerary planning", "plan itinerary", "6"}
     recommend_keys   = {"景點推薦", "景點推薦(attraction recommendation)", "attraction recommendation", "recommend spot", "2"}
     sustainable_keys = {"永續觀光", "永續觀光(sustainable tourism)", "sustainable tourism", "2-1"}
     general_keys     = {"一般景點推薦", "一般景點推薦(general recommendation)", "general recommendation", "2-2"}
